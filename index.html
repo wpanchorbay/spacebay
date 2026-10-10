@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>SpaceBay Documentation</title>
+	<link rel="icon" type="image/png" href="assets/spacebay-logo.png">
+	<link rel="apple-touch-icon" href="assets/spacebay-logo.png">
+	<link rel="stylesheet" href="assets/docs.css">
+	<style>
+		/* "Pro" label for features of SpaceBay Pro. White on the brand green has 5:1 contrast. */
+		.pro {
+			display: inline-block;
+			margin-left: 8px;
+			padding: 0 8px;
+			border-radius: 999px;
+			background: var(--brand);
+			color: #ffffff;
+			font-size: 12px;
+			font-weight: 700;
+			line-height: 1.7;
+			letter-spacing: 0.03em;
+			vertical-align: middle;
+		}
+
+		.docs-nav .pro {
+			margin-left: 6px;
+			font-size: 11px;
+		}
+	</style>
+</head>
+<body>
+	<div class="docs">
+		<nav class="docs-nav" aria-label="Documentation">
+			<div class="docs-brand"><img src="assets/spacebay-logo.png" alt="" width="34" height="34">SpaceBay</div>
+			<div class="docs-search" role="search">
+				<label class="docs-search__label" for="docs-search-input">Search the documentation</label>
+				<input id="docs-search-input" class="docs-search__input" type="search" placeholder="Search docs" autocomplete="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="docs-search-results" aria-describedby="docs-search-hint">
+				<kbd class="docs-search__key" aria-hidden="true">/</kbd>
+				<p id="docs-search-hint" class="docs-search__hint">Type a word, then use the arrow keys and Enter.</p>
+				<p id="docs-search-status" class="docs-search__status" role="status" aria-live="polite"></p>
+				<ul id="docs-search-results" class="docs-search__results" role="listbox" aria-label="Search results" hidden></ul>
+			</div>
+			<ul id="docs-nav-list">
+				<li><a href="#introduction">Introduction</a></li>
+				<li><a href="#requirements">Requirements</a></li>
+				<li><a href="#free-and-pro">Free and Pro</a></li>
+				<li><a href="#installation">Installation</a></li>
+				<li><a href="#getting-started">Getting started</a></li>
+				<li><a href="#setup-wizard">Setup wizard</a></li>
+				<li><a href="#settings">Settings</a></li>
+				<li><a href="#portal">The community portal</a></li>
+				<li><a href="#login">Login and signup</a></li>
+				<li><a href="#social-login">Log in with Google or Facebook</a></li>
+				<li><a href="#two-factor">Two-factor authentication <span class="pro">Pro</span></a></li>
+				<li><a href="#spaces">Spaces and groups</a></li>
+				<li><a href="#members">Member directory</a></li>
+				<li><a href="#profiles">Profiles and account settings</a></li>
+				<li><a href="#profile-fields">Custom profile fields <span class="pro">Pro</span></a></li>
+				<li><a href="#posts">Posts and the feed</a></li>
+				<li><a href="#comments">Comments, likes and saved posts</a></li>
+				<li><a href="#topics">Topics and hashtags</a></li>
+				<li><a href="#points">Points, levels and badges</a></li>
+				<li><a href="#events">Events</a></li>
+				<li><a href="#notifications">Notifications and emails</a></li>
+				<li><a href="#messages">Messages</a></li>
+				<li><a href="#calls">Voice and video calls <span class="pro">Pro</span></a></li>
+				<li><a href="#shops">Member shops <span class="pro">Pro</span></a></li>
+				<li><a href="#search">Search</a></li>
+				<li><a href="#moderation">Moderation</a></li>
+				<li><a href="#reports">Reports</a></li>
+				<li><a href="#member-approval">Member approval and suspension</a></li>
+				<li><a href="#moderators">Community moderators</a></li>
+				<li><a href="#privacy">Privacy and personal data</a></li>
+				<li><a href="#limits">Security and limits</a></li>
+				<li><a href="#compatibility">Tested with</a></li>
+				<li><a href="#demo">Sample content (WP-CLI)</a></li>
+				<li><a href="#updates">Updates</a></li>
+				<li><a href="#templates">Template overrides</a></li>
+				<li><a href="#hooks">Hooks for developers</a></li>
+				<li><a href="#rest">REST API</a></li>
+				<li><a href="#translation">Translation</a></li>
+				<li><a href="#uninstall">Deactivate and uninstall</a></li>
+				<li><a href="#building">Building from source</a></li>
+				<li><a href="#credits">Credits</a></li>
+				<li><a href="#changelog">Changelog</a></li>
+				<li><a href="#support">Support</a></li>
+			</ul>
+		</nav>
+
+		<main class="docs-main">
+			<h1 id="introduction">SpaceBay documentation</h1>
+			<p class="docs-lead">SpaceBay turns your WordPress site into a community: members join spaces, post, comment and react in a fast portal that works on desktop and mobile, in light and dark mode.</p>
+			<p>Version 1.1.0 · By WPAnchorBay</p>
+			<p>SpaceBay is free on WordPress.org. <strong>SpaceBay Pro</strong> is an optional add-on with calls, two-factor login and a few tools for community managers. Sections and settings that need Pro are marked <span class="pro">Pro</span>. See <a href="#free-and-pro">Free and Pro</a>.</p>
+
+			<figure>
+				<img src="images/portal-admin-light.png" alt="The SpaceBay portal home page with a welcome banner and the community feed" width="1440" height="900">
+				<figcaption>The community portal at yoursite.com/community/.</figcaption>
+			</figure>
+
+			<h2 id="requirements">Requirements</h2>
+			<table>
+				<thead>
+					<tr><th scope="col">Item</th><th scope="col">Minimum</th></tr>
+				</thead>
+				<tbody>
+					<tr><td>WordPress</td><td>6.2 (tested up to 7.1)</td></tr>
+					<tr><td>PHP</td><td>7.4 (tested up to 8.4)</td></tr>
+					<tr><td>MySQL / MariaDB</td><td>5.7 / 10.4</td></tr>
+					<tr><td>Permalinks</td><td>Any. Pretty permalinks give the community its own address such as /community/.</td></tr>
+				</tbody>
+			</table>
+
+			<h2 id="free-and-pro">Free and Pro</h2>
+			<p>SpaceBay is a free plugin on WordPress.org. <strong>SpaceBay Pro</strong> is a paid add-on. Everything not listed as Pro below is in the free plugin, with no limits on members, spaces, posts or events.</p>
+			<table>
+				<thead>
+					<tr><th scope="col">Feature</th><th scope="col">Free</th><th scope="col">Pro</th></tr>
+				</thead>
+				<tbody>
+					<tr><td>Spaces and groups, feed, posts, comments, likes, saved posts, topics and hashtags, search</td><td>Yes</td><td>Yes</td></tr>
+					<tr><td>Profiles, member directory, notifications and emails</td><td>Yes</td><td>Yes</td></tr>
+					<tr><td>Private messages and group chats</td><td>Yes</td><td>Yes</td></tr>
+					<tr><td>Voice and video calls in chats</td><td>No</td><td>Yes</td></tr>
+					<tr><td>Community login, signup and password reset pages, members-only mode, limits on login attempts</td><td>Yes</td><td>Yes</td></tr>
+					<tr><td>Signup form with name, email address and password, and an optional “I agree to the terms” tick box</td><td>Yes</td><td>Yes</td></tr>
+					<tr><td>Signup form builder (choose fields, required fields and order)</td><td>No</td><td>Yes</td></tr>
+					<tr><td>Custom profile fields</td><td>No</td><td>Yes</td></tr>
+					<tr><td>Two-factor authentication (authenticator app, codes by email, backup codes)</td><td>No</td><td>Yes</td></tr>
+					<tr><td>Points, levels, leaderboard and points history</td><td>Yes</td><td>Yes</td></tr>
+					<tr><td>Nine ready-made badges, each one switchable</td><td>Yes</td><td>Yes</td></tr>
+					<tr><td>Badge editor (create and edit badges), the hand-given badges Founding member and Helper</td><td>No</td><td>Yes</td></tr>
+					<tr><td>Giving badges and adding or taking away points by hand</td><td>No</td><td>Yes</td></tr>
+					<tr><td>Events with going, maybe and can't go answers, calendar, My events, past events, Add to calendar, notifications for new, changed and cancelled events</td><td>Yes</td><td>Yes</td></tr>
+					<tr><td>Event place limits (“places left”, full events)</td><td>No</td><td>Yes</td></tr>
+					<tr><td>Event reminders before the start</td><td>No</td><td>Yes</td></tr>
+					<tr><td>Member shops: a Shop tab on profiles, products that link to the seller's own store, approval by admins, products in the feed and in spaces, a Shop page</td><td>No</td><td>Yes</td></tr>
+					<tr><td>Moderation, reports, blocked words, member approval and suspension, community moderators</td><td>Yes</td><td>Yes</td></tr>
+					<tr><td>Setup wizard, branding, light and dark mode, privacy tools, REST API, hooks, template overrides, WP-CLI sample content</td><td>Yes</td><td>Yes</td></tr>
+				</tbody>
+			</table>
+			<p><strong>Getting Pro.</strong> Buy SpaceBay Pro at <a href="https://wpanchorbay.com/spacebay-pro/">wpanchorbay.com/spacebay-pro</a> and download <strong>spacebay-pro.zip</strong> from your account. Pro is an add-on: it needs the free SpaceBay plugin (1.1.0 or newer) installed and active, and WordPress 6.5 or newer. Pro has no licence key. SpaceBay Pro is only sold on wpanchorbay.com.</p>
+			<p><strong>Updating from 1.2.</strong> In version 1.3.0 the features marked Pro moved to SpaceBay Pro. Your settings and data are kept. Until Pro is installed these features are switched off: members log in with their password only, chats have no call buttons and the signup form shows the standard fields. Install Pro and they come back as they were. If your site used two-factor authentication, calls or custom profile fields, the Plugins screen shows a notice about this that you can dismiss.</p>
+
+			<h2 id="installation">Installation</h2>
+			<h3>SpaceBay (free)</h3>
+			<ol>
+				<li>In WordPress go to <strong>Plugins → Add New Plugin</strong> and search for “SpaceBay”. You can also download the zip from WordPress.org and use <strong>Upload Plugin</strong>.</li>
+				<li>Click <strong>Install Now</strong>, then <strong>Activate</strong>.</li>
+				<li>WordPress opens the SpaceBay dashboard. Your community is live at <code>yoursite.com/community/</code>.</li>
+			</ol>
+			<p>On the Plugins screen, SpaceBay has a <strong>Settings</strong> link and, under its description, <strong>Documentation</strong> and <strong>Get Pro</strong> links. Get Pro is hidden once Pro is active.</p>
+			<h3>SpaceBay Pro <span class="pro">Pro</span></h3>
+			<ol>
+				<li>Install and activate the free SpaceBay plugin first.</li>
+				<li>Download <strong>spacebay-pro.zip</strong> from your wpanchorbay.com account.</li>
+				<li>Go to <strong>Plugins → Add New Plugin → Upload Plugin</strong>, choose the zip, click <strong>Install Now</strong>, then <strong>Activate</strong>.</li>
+			</ol>
+
+			<h2 id="getting-started">Getting started</h2>
+			<p>The SpaceBay menu in the WordPress admin has five pages: <strong>Dashboard</strong>, <strong>Spaces</strong>, <strong>Topics</strong>, <strong>Members</strong> and <strong>Settings</strong>. The dashboard shows totals for members, spaces, posts and comments, the number of items waiting for review and members waiting for approval, and your community address.</p>
+			<figure>
+				<img src="images/admin-dashboard.png" alt="SpaceBay admin dashboard with totals and the community address" width="1440" height="900">
+				<figcaption>The admin dashboard. Totals refresh every ten minutes.</figcaption>
+			</figure>
+
+			<h2 id="setup-wizard">Setup wizard</h2>
+			<p>The first time you open <strong>SpaceBay</strong> after activating the plugin, a short wizard helps you set up the community in five steps:</p>
+			<ol>
+				<li><strong>Basics:</strong> community name, address and who can view it. If signup is off, the wizard reminds you to turn on <em>Let people sign up</em> under <strong>Settings → Login and signup</strong>.</li>
+				<li><strong>Look:</strong> logo, brand colour, colour mode and layout.</li>
+				<li><strong>Spaces:</strong> create starter spaces: Announcements (only admins post), General and Introductions. You become admin of each one. Spaces that already exist with the same name are skipped.</li>
+				<li><strong>Moderation:</strong> member approval, review of new posts and blocked words.</li>
+				<li><strong>Done:</strong> open your community.</li>
+			</ol>
+			<figure>
+				<img src="images/setup-1.png" alt="Setup wizard step one with the community name, address and who can view it" width="1440" height="900" loading="lazy">
+				<figcaption>Step 1 of the setup wizard.</figcaption>
+			</figure>
+			<figure>
+				<img src="images/setup-2.png" alt="Setup wizard step two with the logo, brand colour and layout" width="1440" height="900">
+				<figcaption>Step 2 of the setup wizard.</figcaption>
+			</figure>
+			<figure>
+				<img src="images/setup-3.png" alt="Setup wizard step three with starter spaces" width="1440" height="900">
+				<figcaption>Step 3: starter spaces.</figcaption>
+			</figure>
+			<p>Select <strong>Skip setup</strong> to go straight to the dashboard. You can run the wizard again from the dashboard at any time.</p>
+
+			<h2 id="settings">Settings</h2>
+			<figure>
+				<img src="images/admin-settings.png" alt="SpaceBay settings screen" width="1440" height="900">
+				<figcaption>SpaceBay → Settings.</figcaption>
+			</figure>
+			<p>Settings are grouped into sections in the left column: <strong>General</strong>, <strong>Login and signup</strong>, <strong>Appearance</strong>, <strong>Posts and uploads</strong>, <strong>Messages</strong>, <strong>Points and badges</strong>, <strong>Events</strong>, <strong>Moderation</strong>, <strong>Emails</strong>, <strong>Welcome banner</strong> and <strong>Advanced</strong>. Change what you need in any section, then select <strong>Save changes</strong> at the top right. The button is active only when something has changed.</p>
+			<figure class="docs-video">
+				<video controls muted playsinline preload="none" poster="videos/video-admin-settings.jpg" width="1280" height="720" aria-label="Video tour of the SpaceBay settings screen">
+					<source src="videos/video-admin-settings.mp4" type="video/mp4">
+					<source src="videos/video-admin-settings.webm" type="video/webm">
+				</video>
+				<figcaption>Video (21 s): the Settings screen, changing the brand colour and looking through the sections.</figcaption>
+			</figure>
+			<p>Settings marked <span class="pro">Pro</span> are added to these sections by SpaceBay Pro. Without Pro they are not shown, and what you saved before is kept.</p>
+			<table>
+				<thead>
+					<tr><th scope="col">Setting</th><th scope="col">What it does</th></tr>
+				</thead>
+				<tbody>
+					<tr><td>Community name</td><td>Shown in the portal top bar and the browser tab.</td></tr>
+					<tr><td>Community address</td><td>The part of the URL after your domain, for example <code>community</code>. Needs pretty permalinks.</td></tr>
+					<tr><td>Who can view the community</td><td><strong>Everyone</strong> lets visitors read public content. <strong>Logged-in members only</strong> shows visitors the community login page.</td></tr>
+					<tr><td>Community login pages</td><td>Members log in, sign up and reset their password on pages that match your community. On by default. Turn it off to use the WordPress login page. See <a href="#login">Login and signup</a>.</td></tr>
+					<tr><td>Let people sign up</td><td>Opens the signup page. On a new site it follows the WordPress setting <em>Anyone can register</em>.</td></tr>
+					<tr><td>Terms page</td><td>Address of your terms. When an address is set, the signup form shows an “I agree to the terms” tick box that links to it.</td></tr>
+					<tr><td>Signup form <span class="pro">Pro</span></td><td>Which fields are on the signup form, which are required, and their order, with a live preview.</td></tr>
+					<tr><td>Two-factor authentication <span class="pro">Pro</span></td><td><strong>Off</strong> (default), <strong>Optional</strong> or <strong>Required for everyone</strong>. See <a href="#two-factor">Two-factor authentication</a>.</td></tr>
+					<tr><td>Require it for admins and moderators <span class="pro">Pro</span></td><td>With <strong>Optional</strong>: accounts that can manage or moderate the community always need a code.</td></tr>
+					<tr><td>How members get their code <span class="pro">Pro</span></td><td>Authenticator app or email (default), authenticator app only, or email only.</td></tr>
+					<tr><td>Layout</td><td><strong>Full page</strong> shows the community as a full-screen app. <strong>Inside your theme</strong> places it between your theme header and footer.</td></tr>
+					<tr><td>Default colour mode</td><td>Follow device, Light or Dark. Members can switch with the moon/sun button.</td></tr>
+					<tr><td>Logo</td><td>Choose an image from the media library. It is shown 32 pixels high in the top bar and at the top of emails. In dark mode the logo sits on a white plate so dark text stays readable.</td></tr>
+					<tr><td>Show the community name next to the logo</td><td>Turn off when your logo already contains the name.</td></tr>
+					<tr><td>Brand colour</td><td>Colour of buttons, links, highlights, space icons and email buttons. Choose one of ten ready-made colours (Green, Teal, Blue, Indigo, Violet, Pink, Red, Orange, Amber, Slate) or any custom colour; the preview shows how it looks. Very light colours are darkened slightly so white text on buttons stays readable. Light tints for dark mode are worked out automatically. The default is SpaceBay green.</td></tr>
+					<tr><td>Space icon colours</td><td><strong>One colour</strong> shows every space icon in the brand colour. <strong>Each space</strong> uses the colour chosen for each space, and the space form then shows colour swatches.</td></tr>
+					<tr><td>Private messages</td><td>Turns the Messages page on or off. On by default. See <a href="#messages">Messages</a>.</td></tr>
+					<tr><td>Who can message whom</td><td><strong>Members who share a space</strong> (default), <strong>Any member</strong>, or <strong>Only admins and moderators</strong>. Admins and moderators can always message everyone and be messaged.</td></tr>
+					<tr><td>Allow group chats / Most people in a group</td><td>Lets members start named group chats. Up to 20 people by default (3–100).</td></tr>
+					<tr><td>Calls <span class="pro">Pro</span></td><td><strong>Off</strong> (default), <strong>Voice calls</strong>, or <strong>Voice and video calls</strong>. Needs HTTPS. See <a href="#calls">Voice and video calls</a>.</td></tr>
+					<tr><td>Most people in a call <span class="pro">Pro</span></td><td>2–6, 4 by default. Every person sends sound and video to every other person, so big calls need fast internet.</td></tr>
+					<tr><td>STUN server <span class="pro">Pro</span></td><td>Helps browsers find each other. The default is Google's free public server.</td></tr>
+					<tr><td>TURN server, username and password <span class="pro">Pro</span></td><td>Optional relay for strict office or mobile networks. Members who make a call receive these details.</td></tr>
+					<tr><td>Member shops <span class="pro">Pro</span></td><td>Settings → Shops. Off by default. When on: <strong>New products</strong> (<strong>Approve each product</strong>, the default, or <strong>Publish automatically</strong>), <strong>Products per shop</strong> (50 by default, 1–1000) and <strong>Shop page</strong> (adds Shop to the community menu, on by default). See <a href="#shops">Member shops</a>.</td></tr>
+					<tr><td>Points, levels and badges</td><td>Shows points, levels and badges on profiles and next to names. On by default. See <a href="#points">Points, levels and badges</a>.</td></tr>
+					<tr><td>Leaderboard</td><td>The Leaderboard page with this week, this month and all time. On by default. Hidden profiles are left out.</td></tr>
+					<tr><td>Points for each action</td><td>A published post (5), a comment (2), a like from someone else (1, goes to the author), a visit once a day (1), answering “going” to an event (2). 0 to 100 each; 0 turns that action off.</td></tr>
+					<tr><td>Level names</td><td>Up to 12 levels, each with a name and the points needed. The first level starts at 0. Default: Newcomer, Member (50), Regular (200), Contributor (500), Veteran (1,000), Legend (2,500).</td></tr>
+					<tr><td>Badges</td><td>Switch each of the nine ready-made badges on or off.</td></tr>
+					<tr><td>Badge editor <span class="pro">Pro</span></td><td>Up to 40 badges. Add badges, rename them, and choose their colour, icon and rule: given by hand, or earned at a number of posts, comments, likes received, points, daily visits or events.</td></tr>
+					<tr><td>Events</td><td>Adds the Events page, the calendar and an Events tab in every space. On by default. See <a href="#events">Events</a>.</td></tr>
+					<tr><td>Who can add events</td><td><strong>Space admins and moderators</strong> (default) or <strong>Members who can post in the space</strong>.</td></tr>
+					<tr><td>Reminder <span class="pro">Pro</span></td><td>No reminders, or 1, 3, 24 or 48 hours before an event starts (24 by default). Goes to members who answered going or maybe.</td></tr>
+					<tr><td>Approve new members</td><td>New sign-ups wait for a moderator before they can post, comment or join spaces. See <a href="#member-approval">Member approval</a>.</td></tr>
+					<tr><td>New posts</td><td>Publish posts right away, review the first post of each member, or review every new post.</td></tr>
+					<tr><td>Blocked words</td><td>One word or phrase per line, and what happens when someone uses one: hold for review, hide the words with stars, or refuse the post.</td></tr>
+					<tr><td>Hide content after this many reports</td><td>Reported posts and comments are hidden until a moderator decides. 3 by default; 0 turns it off.</td></tr>
+					<tr><td>Send notification emails</td><td>Emails members about mentions, comments, replies and space activity. Each member chooses which emails they want. On by default.</td></tr>
+					<tr><td>Sender name and email address</td><td>The <em>From</em> of notification emails. Leave the address empty to use your WordPress default. Use an address on your own domain so emails are not marked as spam.</td></tr>
+					<tr><td>Welcome banner</td><td>Title and message at the top of the community home page.</td></tr>
+					<tr><td>Delete all data when the plugin is deleted (Advanced)</td><td>When on, deleting the plugin removes all SpaceBay data. Off by default.</td></tr>
+				</tbody>
+			</table>
+
+			<h2 id="portal">The community portal</h2>
+			<p>The portal is a fast single-page app. It works on phones, supports right-to-left languages and has a dark mode. The sidebar holds the navigation and the spaces list; the header greets the member and shows search, notifications, the colour mode button and the account menu. On Home, logged-in members see their own activity: posts, comments, likes received and spaces joined.</p>
+			<figure class="docs-video">
+				<video controls muted playsinline preload="none" poster="videos/video-portal-tour.jpg" width="1280" height="720" aria-label="Video tour of the community portal">
+					<source src="videos/video-portal-tour.mp4" type="video/mp4">
+					<source src="videos/video-portal-tour.webm" type="video/webm">
+				</video>
+				<figcaption>Video (18 s): a quick tour of Home, Spaces, Events, the Leaderboard and the Shop.</figcaption>
+			</figure>
+			<figure>
+				<img src="images/portal-dark.png" alt="The portal in dark mode" width="1440" height="900">
+				<figcaption>Dark mode.</figcaption>
+			</figure>
+			<figure>
+				<img src="images/portal-mobile.png" alt="The portal on a phone" width="750" height="1624">
+				<figcaption>The portal on a phone.</figcaption>
+			</figure>
+			<div class="callout">Page-cache plugins: SpaceBay marks portal pages as not cacheable (<code>DONOTCACHEPAGE</code> and no-cache headers), so members always see their own data.</div>
+
+			<h2 id="login">Login and signup</h2>
+			<p>SpaceBay has its own pages for logging in, signing up and resetting a password. They use your logo, brand colour and dark mode, and work on phones.</p>
+			<figure>
+				<img src="images/login.png" alt="The community login page with email, password and a link to create an account" width="1440" height="900">
+				<figcaption>The login page at yoursite.com/community/login.</figcaption>
+			</figure>
+			<table>
+				<thead>
+					<tr><th scope="col">Page</th><th scope="col">Address</th><th scope="col">What it does</th></tr>
+				</thead>
+				<tbody>
+					<tr><td>Log in</td><td><code>/community/login</code></td><td>Email address or username and password, with “Keep me logged in on this device”. Members return to the page they came from.</td></tr>
+					<tr><td>Create an account</td><td><code>/community/signup</code></td><td>The signup form. New members are logged in right away and receive a welcome email.</td></tr>
+					<tr><td>Forgot your password?</td><td><code>/community/login/forgot</code></td><td>Emails a link that works for 24 hours. The link opens a page in the community to choose a new password.</td></tr>
+				</tbody>
+			</table>
+			<p>The <strong>Log in</strong> and <strong>Join</strong> buttons in the community lead to these pages. In a members-only community, visitors see the login page instead of the community. The WordPress login page (<code>wp-login.php</code>) keeps working, so you can always log in there as well.</p>
+
+			<h3>The signup form</h3>
+			<p>Go to <strong>SpaceBay → Settings → Login and signup</strong> and turn on <strong>Let people sign up</strong>. The signup form asks for <strong>Name</strong>, <strong>Email address</strong> and <strong>Password</strong>. Passwords need at least 8 characters.</p>
+			<p><strong>Terms tick box.</strong> Enter the address of your terms under <strong>Terms page</strong>. The form then shows an “I agree to the terms” tick box with a link to them, and people must tick it to create an account. Leave the address empty to hide the tick box.</p>
+			<ul>
+				<li>The username is made from the email address (for example <code>emily.carter</code>).</li>
+				<li>To check new members before they can post, turn on <strong>Approve new members</strong> under Moderation. The signup page then tells people that a moderator reviews new accounts.</li>
+				<li>New members get the role set in WordPress under <strong>Settings → General → New User Default Role</strong>. The site administrator receives the usual WordPress email about each new user.</li>
+				<li>On a network of sites, signing up only works when the network administrator allows new accounts (<strong>Network Admin → Settings → Allow new registrations</strong>).</li>
+			</ul>
+			<p>To stop spam signups, the form has a hidden field that only automated signups fill in, and one network address can create at most 5 accounts an hour.</p>
+
+			<figure>
+				<img src="images/signup.png" alt="The signup page with name, email, password, a Craft choice, location, the terms tick box and Google and Facebook buttons" width="1440" height="1159" loading="lazy">
+				<figcaption>The signup page at yoursite.com/community/signup.</figcaption>
+			</figure>
+			<h3>Building the signup form <span class="pro">Pro</span></h3>
+			<div class="callout">This feature is part of SpaceBay Pro.</div>
+			<p>With Pro, <strong>Settings → Login and signup</strong> has a signup form builder.</p>
+			<figure>
+				<img src="images/admin-login-settings.png" alt="The signup form builder: a list of fields with Show switches and Required tick boxes, next to a preview of the form" width="1440" height="900">
+				<figcaption>Settings → Login and signup: the signup form builder with its preview.</figcaption>
+			</figure>
+			<ol>
+				<li>Use the <strong>Show</strong> switch to put a field on the form or take it off.</li>
+				<li>Tick <strong>Required</strong> when people must fill it in. Other fields are marked “(optional)” on the form.</li>
+				<li>Use the arrows to change the order. The <strong>Preview</strong> shows the form as visitors will see it.</li>
+				<li>Select <strong>Save changes</strong>.</li>
+			</ol>
+			<ul>
+				<li><strong>Email address</strong> and <strong>Password</strong> are always on the form.</li>
+				<li>You can add <strong>Name</strong>, <strong>Username</strong>, <strong>Headline</strong>, <strong>Location</strong>, <strong>Website</strong>, <strong>About me</strong> and every <a href="#profile-fields">custom profile field</a> you created. What people enter is saved on their profile.</li>
+				<li>Without the Username field, the username is made from the email address.</li>
+				<li><strong>Agree to the terms</strong> adds the terms tick box. Enter the address of your terms under <strong>Terms page</strong> to link to them.</li>
+			</ul>
+			<p>Without Pro, the form goes back to the standard fields. The fields you chose are kept for when Pro is active again.</p>
+
+			<h3>Password and security for members</h3>
+			<p>Members change their password under <strong>Account settings → Password and security</strong>. They enter their current password first. Changing the password logs out their other devices.</p>
+
+			<h2 id="social-login">Log in with Google or Facebook</h2>
+			<p>Members can log in and sign up with their Google or Facebook account. The login and signup pages then show <strong>Continue with Google</strong> and <strong>Continue with Facebook</strong> under the form. Both are off until you turn them on.</p>
+			<ul>
+				<li><strong>One button for both.</strong> Someone who used the button before is logged in. Someone whose email address already belongs to a member is logged in to that account, when Google or Facebook has confirmed the address. Anyone else gets a new account.</li>
+				<li><strong>When signing up is closed</strong> (Let people sign up is off), the buttons only log in existing members. A new person sees a message that the community is not open for new members.</li>
+				<li><strong>New accounts</strong> get the name and email address from Google or Facebook and a password nobody knows. To also log in with a password, the member uses <strong>Forgot your password?</strong> once. New accounts follow your settings like any signup, including <strong>Approve new members</strong>.</li>
+				<li><strong>With two-factor authentication</strong> <span class="pro">Pro</span> the member still enters their 6-digit code after Google or Facebook.</li>
+				<li>Each service needs an app of your own. Creating one is free. Your keys stay on your site, and nothing is sent to Google or Facebook before a visitor clicks the button.</li>
+			</ul>
+
+			<h3>Set up Google</h3>
+			<ol>
+				<li>In SpaceBay, go to <strong>Settings → Login and signup</strong>, turn on <strong>Continue with Google</strong> and copy the <strong>Callback address</strong>.</li>
+				<li>Open <strong>console.cloud.google.com</strong> and create a project (or pick one).</li>
+				<li>Go to <strong>APIs and services → OAuth consent screen</strong>. Choose <strong>External</strong>, enter your community name, support email and the address of your privacy policy, and publish the app.</li>
+				<li>Go to <strong>APIs and services → Credentials → Create credentials → OAuth client ID</strong>. Choose <strong>Web application</strong> and paste the callback address under <strong>Authorized redirect URIs</strong>.</li>
+				<li>Copy the <strong>Client ID</strong> and <strong>Client secret</strong> into SpaceBay and select <strong>Save changes</strong>.</li>
+			</ol>
+
+			<h3>Set up Facebook</h3>
+			<ol>
+				<li>In SpaceBay, turn on <strong>Continue with Facebook</strong> and copy the <strong>Callback address</strong>.</li>
+				<li>Open <strong>developers.facebook.com</strong>, create an app and choose the use case <strong>Authenticate and request data from users with Facebook Login</strong>. The <strong>email</strong> and <strong>public_profile</strong> permissions it needs do not need a review by Meta.</li>
+				<li>Under <strong>Facebook Login → Settings</strong>, paste the callback address under <strong>Valid OAuth Redirect URIs</strong>.</li>
+				<li>Under <strong>App settings → Basic</strong>, add your privacy policy address and a data deletion page, then switch the app to <strong>Live</strong>. While it is in development, only people added to the app can log in.</li>
+				<li>Copy the <strong>App ID</strong> and <strong>App secret</strong> into SpaceBay and select <strong>Save changes</strong>.</li>
+			</ol>
+			<p>If the community address changes (for example from http to https), the callback address changes too: update it in your Google and Facebook apps. Facebook accounts made with a phone number and no email address cannot be used; those people sign up with their email address.</p>
+
+			<h2 id="two-factor">Two-factor authentication <span class="pro">Pro</span></h2>
+			<div class="callout">This feature is part of SpaceBay Pro.</div>
+			<p>With two-factor authentication a password alone is not enough to log in. After the password, the member enters a 6-digit code. Choose the policy under <strong>Settings → Login and signup</strong>:</p>
+			<table>
+				<thead>
+					<tr><th scope="col">Policy</th><th scope="col">What happens</th></tr>
+				</thead>
+				<tbody>
+					<tr><td>Off</td><td>Members log in with their password only. This is the default.</td></tr>
+					<tr><td>Optional</td><td>Each member can turn it on under <strong>Account settings → Password and security</strong>. With <strong>Require it for admins and moderators</strong>, those accounts always need a code.</td></tr>
+					<tr><td>Required for everyone</td><td>Every member needs a code at each login.</td></tr>
+				</tbody>
+			</table>
+			<figure>
+				<img src="images/admin-two-factor-settings.png" alt="The two-factor settings with the policy set to Optional" width="1440" height="900" loading="lazy">
+				<figcaption>Settings → Login and signup: two-factor authentication.</figcaption>
+			</figure>
+			<p>Members can get their code in two ways. You choose which ones are on offer:</p>
+			<ul>
+				<li><strong>Authenticator app.</strong> The member scans a QR code once with an app such as Google Authenticator, Microsoft Authenticator or Authy (or types the key shown next to it). The app then shows a new code every 30 seconds. This is the safest way and needs no email.</li>
+				<li><strong>Code by email.</strong> A code is sent to the member's email address at each login. It works for 10 minutes. A new code can be requested after 30 seconds.</li>
+			</ul>
+			<figure>
+				<img src="images/account-security.png" alt="Account settings, Password and security: setting up an authenticator app with a QR code and a key" width="1440" height="900">
+				<figcaption>A member sets up an authenticator app.</figcaption>
+			</figure>
+			<ul>
+				<li><strong>Backup codes.</strong> When a member turns two-factor authentication on, they get 10 backup codes to copy or download. Each works once at login, for example when their phone is lost. They can create new codes at any time.</li>
+				<li><strong>Required members without an app.</strong> When email codes are on offer, they get a code by email until they set up an app. With <em>Authenticator app only</em>, they see a “Protect your account” page (<code>/community/secure-account</code>) and must set up the app before they can use the community.</li>
+				<li><strong>Changes need the password.</strong> Turning it on or off and creating new backup codes ask for the current password. Turning it on logs out the member's other devices.</li>
+				<li><strong>The WordPress login page is protected too.</strong> A member with two-factor authentication who logs in on <code>wp-login.php</code> (or on a form of another plugin that uses the WordPress login) is sent to the code step before they are logged in. Password logins over XML-RPC are refused for these accounts; application passwords keep working for apps.</li>
+			</ul>
+			<h3>When someone is locked out</h3>
+			<ul>
+				<li><strong>A member lost their phone and backup codes:</strong> go to <strong>Users</strong> in WordPress, point at the member and select <strong>Reset two-factor</strong>. They can log in with their password and set it up again. With WP-CLI: <code>wp spacebay two-factor reset &lt;user&gt;</code>. To see how a member logs in: <code>wp spacebay two-factor status &lt;user&gt;</code>.</li>
+				<li><strong>You are locked out yourself</strong> (for example, the policy requires codes by email and emails do not arrive): add this line to <code>wp-config.php</code> above “That's all, stop editing”, log in, fix the cause and remove the line again:<br><code>define( 'SPACEBAY_DISABLE_TWO_FACTOR', true );</code></li>
+			</ul>
+			<p><strong>Before you require codes by email,</strong> check that emails from your site arrive: log out and use <em>Forgot your password?</em>. An SMTP plugin makes delivery reliable.</p>
+			<p>Good to know:</p>
+			<ul>
+				<li>Two-factor authentication needs the community login pages. When you turn those off, it is switched off as well.</li>
+				<li>If you change the security keys (salts) in <code>wp-config.php</code>, authenticator apps have to be set up again, because their keys are stored encrypted with those salts.</li>
+				<li>On a network of sites the policy is set per site. Someone who logs in on another site of the network where no code is required is logged in on every site, so use the same policy on each site.</li>
+				<li>Plugins that log people in without the WordPress login form (some social login plugins) are not covered by the code step.</li>
+			</ul>
+
+			<h2 id="spaces">Spaces and groups</h2>
+			<p>Spaces are where members meet. Create them in <strong>SpaceBay → Spaces</strong>, or with <strong>Create space</strong> on the Spaces page of the community. Space groups organise spaces under headings in the community sidebar. Use the arrows to change the order.</p>
+			<p>Each space has an icon from a set of 28 line icons (announcements, chat, ideas, events, photos and more), or the first letter of its name. Icons are drawn in one colour, so they always match your brand. Spaces created with an emoji in earlier versions show the matching icon automatically.</p>
+			<figure>
+				<img src="images/admin-spaces.png" alt="The Spaces screen in the SpaceBay admin" width="1440" height="900">
+				<figcaption>SpaceBay → Spaces.</figcaption>
+			</figure>
+			<table>
+				<thead>
+					<tr><th scope="col">Privacy</th><th scope="col">Who sees it</th><th scope="col">Who reads posts</th><th scope="col">How people join</th></tr>
+				</thead>
+				<tbody>
+					<tr><td>Public</td><td>Everyone who can open the community</td><td>Everyone</td><td>Click Join space</td></tr>
+					<tr><td>Private</td><td>Everyone who can open the community</td><td>Members only</td><td>Ask to join, then a space admin approves</td></tr>
+					<tr><td>Secret</td><td>Members and invited people only</td><td>Members only</td><td>By invitation only</td></tr>
+				</tbody>
+			</table>
+			<figure>
+				<img src="images/portal-spaces.png" alt="The Spaces page of the community with join buttons" width="1440" height="900">
+				<figcaption>Members browse spaces and join them.</figcaption>
+			</figure>
+			<h3>Space roles</h3>
+			<table>
+				<thead>
+					<tr><th scope="col">Role</th><th scope="col">Can do</th></tr>
+				</thead>
+				<tbody>
+					<tr><td>Admin</td><td>Edit the space, approve requests, invite, change roles, block and remove members.</td></tr>
+					<tr><td>Moderator</td><td>Moderate content in the space.</td></tr>
+					<tr><td>Member</td><td>Read and take part.</td></tr>
+				</tbody>
+			</table>
+			<p>Whoever creates a space becomes its first admin. A space always keeps at least one admin. WordPress administrators manage every space, and only they can archive a space, delete it or move it to another group.</p>
+			<h3>Managing a space</h3>
+			<p>Space admins open the space and choose <strong>Manage</strong> to approve join requests, invite members, see open invitations, unblock members and edit the space details.</p>
+			<figure>
+				<img src="images/portal-manage.png" alt="The Manage tab of a space with join requests, invitations and space details" width="1440" height="1759">
+				<figcaption>The Manage tab of a space.</figcaption>
+			</figure>
+			<p><strong>Archived</strong> spaces are hidden from people who are not members and do not accept new members.</p>
+
+			<h2 id="members">Member directory</h2>
+			<p>Logged-in members can browse and search everyone in the community on the Members page. Email addresses and login names are never shown. Turn the directory off in Settings with <strong>Show the member directory to logged-in members</strong>; WordPress administrators can still see it.</p>
+			<figure>
+				<img src="images/portal-members.png" alt="The member directory with search and member cards" width="1440" height="900">
+				<figcaption>The member directory.</figcaption>
+			</figure>
+
+			<h2 id="profiles">Profiles and account settings</h2>
+			<p>Every member has a profile with a photo, a cover image, a headline, an <em>About me</em> text, location and website. With Pro, profiles also show any <a href="#profile-fields">custom fields</a> you add. Members edit it from the account menu → <strong>Account settings</strong>, or with <strong>Edit profile</strong> on their own profile page.</p>
+			<figure>
+				<img src="images/account-profile.png" alt="The Account settings page with cover, photo and profile form" width="1440" height="1424">
+				<figcaption>Account settings → Profile.</figcaption>
+			</figure>
+			<figure>
+				<img src="images/member-profile.png" alt="A member profile with cover image, photo, headline and About section" width="1440" height="2985">
+				<figcaption>A member profile.</figcaption>
+			</figure>
+			<ul>
+				<li><strong>Photo and cover.</strong> JPEG, PNG or WebP. Photos are cropped to a 400 × 400 square and covers to 1600 × 480. Images are re-saved by WordPress, so hidden data such as GPS location is removed. The photo replaces the Gravatar everywhere on your site, including WordPress comments.</li>
+				<li><strong>Hide my profile.</strong> Hidden members do not appear in the member directory or in search. Their profile page only shows their name and photo. Their posts and comments stay visible in spaces. Administrators can still see them.</li>
+				<li><strong>Last active.</strong> Profiles show when a member was last active in the community, updated at most every five minutes.</li>
+			</ul>
+
+			<h2 id="profile-fields">Custom profile fields <span class="pro">Pro</span></h2>
+			<div class="callout">This feature is part of SpaceBay Pro.</div>
+			<p>Add up to 20 extra profile fields in <strong>SpaceBay → Members</strong>, such as Company, Country or Skills. Each field is optional for members.</p>
+			<figure>
+				<img src="images/admin-profile-fields.png" alt="The Profile fields card with a Craft choice list, a Shop website link and a Years making text field" width="1192" height="944">
+				<figcaption>SpaceBay → Members → Profile fields.</figcaption>
+			</figure>
+			<table>
+				<thead>
+					<tr><th scope="col">Type</th><th scope="col">Members see</th></tr>
+				</thead>
+				<tbody>
+					<tr><td>Short text</td><td>A one-line text box, up to 200 characters.</td></tr>
+					<tr><td>Long text</td><td>A text area, up to 1000 characters.</td></tr>
+					<tr><td>Link</td><td>A web address, shown as a link on the profile.</td></tr>
+					<tr><td>Choice list</td><td>A drop-down with the choices you enter, one per line.</td></tr>
+				</tbody>
+			</table>
+			<p>Removing a field hides it everywhere. Answers members already gave are kept, so adding the field back with the same name brings them back.</p>
+			<p>Without Pro, custom fields are not shown on profiles or the signup form, and the <strong>Members</strong> admin page shows only <a href="#moderators">Community moderators</a>. The fields and answers are kept.</p>
+
+			<h2 id="posts">Posts and the feed</h2>
+			<p>Members post in the spaces they belong to. The <strong>Home</strong> feed shows posts from every space the member can read, newest first; <strong>Recent activity</strong> puts posts with new comments first. Each space has its own feed on its <strong>Posts</strong> tab, where pinned posts stay at the top.</p>
+			<figure>
+				<img src="images/feed-post.png" alt="A post with a photo in the General space feed" width="1440" height="900">
+				<figcaption>A post with a photo in a space feed.</figcaption>
+			</figure>
+			<h3>Writing a post</h3>
+			<ul>
+				<li>Click the post box, write, choose a space and press <strong>Post</strong>. <kbd>Ctrl</kbd> or <kbd>Cmd</kbd> + <kbd>Enter</kbd> also posts.</li>
+				<li><strong>Add title</strong> gives the post a heading.</li>
+				<li>The image button adds up to 10 JPG, PNG, GIF or WebP images. Large photos are resized and their hidden data, such as GPS location, is removed.</li>
+				<li>Choose up to three topics.</li>
+				<li>Type <code>@</code> and a name to mention a member.</li>
+			</ul>
+			<figure>
+				<img src="images/composer.png" alt="Writing a post with images, a topic and a mention" width="1440" height="900">
+				<figcaption>The post box with images, topics and a mention.</figcaption>
+			</figure>
+			<table>
+				<thead>
+					<tr><th scope="col">Type</th><th scope="col">To get</th></tr>
+				</thead>
+				<tbody>
+					<tr><td><code>**bold**</code></td><td><strong>bold</strong></td></tr>
+					<tr><td><code>*italic*</code> or <code>_italic_</code></td><td><em>italic</em></td></tr>
+					<tr><td><code>`code`</code></td><td><code>code</code></td></tr>
+					<tr><td>Lines starting with <code>- </code> or <code>1. </code></td><td>A list</td></tr>
+					<tr><td>Lines starting with <code>&gt; </code></td><td>A quote</td></tr>
+					<tr><td><code>@name</code></td><td>A mention linking to the member</td></tr>
+					<tr><td><code>#word</code></td><td>A hashtag</td></tr>
+					<tr><td>A web address</td><td>A link</td></tr>
+				</tbody>
+			</table>
+			<h3>Link previews and videos</h3>
+			<p>YouTube and Vimeo links show a video player. Nothing is loaded from YouTube or Vimeo until someone presses play. Other links show a preview card with the page title, description and image when <strong>Show link previews</strong> is on in Settings. To build the card, your site requests the linked page once and stores the result for a day. Turn the setting off if you do not want your site to contact linked websites.</p>
+			<figure class="docs-video">
+				<video controls muted playsinline preload="none" poster="videos/video-write-post.jpg" width="1280" height="720" aria-label="Video of a member writing a post with a photo">
+					<source src="videos/video-write-post.mp4" type="video/mp4">
+					<source src="videos/video-write-post.webm" type="video/webm">
+				</video>
+				<figcaption>Video (17 s): writing a post with a photo and a topic.</figcaption>
+			</figure>
+			<h3>Who can post</h3>
+			<p>Active members of a space can post. In a space's details, <strong>Who can start posts</strong> can be set to <strong>Only space admins and moderators</strong>, which suits announcement spaces; members can still like and comment. Authors can edit and delete their own posts. Space admins, moderators and WordPress administrators can edit, delete and pin any post in the space.</p>
+			<figure>
+				<img src="images/space-feed.png" alt="A space feed with a pinned post and a video" width="1440" height="2086">
+				<figcaption>A space feed with a pinned post and a click-to-play video.</figcaption>
+			</figure>
+
+			<h2 id="comments">Comments, likes and saved posts</h2>
+			<p>Members of a space comment on its posts and reply to comments. Replies stay one level deep, so conversations remain easy to follow. Members can like posts and comments, and <strong>Save</strong> any post they can read; saved posts appear on the <strong>Saved</strong> page, which only they can see.</p>
+			<figure>
+				<img src="images/comments.png" alt="A post with a comment and a reply" width="1440" height="900">
+				<figcaption>Comments and replies.</figcaption>
+			</figure>
+			<p>To slow down spam, a member can publish 5 posts and 20 comments per minute. WordPress administrators are not limited. Developers can change the limits with the <code>spacebay_rate_limit</code> filter.</p>
+
+			<h2 id="topics">Topics and hashtags</h2>
+			<p>Create topics such as Questions, Ideas or Events in <strong>SpaceBay → Topics</strong>. Members add up to three topics to a post, and everyone can filter the home feed by topic. Hashtags are created automatically from <code>#words</code> in posts; clicking one shows every post with that hashtag.</p>
+			<figure>
+				<img src="images/admin-topics.png" alt="The Topics screen in the admin" width="1440" height="900">
+				<figcaption>SpaceBay → Topics.</figcaption>
+			</figure>
+			<figure>
+				<img src="images/mobile-feed-dark.png" alt="The feed on a phone in dark mode" width="390" height="844">
+				<figcaption>The feed on a phone, in dark mode.</figcaption>
+			</figure>
+
+			<h2 id="points">Points, levels and badges</h2>
+			<p>Members earn points for taking part. You choose how many points each action gives in <strong>SpaceBay → Settings → Points and badges</strong>.</p>
+			<table>
+				<thead>
+					<tr><th scope="col">Action</th><th scope="col">Points by default</th></tr>
+				</thead>
+				<tbody>
+					<tr><td>A published post</td><td>5</td></tr>
+					<tr><td>A comment</td><td>2</td></tr>
+					<tr><td>A like from someone else on their post or comment (likes on your own content do not count)</td><td>1</td></tr>
+					<tr><td>Opening the community, once a day</td><td>1</td></tr>
+					<tr><td>Answering “going” to an event</td><td>2</td></tr>
+				</tbody>
+			</table>
+			<p>Points are taken back when the post or comment is deleted, the like is removed, the member changes their event answer or the event is cancelled. Posts held for review earn points when a moderator approves them. Suspended members do not earn points.</p>
+			<figure>
+				<img src="images/admin-points-settings.png" alt="The Points and badges settings with point values, level names and the badge list" width="1440" height="900">
+				<figcaption>SpaceBay → Settings → Points and badges.</figcaption>
+			</figure>
+			<p><strong>Levels.</strong> Each level has a name and the points needed to reach it. A member's level shows on their profile, in the member directory, on the leaderboard and next to their name on posts (from the second level up). Members get a notification when they reach a new level.</p>
+			<p><strong>Badges.</strong> SpaceBay comes with nine badges that members earn on their own: First post, First reply, Storyteller (10 posts), Conversationalist (50 comments), Well liked (25 likes), Crowd favourite (100 likes), Regular (30 daily visits), Event goer (5 events) and Community champion (1,000 points). Switch each one on or off in <strong>Settings → Points and badges</strong>. Members get a notification for every badge (and an email when they choose it). Badges are kept once earned, also when a rule changes or the member deletes what earned it.</p>
+			<p><strong>Profiles.</strong> A member's profile shows their level, points, place on the leaderboard and badges. On their own profile, members also see how far they are from the next level, the badges they can still earn with their progress, and a <strong>Points history</strong>.</p>
+			<figure>
+				<img src="images/profile-badges.png" alt="A member profile with level progress, earned badges and badges to earn" width="1440" height="900">
+				<figcaption>Points and badges on a member's own profile.</figcaption>
+			</figure>
+			<p><strong>Leaderboard.</strong> The Leaderboard page lists the members with the most points this week, this month and of all time, with a top three. Weeks start on the day set in <em>Settings → General → Week Starts On</em>; dates follow your site's time zone. Members with a hidden profile and suspended members are left out.</p>
+			<figure>
+				<img src="images/leaderboard.png" alt="The leaderboard with a top three and a ranked list" width="1440" height="900">
+				<figcaption>The Leaderboard page, this month.</figcaption>
+			</figure>
+			<p><strong>Updating from an earlier version.</strong> When you update to 1.2.0, members get points for their earlier posts, comments and likes once, with the original dates, and badges they already reached are given without notifications.</p>
+
+			<h3>Badge editor <span class="pro">Pro</span></h3>
+			<div class="callout">This feature is part of SpaceBay Pro.</div>
+			<p>With Pro, <strong>Settings → Points and badges</strong> has a badge editor. Add up to 40 badges, and change the name, description, colour, icon and rule of any badge. A rule is a number of posts, comments, likes received, points, daily visits or events, or <em>given by hand</em>. Pro adds two badges that the team gives by hand: <strong>Founding member</strong> and <strong>Helper</strong>.</p>
+
+			<h3>Giving badges and points <span class="pro">Pro</span></h3>
+			<div class="callout">This feature is part of SpaceBay Pro.</div>
+			<p>Admins and community moderators open a member's profile and select <strong>Give a badge</strong> to give or take away any badge. Community managers (administrators) can also add or take away points with a note, for example for a great answer or to clean up spam. Nobody can give badges or points to themselves.</p>
+			<figure>
+				<img src="images/give-badge.png" alt="The Give a badge or points window on a member profile, with Give and Take away buttons and a points field" width="1440" height="900" loading="lazy">
+				<figcaption>Giving a badge or points from a member profile.</figcaption>
+			</figure>
+
+			<h2 id="events">Events</h2>
+			<p>Events belong to a space. Every space gets an <strong>Events</strong> tab, and the <strong>Events</strong> page in the sidebar shows events from all spaces the member can read: <strong>Upcoming</strong>, a month <strong>Calendar</strong>, the events they are <strong>Going</strong> to and <strong>Past</strong> events. Home shows the next events in the side column.</p>
+			<figure class="docs-video">
+				<video controls muted playsinline preload="none" poster="videos/video-event-rsvp.jpg" width="1280" height="720" aria-label="Video of a member answering an event">
+					<source src="videos/video-event-rsvp.mp4" type="video/mp4">
+					<source src="videos/video-event-rsvp.webm" type="video/webm">
+				</video>
+				<figcaption>Video (11 s): answering Going to an event, with Add to calendar.</figcaption>
+			</figure>
+			<figure>
+				<img src="images/events-calendar.png" alt="The Events page showing a month calendar with events" width="1440" height="900">
+				<figcaption>Events → Calendar.</figcaption>
+			</figure>
+			<ul>
+				<li><strong>Adding an event.</strong> Space admins and moderators add events from the space's Events tab or the Events page with <strong>New event</strong>. Set <em>Who can add events</em> to let every member who can post in the space add events too. An event has a title, a description, a start and end time (shown to each member in their own time zone), online with a link or in person with an address. Events can last up to 14 days.</li>
+				<li><strong>Answers.</strong> Members of the space answer <strong>Going</strong>, <strong>Maybe</strong> or <strong>Can't go</strong>. The page shows who is going; hidden profiles are left out of that list.</li>
+				<li><strong>Online link.</strong> The meeting link is shown only to members who answered going or maybe, and to the people who manage the event.</li>
+				<li><strong>Notifications.</strong> Admins can tell all members of the space about a new event. Members who answered going or maybe are told when the time or place changes or the event is cancelled. Members choose the email for these in <em>Account settings → Email notifications</em>.</li>
+				<li><strong>Add to calendar.</strong> Every event has a <strong>Calendar file (.ics)</strong> for Apple Calendar, Outlook and others, and a <strong>Google Calendar</strong> link.</li>
+				<li><strong>Change, cancel or delete.</strong> The organizer and space moderators can change an event, cancel it (it stays visible as cancelled) or delete it.</li>
+			</ul>
+			<figure>
+				<img src="images/event-form.png" alt="The New event window with space, name, times, an in-person address, a description and 20 places" width="1440" height="1180" loading="lazy">
+				<figcaption>Adding an event. Places (optional) comes with Pro.</figcaption>
+			</figure>
+			<figure>
+				<img src="images/event-page.png" alt="An event page with time, place, answers and calendar buttons" width="1440" height="900">
+				<figcaption>An event, with going and maybe counts and Add to calendar.</figcaption>
+			</figure>
+			<figure>
+				<img src="images/mobile-events.png" alt="Upcoming events on a phone" width="390" height="844">
+				<figcaption>Upcoming events on a phone.</figcaption>
+			</figure>
+
+			<h3>Place limits <span class="pro">Pro</span></h3>
+			<div class="callout">This feature is part of SpaceBay Pro.</div>
+			<p>With Pro, an event can have a number of places. The event shows how many places are left, and when all places are taken the event is full: members can no longer answer going, but can still answer maybe. In an event with a place limit, the online link is shown only to members who answered going and to the people who manage the event.</p>
+
+			<h3>Reminders <span class="pro">Pro</span></h3>
+			<div class="callout">This feature is part of SpaceBay Pro.</div>
+			<p>With Pro, members who answered going or maybe get a reminder before an event starts. Choose 1, 3, 24 or 48 hours, or no reminders, under <strong>Settings → Events</strong> (24 hours by default). Reminders are sent by WP-Cron once an hour. On sites with little traffic, set up a real cron job for <code>wp-cron.php</code>.</p>
+			<figure>
+				<img src="images/admin-events-settings.png" alt="The Events settings with who can add events and the reminder time" width="1440" height="900" loading="lazy">
+				<figcaption>SpaceBay → Settings → Events.</figcaption>
+			</figure>
+
+			<h2 id="notifications">Notifications and emails</h2>
+			<p>The bell in the top bar shows how many notifications a member has not read. It updates every minute while the page is open. Clicking a notification opens the post and marks it read. <strong>See all notifications</strong> opens the full list, with an <strong>Unread</strong> filter and <strong>Mark all as read</strong>.</p>
+			<figure>
+				<img src="images/bell-open.png" alt="The notification bell open with a mention notification" width="1440" height="900">
+				<figcaption>The notification bell.</figcaption>
+			</figure>
+			<figure>
+				<img src="images/notifications-page.png" alt="The Notifications page with unread notifications" width="1440" height="900">
+				<figcaption>The Notifications page.</figcaption>
+			</figure>
+			<table>
+				<thead>
+					<tr><th scope="col">Members are notified when</th><th scope="col">Email by default</th></tr>
+				</thead>
+				<tbody>
+					<tr><td>Someone mentions them in a post or comment</td><td>Yes</td></tr>
+					<tr><td>Someone comments on their post or replies to their comment</td><td>Yes</td></tr>
+					<tr><td>They are invited to a space, or their join request is approved</td><td>Yes</td></tr>
+					<tr><td>Someone asks to join a private space they manage</td><td>Yes</td></tr>
+					<tr><td>Someone likes their post or comment</td><td>No</td></tr>
+					<tr><td>A new event in their space, or an event they answered changes, is cancelled, or starts soon (reminders need <a href="#events">Pro</a>)</td><td>Yes</td></tr>
+					<tr><td>They earn a badge (or are given one, with Pro), or reach a new level</td><td>No</td></tr>
+					<tr><td>Their held post or comment is approved, or a moderator removes it</td><td>Yes</td></tr>
+					<tr><td>Their account is approved</td><td>Yes</td></tr>
+					<tr><td>Moderators only: content or reports wait for review, or a new member waits for approval</td><td>Yes</td></tr>
+				</tbody>
+			</table>
+			<p>Members choose their emails in <strong>Account settings → Email notifications</strong>. Notifications under the bell are always shown. Members are only notified about posts they can still read, and never about their own actions.</p>
+			<figure>
+				<img src="images/account-emails.png" alt="Email notification choices with four checkboxes" width="1440" height="900">
+				<figcaption>Account settings → Email notifications.</figcaption>
+			</figure>
+			<p>Emails are sent in the background a few seconds later by WP-Cron, using <code>wp_mail()</code>, so they work with any SMTP plugin. If a member reads the notification first, the email is skipped. On sites with little traffic, set up a real cron job for <code>wp-cron.php</code> so emails are not delayed. Read notifications are deleted after 90 days and all notifications after 180 days.</p>
+			<figure>
+				<img src="images/admin-email-settings.png" alt="The Emails section of the settings screen" width="1440" height="900">
+				<figcaption>SpaceBay → Settings → Emails.</figcaption>
+			</figure>
+			<figure>
+				<img src="images/mobile-bell-dark.png" alt="Notifications on a phone in dark mode" width="390" height="844">
+				<figcaption>Notifications on a phone, in dark mode.</figcaption>
+			</figure>
+
+			<h2 id="messages">Messages</h2>
+			<figure>
+				<img src="images/messages.png" alt="The Messages page with a conversation list and an open chat" width="1366" height="860">
+				<figcaption>Messages: conversations on the left, the open chat on the right.</figcaption>
+			</figure>
+			<p>Members send private messages from <strong>Messages</strong> in the sidebar, where a red number shows unread messages. They start a chat with <strong>New</strong>, or with the <strong>Message</strong> button on someone's profile.</p>
+			<figure class="docs-video">
+				<video controls muted playsinline preload="none" poster="videos/video-messages.jpg" width="1280" height="720" aria-label="Video of sending a private message">
+					<source src="videos/video-messages.mp4" type="video/mp4">
+					<source src="videos/video-messages.webm" type="video/webm">
+				</video>
+				<figcaption>Video (14 s): replying in a private chat and opening a group chat.</figcaption>
+			</figure>
+			<ul>
+				<li><strong>One-to-one and group chats.</strong> Pick one person for a private chat, or several to start a group and give it a name. The person who starts a group can add and remove people; anyone can leave. When the owner leaves, the longest-standing member takes over.</li>
+				<li><strong>Writing.</strong> Enter sends, Shift+Enter adds a new line. Messages support <strong>bold</strong>, <em>italic</em>, links, lists and up to 10 images. Blocked words are hidden with stars, or the message is refused if blocked words are set to refuse. Members can delete their own messages.</li>
+				<li><strong>Live updates.</strong> An open chat checks for new messages every 3 seconds; the unread badge refreshes every 5 to 15 seconds while the community is open. "Seen" appears under your last message once the other person has read it.</li>
+				<li><strong>Emails.</strong> If a message is still unread after 15 minutes, the member gets one email for that conversation (not one per message). Members can turn this off under <strong>Account settings → Email notifications</strong>, and can mute a conversation.</li>
+				<li><strong>Safety.</strong> Members can <strong>block</strong> someone from their profile or the chat menu; neither can then message the other. <strong>Report</strong> under a message sends it to the moderation queue, where moderators can keep or delete it. Moderators only see messages that were reported. Suspended or waiting members cannot send messages.</li>
+			</ul>
+			<p>Choose who can message whom and whether group chats are allowed under <strong>Settings → Messages</strong>.</p>
+
+			<h2 id="calls">Voice and video calls <span class="pro">Pro</span></h2>
+			<div class="callout">This feature is part of SpaceBay Pro.</div>
+			<p>Turn calls on under <strong>Settings → Messages</strong>. A phone and a camera button then appear at the top of each chat. The other people get a ringing call card wherever they are in the community; in group chats everyone is invited and can join. During a call members can mute, turn their camera off, make the call window smaller and keep browsing, or hang up. Finished and missed calls are noted in the chat.</p>
+			<p>Things to know before turning calls on:</p>
+			<ul>
+				<li><strong>HTTPS is required.</strong> Browsers only allow the microphone and camera on secure sites.</li>
+				<li><strong>Sound and video go directly between browsers</strong> (WebRTC). They never pass through your server, so calls do not use your hosting bandwidth. Your site only passes small connection messages while a call starts.</li>
+				<li><strong>Group calls work best for up to 4 people.</strong> Every person sends their video to every other person.</li>
+				<li><strong>Some networks need a TURN server.</strong> Most calls connect with the default STUN server alone, but strict office, school and some mobile networks block direct connections. Add a TURN server (from a provider such as Cloudflare, Twilio or Metered, or your own coturn server) under Settings so these calls connect too. Developers can hand out short-lived TURN credentials with the <code>spacebay_call_ice_servers</code> filter.</li>
+				<li><strong>Privacy.</strong> In a direct connection the people in a call can see each other's network (IP) address. With a TURN server, calls can be relayed instead.</li>
+			</ul>
+			<figure>
+				<img src="images/messages-settings.png" alt="The Messages settings with the call settings of SpaceBay Pro" width="1440" height="1516">
+				<figcaption>Settings → Messages, with SpaceBay Pro active.</figcaption>
+			</figure>
+
+			<h2 id="shops">Member shops <span class="pro">Pro</span></h2>
+			<div class="callout">This feature is part of SpaceBay Pro.</div>
+			<p>Members can open a shop on their profile and show what they make or sell. Every product has a name, an optional price, up to four photos, a description and a link to the page where people buy it: their own online store, a marketplace page or a social page. The button on the product opens that page in a new tab. <strong>SpaceBay never takes payments</strong> and has no cart or checkout.</p>
+			<h3>Turning shops on</h3>
+			<p>Go to <strong>SpaceBay → Settings → Shops</strong> and turn on <strong>Member shops</strong>. Then choose what happens with new products:</p>
+			<ul>
+				<li><strong>Approve each product</strong> (default): new products, and changes to the name, price, text, photos or link of a product, wait until an admin approves them.</li>
+				<li><strong>Publish automatically</strong>: products show right away.</li>
+			</ul>
+			<p>In both modes, a product with a <a href="#moderation">blocked word</a> waits for review, and a product an admin rejected only comes back after an admin approves it. Shop names with blocked words are refused.</p>
+			<figure>
+				<img src="images/admin-shop-settings.png" alt="The Shops settings with member shops on, Approve each product, products per shop and the Shop page" width="1440" height="900" loading="lazy">
+				<figcaption>SpaceBay → Settings → Shops.</figcaption>
+			</figure>
+			<h3>Opening a shop</h3>
+			<ol>
+				<li>The member opens their profile, clicks the <strong>Shop</strong> tab and then <strong>Ask to open a shop</strong>. They can give a shop name and say what they will sell.</li>
+				<li>Admins get a notification. Under <strong>SpaceBay → Shops → Shop requests</strong> (or on the member's Shop tab) they click <strong>Approve</strong> or <strong>Refuse</strong> with a reason the member sees.</li>
+				<li>The member gets a notification and can add products with <strong>Add product</strong>.</li>
+			</ol>
+			<p>Admins can also open a shop for a member who never asked (<strong>Sellers</strong> or <strong>Shop requests</strong> tab, <strong>Open a shop for a member</strong>) and get their own shop right away. Other members see a Shop tab on a profile once that shop has a published product.</p>
+			<figure class="docs-video">
+				<video controls muted playsinline preload="none" poster="videos/video-shop-product.jpg" width="1280" height="720" aria-label="Video of a member adding a product to their shop">
+					<source src="videos/video-shop-product.mp4" type="video/mp4">
+					<source src="videos/video-shop-product.webm" type="video/webm">
+				</video>
+				<figcaption>Video (24 s): a member adds a product with a photo to their shop.</figcaption>
+			</figure>
+			<figure>
+				<img src="images/shop-requests.png" alt="The Shop requests tab with two members asking to open a shop, with Approve and Refuse buttons" width="1280" height="900" loading="lazy">
+				<figcaption>SpaceBay → Shops → Shop requests.</figcaption>
+			</figure>
+			<figure>
+				<img src="images/product-form.png" alt="The Add a product window with name, price, button text, link, a photo and a description" width="1440" height="900" loading="lazy">
+				<figcaption>A member adds a product to their shop.</figcaption>
+			</figure>
+			<figure>
+				<img src="images/shop-tab.png" alt="The Shop tab on a member profile with the shop name and two products" width="1440" height="900" loading="lazy">
+				<figcaption>The Shop tab on a member profile.</figcaption>
+			</figure>
+			<h3>Trusted sellers</h3>
+			<p>On the <strong>Sellers</strong> tab, switch on <strong>Trusted</strong> for a seller whose products should show without review, even when every product needs approval.</p>
+			<h3>Reviewing products</h3>
+			<p><strong>SpaceBay → Shops → Products to review</strong> lists the products waiting for you, with their link so you can check it first. Click <strong>Approve</strong>, or <strong>Reject</strong> with a reason the seller sees. If the seller changes a product while you look at it, SpaceBay asks you to check it again before approving. Admins can also review from the product itself in the community.</p>
+			<h3>Showing products in the feed and in spaces</h3>
+			<p>Products always show in the seller's shop and on the Shop page. To show a product to more people, open <strong>All products</strong>, click <strong>Where it shows</strong> and tick <strong>The main feed (Home)</strong> and any spaces. Chosen products show in a row called “From our members' shops” at the top of Home or of the space. Members only see it in a space they can read. A product that goes back to review leaves these places until it is approved again.</p>
+			<figure>
+				<img src="images/shop-admin.png" alt="SpaceBay Shops screen with a product and the Where it shows choices" width="1280" height="900">
+				<figcaption>SpaceBay → Shops, All products, with “Where it shows” open.</figcaption>
+			</figure>
+			<h3>Closing a shop</h3>
+			<p>On the <strong>Sellers</strong> tab, <strong>Close shop</strong> hides every product of that shop. The seller sees your reason and can still delete their products. <strong>Open shop again</strong> brings everything back. Products of suspended members and of members with a hidden profile are also hidden.</p>
+			<h3>The Shop page</h3>
+			<p>With <strong>Shop page</strong> on, the community menu has a <strong>Shop</strong> link with every published product and a search. Each product has its own link (for example <code>/community/shop?product=12</code>) to share.</p>
+			<figure>
+				<img src="images/shop-page.png" alt="The Shop page in the community with a product card" width="1280" height="900">
+				<figcaption>The Shop page.</figcaption>
+			</figure>
+			<p><strong>Privacy.</strong> Shops and products are part of the WordPress personal data export and erasure. Deleting a member deletes their shop, products and photos.</p>
+
+			<h2 id="search">Search</h2>
+			<p>The search box in the top bar finds posts, spaces and members. Results only include posts and spaces the person may see. Members are searched by name, only for logged-in people while the member directory is on, and hidden profiles are left out. On phones, use the search icon in the top bar.</p>
+			<figure>
+				<img src="images/search-all.png" alt="Search results for the word walnut" width="1440" height="900">
+				<figcaption>Search results.</figcaption>
+			</figure>
+
+			<h2 id="moderation">Moderation</h2>
+			<p>Community moderators and administrators see <strong>Moderation</strong> in the community sidebar, with a red number when something needs a decision. The page has three tabs: <strong>To review</strong>, <strong>New members</strong> and <strong>Suspended</strong>.</p>
+			<figure class="docs-video">
+				<video controls muted playsinline preload="none" poster="videos/video-moderation.jpg" width="1280" height="720" aria-label="Video of approving content and a new member">
+					<source src="videos/video-moderation.mp4" type="video/mp4">
+					<source src="videos/video-moderation.webm" type="video/webm">
+				</video>
+				<figcaption>Video (15 s): approving a held first post and a new member.</figcaption>
+			</figure>
+			<figure>
+				<img src="images/moderation-queue.png" alt="The Moderation page with a first post and a comment waiting for review" width="1440" height="900">
+				<figcaption>Posts and comments waiting for review.</figcaption>
+			</figure>
+			<p>Each item shows the post or comment, its author, its space and why it is there. Choose <strong>Approve</strong> (or <strong>Keep</strong> for visible content) to publish it and close its reports, or <strong>Delete</strong> to remove it. Delete asks you to click a second time. Authors are told when their post or comment is approved or removed, but never who reported it.</p>
+			<p>Content is held for review when:</p>
+			<ul>
+				<li>it contains a <strong>blocked word</strong> and the blocked-word action is <em>Hold for review</em>;</li>
+				<li>it is a member's <strong>first post</strong> and <em>New posts</em> is set to review the first post (after one approval the member posts freely);</li>
+				<li><em>New posts</em> is set to review <strong>every new post</strong>;</li>
+				<li>enough members <strong>reported</strong> it (see <a href="#reports">Reports</a>).</li>
+			</ul>
+			<p>The author sees a message that a moderator will review it. Held content is not shown in feeds, search or notifications, and mentions are sent only after approval. Space admins, space moderators and community moderators are never held, and edits that add a blocked word are refused with a message. Blocked words match whole words in any letter case, so <code>cat</code> does not match <code>category</code>.</p>
+			<figure>
+				<img src="images/composer-pending.png" alt="The post box with a message that the post will appear after approval" width="1440" height="900">
+				<figcaption>What a member sees when their post is held.</figcaption>
+			</figure>
+			<figure>
+				<img src="images/admin-moderation-settings.png" alt="The Moderation section of the settings screen" width="1440" height="1076">
+				<figcaption>SpaceBay → Settings → Moderation.</figcaption>
+			</figure>
+
+			<h2 id="reports">Reports</h2>
+			<p>Logged-in members can report a post or comment from its menu, and a member from the flag button on their profile. They choose a reason (spam, harassment or hate, inappropriate content, or something else) and can add a note for moderators. A member can report the same thing once; members cannot report themselves.</p>
+			<figure>
+				<img src="images/report-dialog.png" alt="The Report post dialog with reasons and a note" width="1440" height="900">
+				<figcaption>Reporting a post.</figcaption>
+			</figure>
+			<p>When a post or comment reaches the number of reports set in <strong>Hide content after this many reports</strong>, it is hidden until a moderator decides. <strong>Keep</strong> shows it again in its original place; <strong>Delete</strong> removes it. For a reported member, <strong>Dismiss</strong> closes the reports and <strong>Suspend member</strong> suspends the account. Content written by moderators is never hidden automatically.</p>
+			<figure>
+				<img src="images/moderation-reports.png" alt="A post hidden after two spam reports, and a reported member" width="1440" height="900">
+				<figcaption>Reports with reasons, reporters and notes.</figcaption>
+			</figure>
+
+			<h2 id="member-approval">Member approval and suspension</h2>
+			<p>With <strong>Approve new members before they can take part</strong> on, people who sign up can log in but see a message that their account is waiting for approval. They can read public content like a visitor, but cannot post, comment, react, join spaces or see the member directory. Moderators approve or decline them on <strong>Moderation → New members</strong>; approved members get a notification and an email. Turning the setting on does not affect existing members.</p>
+			<figure>
+				<img src="images/pending-member.png" alt="The message a new member sees while waiting for approval" width="1440" height="900">
+				<figcaption>A new member waiting for approval.</figcaption>
+			</figure>
+			<p>Suspended members (declined sign-ups and members suspended after a report) see a message that their account is suspended and use the community like a visitor. Restore them on <strong>Moderation → Suspended</strong>. Administrators and community moderators cannot be suspended. Administrators also see members' email addresses on these lists; moderators do not.</p>
+			<figure>
+				<img src="images/mobile-moderation-dark.png" alt="New members waiting for approval on a phone in dark mode" width="390" height="844">
+				<figcaption>The Moderation page on a phone.</figcaption>
+			</figure>
+			<p>When a community is set to <strong>Logged-in members only</strong>, waiting and suspended members see only the message.</p>
+
+			<h2 id="moderators">Community moderators</h2>
+			<p>Add moderators in <strong>SpaceBay → Members → Community moderators</strong>: search for a member and select <strong>Make moderator</strong>. Moderators review reports, held content and new members, and can edit, pin or delete content in every space, but cannot change settings or open the SpaceBay admin. Administrators are always moderators. Technically, moderators get the <code>spacebay_moderate</code> capability, so you can also give it to a whole role with a role editor plugin.</p>
+			<figure>
+				<img src="images/admin-moderators.png" alt="The Community moderators card with an administrator and a moderator" width="1192" height="289">
+				<figcaption>SpaceBay → Members → Community moderators.</figcaption>
+			</figure>
+			<p>Each space can also have its own admins and moderators, chosen on the space's <strong>Members</strong> tab. They can edit and delete posts and comments in that space, and their own posts are never held for review.</p>
+
+			<h2 id="privacy">Privacy and personal data</h2>
+			<p>SpaceBay works with the WordPress privacy tools in <strong>Tools → Export Personal Data</strong> and <strong>Tools → Erase Personal Data</strong>.</p>
+			<ul>
+				<li><strong>Export</strong> includes the member's profile and custom fields, email choices, space memberships, posts, comments, private messages they sent, likes and saved posts, uploaded images, reports they sent, notifications they received, points, badges, event answers and events they organized.</li>
+				<li><strong>Erase</strong> deletes the member's posts, comments, private messages (a "Message deleted" line stays in the chat), likes, images, blocked members list, profile, memberships, notifications, reports, points, badges, event answers and events they organized. Replies that other members wrote to their comments are kept as separate comments.</li>
+				<li>Deleting a WordPress user also deletes their community data, including their two-factor setup when Pro is active.</li>
+			</ul>
+			<p>SpaceBay adds suggested text to <strong>Settings → Privacy → Policy Guide</strong>. Review it and add what fits to your privacy policy. Note that images are stored in <code>wp-content/uploads/spacebay/</code> with random names; anyone who knows an image address can open it, also for private spaces.</p>
+
+			<h2 id="limits">Security and limits</h2>
+			<p>Every REST request checks the member's permission and the WordPress nonce. Posts, comments and profile text are cleaned before they are saved and shown. Uploaded JPG, PNG and WebP images are saved again by WordPress, which removes hidden data and location details; GIF images are checked for hidden code. Link previews only fetch public web addresses on ports 80 and 443.</p>
+			<table>
+				<thead>
+					<tr><th scope="col">Action</th><th scope="col">Limit per member</th></tr>
+				</thead>
+				<tbody>
+					<tr><td>New posts</td><td>5 a minute</td></tr>
+					<tr><td>Comments</td><td>20 a minute</td></tr>
+					<tr><td>Edits of posts and comments</td><td>20 a minute</td></tr>
+					<tr><td>Image uploads</td><td>20 a minute, up to 30 images not yet posted</td></tr>
+					<tr><td>Likes and saves</td><td>60 a minute</td></tr>
+					<tr><td>Joining or leaving spaces</td><td>20 a minute</td></tr>
+					<tr><td>Invitations</td><td>30 a minute</td></tr>
+					<tr><td>Profile saves</td><td>20 a minute</td></tr>
+					<tr><td>Reports</td><td>10 a minute</td></tr>
+					<tr><td>Members mentioned in one post or comment</td><td>20</td></tr>
+				</tbody>
+			</table>
+			<p>Logging in and signing up have their own limits, which apply to everyone:</p>
+			<table>
+				<thead>
+					<tr><th scope="col">Action</th><th scope="col">Limit</th></tr>
+				</thead>
+				<tbody>
+					<tr><td>Wrong passwords for one account</td><td>5 in 15 minutes from one network address, 20 in 15 minutes in total</td></tr>
+					<tr><td>Wrong login codes for one login <span class="pro">Pro</span></td><td>5, then the member logs in again</td></tr>
+					<tr><td>Wrong login codes for one account <span class="pro">Pro</span></td><td>10 in 15 minutes and 30 a day. The member gets an email when the daily limit is reached.</td></tr>
+					<tr><td>Login codes by email for one account <span class="pro">Pro</span></td><td>10 an hour</td></tr>
+					<tr><td>New accounts from one network address</td><td>5 an hour</td></tr>
+					<tr><td>Password reset emails</td><td>3 an hour for one account, 5 requests in 15 minutes from one network address</td></tr>
+				</tbody>
+			</table>
+			<p>Change these with the <code>spacebay_auth_attempts</code> filter. They cover the community login page; to also limit attempts on <code>wp-login.php</code>, use a login protection plugin or your host's firewall. If your site is behind a proxy or CDN that hides visitor addresses, return the real address with the <code>spacebay_client_ip</code> filter, otherwise all visitors share one limit. With Pro, authenticator keys are stored encrypted, and backup codes and emailed codes are stored as hashes.</p>
+			<p>For the other actions, administrators are not limited. Change limits with the <code>spacebay_rate_limit</code> filter. Images can be up to 8000 pixels on the longest side; the server's memory limit can lower this.</p>
+
+			<h2 id="compatibility">Tested with</h2>
+			<table>
+				<thead>
+					<tr><th scope="col">Area</th><th scope="col">Tested</th></tr>
+				</thead>
+				<tbody>
+					<tr><td>WordPress</td><td>6.2 and 7.1, single site and multisite (network activation, sub-sites)</td></tr>
+					<tr><td>PHP</td><td>7.4, 8.3 and 8.4</td></tr>
+					<tr><td>Themes (inside theme layout)</td><td>Twenty Twenty-Five (block theme), Twenty Twenty-One, Astra, GeneratePress, Kadence</td></tr>
+					<tr><td>Plugins active together</td><td>WooCommerce, Yoast SEO, Elementor, Contact Form 7, Wordfence</td></tr>
+					<tr><td>Languages</td><td>English and Arabic (right to left)</td></tr>
+					<tr><td>Accessibility</td><td>Automated WCAG 2.1 AA checks (axe) on every portal and admin screen, light and dark mode</td></tr>
+					<tr><td>Size</td><td>48,000 posts: the feed loads in about 60 ms on a basic server</td></tr>
+				</tbody>
+			</table>
+
+			<h2 id="demo">Sample content (WP-CLI)</h2>
+			<p>To try SpaceBay or build a demo site, add sample spaces, members, topics, posts, comments and likes with WP-CLI:</p>
+			<pre><code>wp spacebay demo
+wp spacebay demo --remove</code></pre>
+			<p>It adds 7 spaces (reusing spaces you already have with the same names), 24 members, 23 posts with comments, replies and likes, a member waiting for approval, a join request, a reported post, two private chats with the first administrator, and five events (four coming up, one past) with answers. It refuses to run twice. Sample members get addresses ending in <code>example.invalid</code> and cannot receive email, and no notifications are sent. <code>--remove</code> deletes exactly what the command added.</p>
+
+			<h2 id="updates">Updates</h2>
+			<h3>SpaceBay (free)</h3>
+			<p>Updates come from WordPress.org. New versions appear on <strong>Dashboard → Updates</strong> and on the Plugins screen like any other plugin, and WordPress can install them automatically.</p>
+			<h3>SpaceBay Pro <span class="pro">Pro</span></h3>
+			<p>Pro does not update itself yet. To update it:</p>
+			<ol>
+				<li>Download the new <strong>spacebay-pro.zip</strong> from your wpanchorbay.com account.</li>
+				<li>Go to <strong>Plugins → Add New Plugin → Upload Plugin</strong>, choose the zip and click <strong>Install Now</strong>.</li>
+				<li>Confirm <strong>Replace current with uploaded</strong>.</li>
+			</ol>
+			<p>Your community data is kept during updates. SpaceBay Pro 1.1.0 needs SpaceBay 1.1.0 or newer, so update the free plugin too.</p>
+
+			<h2 id="templates">Template overrides</h2>
+			<p>Copy a file from <code>wp-content/plugins/spacebay/templates/</code> to <code>wp-content/themes/your-theme/spacebay/</code> and edit the copy.</p>
+			<table>
+				<thead>
+					<tr><th scope="col">File</th><th scope="col">Used for</th></tr>
+				</thead>
+				<tbody>
+					<tr><td><code>portal-standalone.php</code></td><td>Full page layout.</td></tr>
+					<tr><td><code>portal-theme.php</code></td><td>Layout inside the theme header and footer.</td></tr>
+					<tr><td><code>portal-mount.php</code></td><td>The element the portal app loads into.</td></tr>
+					<tr><td><code>emails/notification.php</code></td><td>Notification emails. Copy it to <code>your-theme/spacebay/emails/notification.php</code>.</td></tr>
+				</tbody>
+			</table>
+
+			<h2 id="hooks">Hooks for developers</h2>
+			<p>Hooks marked <span class="pro">Pro</span> come from SpaceBay Pro and only fire while it is active.</p>
+			<table>
+				<thead>
+					<tr><th scope="col">Hook</th><th scope="col">Type</th><th scope="col">Description</th></tr>
+				</thead>
+				<tbody>
+					<tr><td><code>spacebay_loaded</code></td><td>Action</td><td>After every component is loaded.</td></tr>
+					<tr><td><code>spacebay_installed</code></td><td>Action</td><td>After install or database upgrade on a site.</td></tr>
+					<tr><td><code>spacebay_settings_updated</code></td><td>Action</td><td>After settings are saved. Receives new and old settings.</td></tr>
+					<tr><td><code>spacebay_settings_schema</code></td><td>Filter</td><td>Add your own settings. See <a href="#extending">Extending SpaceBay</a>.</td></tr>
+					<tr><td><code>spacebay_rest_controllers</code></td><td>Filter</td><td>Add REST controllers that extend <code>SpaceBay\Rest\Controller</code>.</td></tr>
+					<tr><td><code>spacebay_portal_template</code></td><td>Filter</td><td>Change the template file used for the portal.</td></tr>
+					<tr><td><code>spacebay_member_signed_up</code></td><td>Action</td><td>After someone created an account on the signup page. Receives the user ID and the checked form values (without the password).</td></tr>
+					<tr><td><code>spacebay_two_factor_enabled</code> <span class="pro">Pro</span></td><td>Action</td><td>After a member turned on two-factor authentication. Receives the user ID and the method (<code>app</code> or <code>email</code>).</td></tr>
+					<tr><td><code>spacebay_two_factor_disabled</code> <span class="pro">Pro</span></td><td>Action</td><td>After two-factor authentication was removed from an account by the member or an administrator. Receives the user ID.</td></tr>
+					<tr><td><code>spacebay_account_email</code></td><td>Filter</td><td>Change an account email (login code, password reset, welcome) before it is sent. Receives the email parts, the user ID and the parts it was built from.</td></tr>
+					<tr><td><code>spacebay_auth_attempts</code></td><td>Filter</td><td>Change how many login, signup or code attempts are allowed. Receives the limit and the action name.</td></tr>
+					<tr><td><code>spacebay_client_ip</code></td><td>Filter</td><td>Return the visitor's real network address when your site is behind a proxy or CDN.</td></tr>
+					<tr><td><code>spacebay_space_created</code></td><td>Action</td><td>After a space is created. Receives the space ID and creator ID.</td></tr>
+					<tr><td><code>spacebay_space_updated</code></td><td>Action</td><td>After a space is edited. Receives the space ID and changed fields.</td></tr>
+					<tr><td><code>spacebay_space_deleted</code></td><td>Action</td><td>After a space or group is deleted. Receives the deleted row.</td></tr>
+					<tr><td><code>spacebay_membership_changed</code></td><td>Action</td><td>After someone joins, asks to join, is approved, invited, blocked or gets a new role.</td></tr>
+					<tr><td><code>spacebay_membership_removed</code></td><td>Action</td><td>After someone leaves or is removed from a space.</td></tr>
+					<tr><td><code>spacebay_space_member_invited</code></td><td>Action</td><td>After a space admin invites or adds someone.</td></tr>
+					<tr><td><code>spacebay_member_directory_args</code></td><td>Filter</td><td>Change the WP_User_Query arguments of the member directory.</td></tr>
+					<tr><td><code>spacebay_can_message</code></td><td>Filter</td><td>Whether one member may message another. Receives the decision, sender ID and recipient ID.</td></tr>
+					<tr><td><code>spacebay_message_sent</code></td><td>Action</td><td>After a private message is sent. Receives the message, conversation and recipient IDs.</td></tr>
+					<tr><td><code>spacebay_message_email_delay</code></td><td>Filter</td><td>Seconds a message stays unread before the reminder email (900 by default).</td></tr>
+					<tr><td><code>spacebay_message_email_parts</code></td><td>Filter</td><td>Change the unread-messages email (to, subject, message, headers).</td></tr>
+					<tr><td><code>spacebay_call_started</code> <span class="pro">Pro</span></td><td>Action</td><td>After a member starts a call. Receives the call and the conversation.</td></tr>
+					<tr><td><code>spacebay_call_ice_servers</code> <span class="pro">Pro</span></td><td>Filter</td><td>Change the STUN/TURN servers sent to browsers, for example to create short-lived TURN credentials per member.</td></tr>
+					<tr><td><code>spacebay_member_stats</code></td><td>Filter</td><td>Change the activity totals (posts, comments, likes, spaces) shown on a member's home page. Receives the totals and the member ID.</td></tr>
+					<tr><td><code>spacebay_post_created</code></td><td>Action</td><td>After a post is published. Receives the post and the IDs of mentioned members.</td></tr>
+					<tr><td><code>spacebay_post_updated</code></td><td>Action</td><td>After a post is edited.</td></tr>
+					<tr><td><code>spacebay_post_deleted</code></td><td>Action</td><td>After a post is deleted.</td></tr>
+					<tr><td><code>spacebay_comment_created</code></td><td>Action</td><td>After a comment is added. Receives the comment, the post and mentioned member IDs.</td></tr>
+					<tr><td><code>spacebay_comment_deleted</code></td><td>Action</td><td>After a comment and its replies are deleted. Receives the comment and, since 1.2.0, the IDs of every removed comment.</td></tr>
+					<tr><td><code>spacebay_reaction_added</code></td><td>Action</td><td>After a like or save.</td></tr>
+					<tr><td><code>spacebay_reaction_removed</code></td><td>Action</td><td>After a like or save is removed. Since 1.2.0.</td></tr>
+					<tr><td><code>spacebay_points_added</code></td><td>Action</td><td>After points are added or taken away. Receives the user ID, the points, the reason (<code>post</code>, <code>comment</code>, <code>like</code>, <code>daily</code>, <code>event</code>, <code>manual</code>), the total before and the total after. Since 1.2.0.</td></tr>
+					<tr><td><code>spacebay_badge_awarded</code></td><td>Action</td><td>After a member gets a badge. Receives the user ID, badge key, the ID of the person who gave it (0 when earned), the row ID and whether a notification is sent. Since 1.2.0.</td></tr>
+					<tr><td><code>spacebay_event_created</code></td><td>Action</td><td>After an event is added. Receives the event and the space. Since 1.2.0.</td></tr>
+					<tr><td><code>spacebay_event_updated</code></td><td>Action</td><td>After an event is changed. Receives the new and the old event. Since 1.2.0.</td></tr>
+					<tr><td><code>spacebay_event_deleted</code></td><td>Action</td><td>After an event is deleted. Receives the deleted event. Since 1.2.0.</td></tr>
+					<tr><td><code>spacebay_event_rsvp</code></td><td>Action</td><td>After a member answers an event. Receives the event, the user ID, the new answer (empty when removed) and the previous answer. Since 1.2.0.</td></tr>
+					<tr><td><code>spacebay_profile_updated</code></td><td>Action</td><td>After a member saves their profile. Receives the user ID and the saved fields.</td></tr>
+					<tr><td><code>spacebay_create_notification</code></td><td>Filter</td><td>Return false to skip a notification. Receives the recipient ID, action key and actor ID.</td></tr>
+					<tr><td><code>spacebay_notification_created</code></td><td>Action</td><td>After a notification is stored. Receives the notification ID, recipient ID and action key.</td></tr>
+					<tr><td><code>spacebay_notification_text</code></td><td>Filter</td><td>Text for custom notification actions. Receives the text, action, actor name and stored data.</td></tr>
+					<tr><td><code>spacebay_notification_email</code></td><td>Filter</td><td>Change the recipient, subject, message or headers of a notification email before it is sent.</td></tr>
+					<tr><td><code>spacebay_email_preference_defaults</code></td><td>Filter</td><td>Change which emails new members get by default.</td></tr>
+					<tr><td><code>spacebay_blocked_words</code></td><td>Filter</td><td>Change the list of blocked words.</td></tr>
+					<tr><td><code>spacebay_hold_content</code></td><td>Filter</td><td>Return a reason key to hold a post or comment for review, or an empty string to publish it.</td></tr>
+					<tr><td><code>spacebay_content_held</code></td><td>Action</td><td>After a post or comment is held for review.</td></tr>
+					<tr><td><code>spacebay_content_reported</code></td><td>Action</td><td>After a member reports a post, comment or member.</td></tr>
+					<tr><td><code>spacebay_content_approved</code></td><td>Action</td><td>After a moderator approves held content. <code>spacebay_post_created</code> and <code>spacebay_comment_created</code> also fire when new content is approved.</td></tr>
+					<tr><td><code>spacebay_content_removed</code></td><td>Action</td><td>Before a moderator deletes reported or held content.</td></tr>
+					<tr><td><code>spacebay_member_pending</code></td><td>Action</td><td>When a new member waits for approval.</td></tr>
+					<tr><td><code>spacebay_member_status_changed</code></td><td>Action</td><td>After a member is approved, suspended or restored.</td></tr>
+					<tr><td><code>spacebay_link_preview_allowed</code></td><td>Filter</td><td>Return false to stop link previews for a URL.</td></tr>
+					<tr><td><code>spacebay_rate_limit</code></td><td>Filter</td><td>Change how many posts, comments or uploads a member may send per minute.</td></tr>
+				</tbody>
+			</table>
+			<pre><code>add_action( 'spacebay_settings_updated', function ( $new, $old ) {
+	if ( $new['portal_slug'] !== $old['portal_slug'] ) {
+		// The community moved to a new address.
+	}
+}, 10, 2 );</code></pre>
+
+			<h3 id="extending">Extending SpaceBay (add-ons)</h3>
+			<p>Since 1.3.0, add-ons such as SpaceBay Pro can add features to the portal, the admin screens, the login, events, badges, messages and settings. These are the PHP hooks for that:</p>
+			<table>
+				<thead>
+					<tr><th scope="col">Hook</th><th scope="col">Type</th><th scope="col">Purpose</th></tr>
+				</thead>
+				<tbody>
+					<tr><td><code>spacebay_settings_schema</code></td><td>Filter</td><td>Add settings. An entry can have a <code>sanitize</code> callable that cleans the value. Type <code>array</code> takes a list of objects and needs <code>sanitize</code>.</td></tr>
+					<tr><td><code>spacebay_settings_response</code></td><td>Filter</td><td>Add what your settings need to the data sent to the settings screen.</td></tr>
+					<tr><td><code>spacebay_table_names</code></td><td>Filter</td><td>Register the short names of your own tables. Add-ons create and remove their tables themselves.</td></tr>
+					<tr><td><code>spacebay_app_config</code></td><td>Filter</td><td>Change the configuration passed to the portal and admin apps. Receives the config and the current user.</td></tr>
+					<tr><td><code>spacebay_pulse</code></td><td>Filter</td><td>Add data to the pulse that the apps poll (<code>/me/pulse</code>). Receives the data and the member ID.</td></tr>
+					<tr><td><code>spacebay_conversation_messages</code></td><td>Filter</td><td>Change a page of a conversation's messages.</td></tr>
+					<tr><td><code>spacebay_conversation_items</code></td><td>Filter</td><td>Change the list of conversations sent to a member.</td></tr>
+					<tr><td><code>spacebay_message_system_text</code></td><td>Filter</td><td>Text of a system line in a chat for your own events, such as Pro's call lines.</td></tr>
+					<tr><td><code>spacebay_social_profile</code></td><td>Filter</td><td>The profile read from Google or Facebook (<code>id</code>, <code>email</code>, <code>verified</code>, <code>name</code>) and the provider. Set <code>verified</code> to false to stop accounts from being connected by email address.</td></tr>
+					<tr><td><code>spacebay_login_challenge</code></td><td>Filter</td><td>Add a second login step after a correct password or a Google or Facebook login. Return an array that describes the step, a <code>WP_Error</code>, or null to log the member in.</td></tr>
+					<tr><td><code>spacebay_security_summary</code></td><td>Filter</td><td>Add data to the member's Password and security page.</td></tr>
+					<tr><td><code>spacebay_signup_catalogue</code></td><td>Filter</td><td>Add fields that can be on the signup form. Keys start with <code>field_</code>.</td></tr>
+					<tr><td><code>spacebay_signup_rows</code></td><td>Filter</td><td>Choose which signup fields are shown, which are required and their order.</td></tr>
+					<tr><td><code>spacebay_profile_field_values</code></td><td>Filter</td><td>Clean answers to extra profile fields before they are saved.</td></tr>
+					<tr><td><code>spacebay_profile_display_fields</code></td><td>Filter</td><td>Extra profile fields shown on a profile, as label and value.</td></tr>
+					<tr><td><code>spacebay_default_badges</code></td><td>Filter</td><td>Change the badges new communities start with.</td></tr>
+					<tr><td><code>spacebay_achievements</code></td><td>Filter</td><td>Change the points, level and badges shown on a profile. Receives the summary, the member ID and the viewer ID.</td></tr>
+					<tr><td><code>spacebay_event_fields</code></td><td>Filter</td><td>Add fields an event form may send, as REST argument definitions.</td></tr>
+					<tr><td><code>spacebay_event_clean</code></td><td>Filter</td><td>Add your own clean values to an event before it is saved.</td></tr>
+					<tr><td><code>spacebay_event_answer_check</code></td><td>Filter</td><td>Return a <code>WP_Error</code> to refuse an event answer, for example when the event is full.</td></tr>
+					<tr><td><code>spacebay_event_can_see_link</code></td><td>Filter</td><td>Whether the viewer may see an event's online link.</td></tr>
+					<tr><td><code>spacebay_event_data</code></td><td>Filter</td><td>Change an event as sent to the apps.</td></tr>
+					<tr><td><code>spacebay_enqueue_app</code></td><td>Action</td><td>After the portal or admin app is enqueued. Receives <code>$app</code> (<code>portal</code> or <code>admin</code>) and <code>$handle</code>. Enqueue your script here with <code>$handle</code> as a dependency.</td></tr>
+					<tr><td><code>spacebay_conversation_deleting</code></td><td>Action</td><td>Before a conversation is deleted, so you can remove your own data. Receives the conversation ID.</td></tr>
+					<tr><td><code>spacebay_admin_screens</code></td><td>Filter</td><td>Add a screen to the SpaceBay admin menu: route (for example <code>/shops</code>) =&gt; label. Add the route with <code>addRoute()</code> in the admin app. Since 1.1.0.</td></tr>
+					<tr><td><code>spacebay_member_profile</code></td><td>Filter</td><td>Add data to a member's profile page. Receives the data, the member ID and the viewer ID. Since 1.1.0.</td></tr>
+					<tr><td><code>spacebay_notification_group</code></td><td>Filter</td><td>Choose the email preference group (for example <code>moderation</code>) of your own notification actions, so they can be emailed. Since 1.1.0.</td></tr>
+				</tbody>
+			</table>
+			<p><strong>JavaScript.</strong> The portal and admin apps expose <code>window.SpaceBay</code>. Your script loads after the app script and registers before the app starts.</p>
+			<table>
+				<thead>
+					<tr><th scope="col">Name</th><th scope="col">Purpose</th></tr>
+				</thead>
+				<tbody>
+					<tr><td><code>extend( callback )</code></td><td>Register your add-on. The callback receives <code>{ app, router, config, api, area }</code> (and <code>pinia</code> in the portal) before the app mounts. <code>area</code> is <code>portal</code> or <code>admin</code>.</td></tr>
+					<tr><td><code>addSlot( name, component, { order, replace } )</code></td><td>Show a Vue component in a named slot. Lower <code>order</code> shows first; <code>replace: true</code> shows it instead of the slot's own content.</td></tr>
+					<tr><td><code>addRoute( route )</code></td><td>Add a Vue Router route.</td></tr>
+					<tr><td><code>addHook( name, fn )</code>, <code>runHook( name, ...args )</code></td><td>Run code when the app calls a hook.</td></tr>
+					<tr><td><code>addFilter( name, fn )</code>, <code>applyFilters( name, value, ...args )</code></td><td>Change a value the app passes through a filter.</td></tr>
+					<tr><td><code>Vue</code>, <code>VueRouter</code>, <code>Pinia</code></td><td>The libraries the app uses (<code>Pinia</code> in the portal only). Build your add-on with <code>vue</code>, <code>vue-router</code> and <code>pinia</code> as externals that point here, so both scripts share one copy.</td></tr>
+				</tbody>
+			</table>
+			<table>
+				<thead>
+					<tr><th scope="col">App</th><th scope="col">Slots</th><th scope="col">Hooks and filters</th></tr>
+				</thead>
+				<tbody>
+					<tr><td>Portal</td><td><code>app.layers</code>, <code>messages.header.actions</code>, <code>login.step</code>, <code>account.security</code>, <code>account.profile.fields</code>, <code>member.achievements.actions</code>, <code>event.form.fields</code>, <code>nav.items</code> (each component renders an <code>&lt;li&gt;</code>), <code>home.feed.top</code>, <code>space.posts.top</code> (receives <code>space</code>)</td><td>Hook <code>pulse</code> (receives the pulse data); filters <code>login.resume</code> and <code>member.tabs</code> (add <code>{ key, label, component }</code> profile tabs; receives <code>{ member, config }</code>; the component gets <code>member</code>)</td></tr>
+					<tr><td>Admin</td><td><code>settings.login</code>, <code>settings.signup</code>, <code>settings.messages</code>, <code>settings.events</code>, <code>settings.badges</code>, <code>admin.members</code>, and <code>settings.&lt;id&gt;</code> for sections you add</td><td>Filter <code>settings.sections</code> (add <code>{ id, icon, title }</code> sections to Settings; their content goes in slot <code>settings.&lt;id&gt;</code>, which receives the settings <code>form</code>). Routes added with <code>addRoute()</code> can set <code>meta.title</code> for the browser tab.</td></tr>
+				</tbody>
+			</table>
+			<p>A small add-on that puts a button at the top of every chat:</p>
+			<pre><code>// my-addon.php
+add_action( 'spacebay_enqueue_app', function ( $app, $handle ) {
+	if ( 'portal' === $app ) {
+		wp_enqueue_script( 'my-addon', plugins_url( 'my-addon.js', __FILE__ ), array( $handle ), '1.0.0', true );
+	}
+}, 10, 2 );
+
+// my-addon.js
+window.SpaceBay.extend( () =&gt; {
+	const { h } = window.SpaceBay.Vue;
+	const MyButton = { render: () =&gt; h( 'button', { type: 'button' }, 'Hello' ) };
+
+	window.SpaceBay.addSlot( 'messages.header.actions', MyButton, { order: 20 } );
+} );</code></pre>
+
+			<h2 id="rest">REST API</h2>
+			<p>All endpoints live under <code>/wp-json/spacebay/v1/</code> and use standard WordPress cookie authentication with the <code>X-WP-Nonce</code> header.</p>
+			<table>
+				<thead>
+					<tr><th scope="col">Endpoint</th><th scope="col">Method</th><th scope="col">Who</th></tr>
+				</thead>
+				<tbody>
+					<tr><td><code>/me</code></td><td>GET</td><td>Anyone. Returns the current member or <code>logged_in: false</code>.</td></tr>
+					<tr><td><code>/settings</code></td><td>GET, POST, PUT</td><td>Administrators.</td></tr>
+					<tr><td><code>/auth/login</code></td><td>POST</td><td>Visitors, while the community login pages are on. Returns <code>logged_in</code> with a redirect address, or a second step when an add-on asks for one (the code step of Pro).</td></tr>
+					<tr><td><code>/auth/signup</code></td><td>POST</td><td>Visitors, while signing up is on.</td></tr>
+					<tr><td><code>/auth/forgot</code>, <code>/auth/reset</code></td><td>POST</td><td>Visitors. Forgot always gives the same answer, whether the account exists or not.</td></tr>
+					<tr><td><code>/me/security</code>, <code>/me/password</code></td><td>GET, PUT</td><td>Logged-in members. Changing the password needs the current one.</td></tr>
+					<tr><td><code>/me/pulse</code></td><td>GET</td><td>Logged-in members. Unread messages and notifications, plus what add-ons add (with Pro, calls ringing for them).</td></tr>
+					<tr><td><code>/conversations</code>, <code>/conversations/{id}</code></td><td>GET, POST, PATCH</td><td>Members in the conversation. POST starts a one-to-one chat or group within the messaging rules; PATCH renames a group or mutes it.</td></tr>
+					<tr><td><code>/conversations/{id}/messages</code>, <code>/conversations/{id}/read</code></td><td>GET, POST</td><td>Members in the conversation. GET takes <code>before</code>, <code>after</code> and <code>limit</code>.</td></tr>
+					<tr><td><code>/conversations/{id}/members</code>, <code>/conversations/{id}/members/{user_id}</code></td><td>POST, DELETE</td><td>Group owner adds and removes people; anyone can remove themselves.</td></tr>
+					<tr><td><code>/messages/{id}</code></td><td>DELETE</td><td>The author, or a moderator.</td></tr>
+					<tr><td><code>/messages/recipients</code>, <code>/me/blocks</code></td><td>GET, POST</td><td>Logged-in members.</td></tr>
+					<tr><td><code>/admin/stats</code></td><td>GET</td><td>Administrators.</td></tr>
+					<tr><td><code>/spaces</code></td><td>GET, POST</td><td>GET: anyone who can open the community (only spaces they may see). POST: administrators.</td></tr>
+					<tr><td><code>/spaces/{id}</code>, <code>/spaces/slug/{slug}</code></td><td>GET, PATCH, DELETE</td><td>GET: people who may see the space. PATCH: space admins. DELETE: administrators.</td></tr>
+					<tr><td><code>/spaces/{id}/join</code>, <code>/spaces/{id}/leave</code></td><td>POST</td><td>Logged-in members.</td></tr>
+					<tr><td><code>/spaces/{id}/members</code></td><td>GET, POST</td><td>GET active members: logged-in members who may read the space, while the member directory is on (space admins always). Hidden profiles are left out. Other lists and POST (invite): space admins.</td></tr>
+					<tr><td><code>/spaces/{id}/members/{user_id}</code></td><td>PATCH, DELETE</td><td>Space admins.</td></tr>
+					<tr><td><code>/space-groups</code>, <code>/space-groups/{id}</code></td><td>POST, PATCH, DELETE</td><td>Administrators.</td></tr>
+					<tr><td><code>/members</code>, <code>/members/{id}</code></td><td>GET</td><td>Logged-in members, when the directory is on.</td></tr>
+					<tr><td><code>/feed</code></td><td>GET</td><td>Anyone who can open the community. Only posts in spaces they may read. Filters: space_id, user_id, topic, hashtag, bookmarked, search, orderby.</td></tr>
+					<tr><td><code>/posts</code></td><td>POST</td><td>Members who may post in the space.</td></tr>
+					<tr><td><code>/posts/{id}</code></td><td>GET, PATCH, DELETE</td><td>GET: readers of the space. PATCH and DELETE: the author and space moderators.</td></tr>
+					<tr><td><code>/posts/{id}/like</code>, <code>/bookmark</code>, <code>/pin</code></td><td>POST</td><td>Like: space members. Save: logged-in readers. Pin: space moderators.</td></tr>
+					<tr><td><code>/posts/{id}/comments</code></td><td>GET, POST</td><td>GET: readers of the space. POST: space members.</td></tr>
+					<tr><td><code>/comments/{id}</code>, <code>/comments/{id}/like</code></td><td>PATCH, DELETE, POST</td><td>Edit and delete: the author and space moderators. Like: space members.</td></tr>
+					<tr><td><code>/media</code></td><td>POST</td><td>Logged-in members. One image per request in the <code>file</code> field.</td></tr>
+					<tr><td><code>/topics</code>, <code>/topics/{id}</code></td><td>GET, POST, PATCH, DELETE</td><td>GET: anyone who can open the community. Changes: administrators.</td></tr>
+					<tr><td><code>/me/profile</code></td><td>GET, PATCH</td><td>Logged-in members, for their own profile.</td></tr>
+					<tr><td><code>/me/avatar</code>, <code>/me/cover</code></td><td>POST, DELETE</td><td>Logged-in members. POST one image in the <code>file</code> field.</td></tr>
+					<tr><td><code>/me/email-preferences</code></td><td>GET, PUT</td><td>Logged-in members.</td></tr>
+					<tr><td><code>/notifications</code>, <code>/notifications/count</code></td><td>GET</td><td>Logged-in members, for their own notifications. Filter: <code>unread</code>.</td></tr>
+					<tr><td><code>/notifications/read</code></td><td>POST</td><td>Logged-in members. Send <code>ids</code> or <code>all: true</code>.</td></tr>
+					<tr><td><code>/reports</code></td><td>POST</td><td>Logged-in members. <code>object_type</code> (post, comment, member), <code>object_id</code>, <code>reason</code>, optional <code>note</code>.</td></tr>
+					<tr><td><code>/moderation/counts</code>, <code>/moderation/queue</code></td><td>GET</td><td>Moderators.</td></tr>
+					<tr><td><code>/moderation/queue/{type}/{id}</code></td><td>POST</td><td>Moderators. <code>action</code>: approve or remove.</td></tr>
+					<tr><td><code>/moderation/members</code>, <code>/moderation/members/{id}</code></td><td>GET, POST</td><td>Moderators. List pending or suspended members; POST <code>status</code>: active or blocked.</td></tr>
+					<tr><td><code>/moderators</code>, <code>/moderators/{id}</code></td><td>GET, POST, DELETE</td><td>Administrators.</td></tr>
+					<tr><td><code>/admin/setup</code></td><td>GET, POST</td><td>Administrators. Setup wizard state and starter spaces.</td></tr>
+					<tr><td><code>/leaderboard</code></td><td>GET</td><td>Logged-in members, while the leaderboard is on. <code>period</code>: week, month or all; <code>limit</code> up to 50.</td></tr>
+					<tr><td><code>/me/points</code></td><td>GET</td><td>Logged-in members, their own points history. Paged.</td></tr>
+					<tr><td><code>/events</code></td><td>GET, POST</td><td>GET: anyone who can open the community; only events in spaces they may read. Filters: <code>space_id</code>, <code>when</code> (upcoming, past, range), <code>from</code> and <code>to</code> (up to 62 days), <code>rsvp=going</code>, <code>page</code>, <code>per_page</code>. POST: members who may add events in the space.</td></tr>
+					<tr><td><code>/events/{id}</code></td><td>GET, PATCH, DELETE</td><td>GET: readers of the space. PATCH and DELETE: the organizer and space moderators.</td></tr>
+					<tr><td><code>/events/{id}/cancel</code></td><td>POST</td><td>The organizer and space moderators.</td></tr>
+					<tr><td><code>/events/{id}/rsvp</code></td><td>POST</td><td>Members of the space. <code>answer</code>: going, maybe, not_going, or empty to remove it.</td></tr>
+					<tr><td><code>/events/{id}/attendees</code></td><td>GET</td><td>Readers of the space. <code>answer</code>: going or maybe. Paged.</td></tr>
+					<tr><td><code>/search</code></td><td>GET</td><td>Anyone who can open the community. Parameters: <code>q</code> (2 to 100 characters), <code>type</code> (all, posts, spaces, members), <code>page</code>.</td></tr>
+				</tbody>
+			</table>
+			<h3>Endpoints added by SpaceBay Pro <span class="pro">Pro</span></h3>
+			<p>These endpoints exist only while SpaceBay Pro is active. They use the same <code>/wp-json/spacebay/v1/</code> base.</p>
+			<table>
+				<thead>
+					<tr><th scope="col">Endpoint</th><th scope="col">Method</th><th scope="col">Who</th></tr>
+				</thead>
+				<tbody>
+					<tr><td><code>/auth/two-factor</code>, <code>/auth/two-factor/status</code>, <code>/auth/two-factor/send</code></td><td>POST</td><td>Visitors in the code step of a login.</td></tr>
+					<tr><td><code>/me/two-factor</code>, <code>/me/two-factor/app</code>, <code>/me/two-factor/email</code>, <code>/me/two-factor/confirm</code>, <code>/me/two-factor/backup-codes</code></td><td>POST, DELETE</td><td>Logged-in members, for their own account. Every change except confirm needs the current password.</td></tr>
+					<tr><td><code>/members/{id}/two-factor</code></td><td>DELETE</td><td>Administrators who may edit that user.</td></tr>
+					<tr><td><code>/conversations/{id}/calls</code>, <code>/calls/{id}</code>, <code>/calls/{id}/join|decline|leave</code>, <code>/calls/{id}/signals</code></td><td>GET, POST</td><td>People invited to the call, while calls are on.</td></tr>
+					<tr><td><code>/profile-fields</code></td><td>GET, PUT</td><td>GET: logged-in members. PUT: administrators.</td></tr>
+					<tr><td><code>/members/{id}/badges</code></td><td>POST</td><td>Admins and community moderators. <code>badge</code> (key) and <code>on</code> (true to give, false to take away).</td></tr>
+					<tr><td><code>/members/{id}/points</code></td><td>POST</td><td>Community managers. <code>points</code> (−10,000 to 10,000, not 0) and an optional <code>note</code>.</td></tr>
+					<tr><td><code>/shop/products</code>, <code>/shop/products/{id}</code>, <code>/shop/featured</code>, <code>/shop/sellers/{id}</code></td><td>GET</td><td>Anyone who can open the community, while shops are on. Only published products of open shops; sellers and admins also see their pending and rejected products.</td></tr>
+					<tr><td><code>/shop/me</code>, <code>/shop/request</code></td><td>GET, POST</td><td>Logged-in members, for their own shop.</td></tr>
+					<tr><td><code>/shop/products</code>, <code>/shop/products/{id}</code>, <code>/shop/media</code></td><td>POST, DELETE</td><td>Sellers with an open shop, for their own products (sellers can delete their own products when the shop is closed), and community managers.</td></tr>
+					<tr><td><code>/shop/admin/summary</code>, <code>/shop/admin/sellers</code>, <code>/shop/admin/sellers/{id}</code>, <code>/shop/admin/products</code>, <code>/shop/admin/products/{id}/review</code>, <code>/shop/admin/products/{id}/placement</code></td><td>GET, POST</td><td>Community managers.</td></tr>
+				</tbody>
+			</table>
+
+			<h2 id="translation">Translation</h2>
+			<p>SpaceBay is translation ready with the text domain <code>spacebay</code>. The template file is <code>languages/spacebay.pot</code>. Translate it with Poedit or Loco Translate and save files as <code>spacebay-{locale}.po/.mo</code>. Portal and admin strings also need the JSON files that Loco Translate or <code>wp i18n make-json</code> creates.</p>
+
+			<h2 id="uninstall">Deactivate and uninstall</h2>
+			<p>Deactivating keeps all data. Deleting the plugin keeps all data unless <strong>Delete all SpaceBay data when the plugin is deleted</strong> is on in Settings. When it is on, deleting removes SpaceBay tables, settings, capabilities (including the moderator capability given to single members), cached data and the uploaded images in <code>wp-content/uploads/spacebay/</code> from every site in a network.</p>
+			<p><strong>SpaceBay Pro</strong> <span class="pro">Pro</span> keeps its data the same way. When <strong>Delete all SpaceBay data when the plugin is deleted</strong> is on, deleting Pro also removes the calls tables, the custom profile fields and members' two-factor settings. With that setting off, deleting Pro keeps its data, so installing Pro again brings the features back as they were.</p>
+			<p>When a WordPress user is deleted, their SpaceBay profile, photo, cover, notifications, posts, comments, likes, images, memberships, points, badges, event answers and the events they organized are deleted too. Images uploaded but never posted are removed after a day.</p>
+
+			<h2 id="building">Building from source</h2>
+			<p>The readable source of the portal and admin apps is in <code>src/</code>. The compiled files are in <code>assets/build/</code>.</p>
+			<pre><code>npm install
+npm run build</code></pre>
+
+			<h2 id="credits">Credits</h2>
+			<table>
+				<thead>
+					<tr><th scope="col">Library</th><th scope="col">Version</th><th scope="col">Licence</th><th scope="col">Source</th></tr>
+				</thead>
+				<tbody>
+					<tr><td>Vue</td><td>3.5</td><td>MIT</td><td><a href="https://github.com/vuejs/core">github.com/vuejs/core</a></td></tr>
+					<tr><td>Vue Router</td><td>4</td><td>MIT</td><td><a href="https://github.com/vuejs/router">github.com/vuejs/router</a></td></tr>
+					<tr><td>Pinia</td><td>2</td><td>MIT</td><td><a href="https://github.com/vuejs/pinia">github.com/vuejs/pinia</a></td></tr>
+				</tbody>
+			</table>
+			<p>All icons were drawn for SpaceBay. Screenshots show a sample community with made-up members and products. Profile, cover, product and post photos in the screenshots are from <a href="https://unsplash.com">Unsplash</a> and used under the <a href="https://unsplash.com/license">Unsplash License</a>.</p>
+
+			<h2 id="changelog">Changelog</h2>
+			<h3>SpaceBay 1.1.0 and SpaceBay Pro 1.1.0</h3>
+			<ul>
+				<li>New in Pro: <a href="#shops">member shops</a>. Members ask to open a shop and add products that link to their own store. Admins approve shops and products (or publish automatically), mark trusted sellers, and show products in the main feed and in spaces. A Shop page lists every product.</li>
+				<li>Developers: new extension points in the free plugin for profile tabs, the feed, spaces, the menu, settings sections and admin screens. See <a href="#extending">Extending SpaceBay</a>.</li>
+			</ul>
+			<h3>1.3.0</h3>
+			<ul>
+				<li>Changed: SpaceBay is now free on WordPress.org. Spaces, feeds, events with RSVP, group chats, points, levels, badges and the leaderboard stay in the free plugin.</li>
+				<li>Changed: voice and video calls, two-factor login, the badge editor, giving badges and points by hand, the signup form builder, custom profile fields, event place limits and event reminders moved to <a href="#free-and-pro">SpaceBay Pro</a>. Settings and data are kept; installing Pro brings them back.</li>
+				<li>Changed: the settings section <em>Messages and calls</em> is now called <em>Messages</em>.</li>
+				<li>New: a notice on the Plugins screen, which you can dismiss, when your site used a feature that moved to Pro. The Plugins screen also has <strong>Documentation</strong> and <strong>Get Pro</strong> links.</li>
+				<li>New: the documentation is online at <a href="https://wpanchorbay.com/spacebay/docs/">wpanchorbay.com/spacebay/docs</a>.</li>
+				<li>Developers: an extension API for add-ons, with new PHP filters and actions and the <code>window.SpaceBay</code> JavaScript API. See <a href="#extending">Extending SpaceBay</a>.</li>
+			</ul>
+			<h3>1.2.0</h3>
+			<ul>
+				<li>New: points, levels and badges. Members earn points for posts, comments, likes they receive, daily visits and events they go to. You choose the points, the levels and their names, and the badges (11 ready-made, or your own with a colour, an icon and a rule).</li>
+				<li>New: leaderboard for this week, this month and all time, with a top three.</li>
+				<li>New: profiles show the member's level, progress to the next level, badges and badges still to earn, and a points history for the member.</li>
+				<li>New: admins and moderators give badges by hand from a member's profile; community managers can also add or take away points.</li>
+				<li>New: events in spaces, online or in person, with a start and end time, a place limit and answers (going, maybe, can't go).</li>
+				<li>New: Events page with upcoming events, a month calendar, the events you are going to and past events, plus an Events tab in every space and upcoming events on Home.</li>
+				<li>New: reminders before an event starts, notifications for new, changed and cancelled events, and “Add to calendar” (.ics file and Google Calendar).</li>
+				<li>New: Settings → Points and badges and Settings → Events, with email choices for event and badge notifications.</li>
+				<li>New: <code>wp spacebay demo</code> adds sample events.</li>
+				<li>New: earlier posts, comments and likes are turned into points once when you update, with their original dates.</li>
+				<li>Developers: new actions <code>spacebay_points_added</code>, <code>spacebay_badge_awarded</code>, <code>spacebay_reaction_removed</code>, <code>spacebay_event_created</code>, <code>spacebay_event_updated</code>, <code>spacebay_event_deleted</code> and <code>spacebay_event_rsvp</code>; <code>spacebay_comment_deleted</code> also passes the removed comment IDs.</li>
+			</ul>
+			<h3>1.1.0</h3>
+			<ul>
+				<li>New: community login, signup and password reset pages in your community's design.</li>
+				<li>New: signup form builder under Settings → Login and signup. Choose the fields, which are required and their order, with a live preview and an optional terms tick box.</li>
+				<li>New: two-factor authentication with an authenticator app or codes by email, backup codes, and a policy for the whole community: off, optional or required, with an option to require it for admins and moderators. It also protects the WordPress login page.</li>
+				<li>New: members change their password under Account settings → Password and security.</li>
+				<li>New: “Reset two-factor” on the WordPress Users screen and the <code>wp spacebay two-factor</code> command.</li>
+				<li>New: limits on login, code and signup attempts.</li>
+				<li>Changed: a members-only community now shows its own login page to visitors.</li>
+			</ul>
+			<h3>1.0.0</h3>
+			<ul>
+				<li>Initial release: spaces and groups, feed, comments, likes, saved posts, topics and hashtags, profiles and custom fields, member directory, private messages and group chats, voice and video calls, notifications and emails, search, moderation and reports, member approval, community moderators, setup wizard, branding, privacy export and erasure, WP-CLI sample content.</li>
+			</ul>
+
+			<h2 id="support">Support</h2>
+			<ul>
+				<li><strong>SpaceBay (free):</strong> ask in the <a href="https://wordpress.org/support/plugin/spacebay/">SpaceBay support forum on WordPress.org</a>.</li>
+				<li><strong>SpaceBay Pro:</strong> get help at <a href="https://wpanchorbay.com/spacebay-pro/">wpanchorbay.com</a>.</li>
+			</ul>
+			<p>Please include your WordPress version, PHP version, the SpaceBay (and Pro) version and the steps that cause the issue. The latest documentation is at <a href="https://wpanchorbay.com/spacebay/docs/">wpanchorbay.com/spacebay/docs</a>.</p>
+		</main>
+	</div>
+	<script src="assets/docs-search.js"></script>
+</body>
+</html>

@@ -43,6 +43,8 @@ export default defineConfig({
       description:
         "End-user and developer documentation for SpaceBay, the community plugin for WordPress, and SpaceBay Pro.",
       customCss: [
+        "@fontsource-variable/inter",
+        "./src/styles/typography.css",
         "./src/styles/home.css",
         "./src/styles/content-images.css",
         "./src/styles/badges.css",

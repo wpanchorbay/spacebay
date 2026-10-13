@@ -13,9 +13,7 @@ SpaceBay adds suggested text to **Settings → Privacy → Policy Guide**. Revie
 
 ## Images and privacy
 
-{/* update if media gating lands */}
-
-Images are stored in `wp-content/uploads/spacebay/` with random names, and your web server sends them without a login check. Anyone who has the exact link can open an image, also one posted in a private space. Photo details such as GPS location are removed when JPG, PNG and WebP images are uploaded. See [Security and limits](/spacebay/user-guide/security-and-limits/#images-and-privacy). Consider saying this in your privacy policy if your members share personal photos.
+Uploads are kept in a private folder with random file names, and the original file name is not kept. A private image is shown only to people who may see it: the members of a chat, people who can read a private space's posts, or the member who uploaded it and has not posted it yet. Everyone else, including logged-out visitors, gets "Image not found". Avatars, cover images and images in public spaces are normal public files. Photo details such as GPS location and camera are removed from every uploaded image. Images are included in the personal data export and deleted when a member is erased or SpaceBay is uninstalled. Sites on nginx need one extra rule, see [Security and limits](/spacebay/user-guide/security-and-limits/#images-and-privacy).
 
 ## What happens when a user is deleted
 

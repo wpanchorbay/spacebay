@@ -3,7 +3,7 @@ title: "Security and limits"
 description: "Permission checks, upload handling, and the limits that slow down spam and password guessing."
 ---
 
-Every REST request checks the member's permission and the WordPress nonce. Posts, comments and profile text are cleaned before they are saved and shown. Link previews only fetch public web addresses on ports 80 and 443.
+Every REST request checks the member's permission and the WordPress nonce. Posts, comments and profile text are cleaned before they are saved and shown. Link previews only fetch public web addresses on ports 80 and 443. The request goes to the public address the link resolved to, and every redirect is checked again.
 
 | Action | Limit per member |
 | --- | --- |
@@ -22,7 +22,7 @@ Logging in and signing up have their own limits, which apply to everyone:
 
 | Action | Limit |
 | --- | --- |
-| Wrong passwords for one account | 5 in 15 minutes from one network address, 20 in 15 minutes in total |
+| Wrong passwords for one account | 5 in 15 minutes from one network address, 20 in 15 minutes in total. The limit for one network address applies only after failed attempts; a correct password is never refused. |
 | Wrong login codes for one login <span class="sb-badge sb-badge--pro">Pro</span> | 5, then the member logs in again |
 | Wrong login codes for one account <span class="sb-badge sb-badge--pro">Pro</span> | 10 in 15 minutes and 30 a day. The member gets an email when the daily limit is reached. |
 | Login codes by email for one account <span class="sb-badge sb-badge--pro">Pro</span> | 10 an hour |
@@ -35,16 +35,27 @@ For the other actions, administrators are not limited. Change limits with the `s
 
 ## Images and privacy
 
-{/* update if media gating lands */}
+Uploads are stored in a private folder, `wp-content/uploads/spacebay-private/<random folder>/`. Files get random names. The original file name is never kept. Your web server does not send files from this folder directly.
 
-Images that members upload are stored in `wp-content/uploads/spacebay/YYYY/MM/`. Each file name starts with a random 12-character prefix, so addresses cannot be guessed easily.
+A private image is shown through a checked address, `your-site-url/?spacebay_media=ID`. SpaceBay sends it only to people who may see it:
 
-SpaceBay does not check who is asking for an image. Your web server sends the file directly, with no login check. **Anyone who has the exact link can open the image**, even if they are not logged in and even if the image was posted in a private space. An empty `index.php` file in each folder stops anyone listing the images in a folder.
+- **Images in chats:** only the members of that conversation. Group members see only images in messages sent since they joined.
+- **Images in private spaces:** only people who can read the post.
+- **An upload not yet posted:** only the member who uploaded it.
+- **A reported message:** staff can see its images.
+
+Logged-out visitors and other members get "Image not found".
+
+Only avatars, cover images and images in posts of public, published spaces are normal public files. If a space turns private or is archived, its images move to private storage. They move back if the space opens again.
+
+**nginx sites need one rule.** Apache and IIS are handled by files the plugin writes in the folder. nginx ignores those files, so add this to your server config:
+
+```nginx
+location ^~ /wp-content/uploads/spacebay-private/ { internal; }
+```
 
 What SpaceBay does to protect members:
 
-- JPG, PNG and WebP images are saved again on upload. This removes hidden data and photo details such as the GPS location.
+- Photo details such as GPS location and camera are removed from every uploaded image.
 - GIF images keep their animation, so they are checked for hidden code instead, and refused if any is found.
 - Images that are uploaded but never posted are removed after a day. Images are deleted with their post, and with their member.
-
-If your community needs to keep images private, tell members not to upload sensitive ones.

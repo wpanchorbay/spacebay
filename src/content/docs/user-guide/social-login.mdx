@@ -5,7 +5,7 @@ description: "Let members log in and sign up with Google or Facebook, and how to
 
 Members can log in and sign up with their Google or Facebook account. The login and signup pages then show **Continue with Google** and **Continue with Facebook** under the form. Both are off until you turn them on.
 
-- **One button for both.** Someone who used the button before is logged in. Someone whose email address already belongs to a member is logged in to that account, when Google or Facebook has confirmed the address. Anyone else gets a new account.
+- **One button for both.** Someone who used the button before is logged in. Someone whose email address already belongs to a member is logged in to that account, when Google or Facebook has confirmed the address and the account's email counts as verified. If it does not, the member is asked to log in with their password first (or to use **Forgot your password?**). An email counts as verified when the account was created by a social login or after a password reset. Changing the email address makes it unverified again. Anyone else gets a new account.
 - **Administrators and community managers log in with their password.** The buttons never connect to an account that can manage the site or the community, so a Google or Facebook account cannot be used to get into one.
 - **When signing up is closed** (Let people sign up is off), the buttons only log in existing members. A new person sees a message that the community is not open for new members.
 - **New accounts** get the name and email address from Google or Facebook and a password nobody knows. To also log in with a password, the member uses **Forgot your password?** once. New accounts follow your settings like any signup, including **Approve new members**.

@@ -1,55 +1,77 @@
-# Screenshots retake (2026-10-13)
+# Retaking the screenshots
 
-Retaken against the dev plugin at http://127.0.0.1:8182 (new brand colour #3f22ff, Phosphor icons, three-column
-layout, borderless composer, no focus rings, nested comments, admin brand bar). Capture only, no pixel editing.
-Chrome via Playwright, gravatar blocked, WordPress admin bar hidden on community pages, light theme unless the file is
-dark. Mobile: `portal-mobile` is 375x812 at 2x (750x1624), the other mobile files are 390x844 at 1x.
+How the screenshots in `public/assets/screenshots/` are made, so they can be taken again. The file names and sizes
+are in `SCREENSHOTS.md`; keep them. Capture only, no pixel editing.
 
-## Retaken: 42 files, same names, exact sizes from SCREENSHOTS.md
+## Where the tools live
 
-account-emails, account-profile, admin-dashboard, admin-email-settings, admin-moderation-settings,
-admin-moderators, admin-points-settings, admin-settings, admin-spaces, admin-topics, bell-open, comments,
-composer, composer-pending, event-page, events-calendar, feed-post, leaderboard, login, member-profile, messages,
-mobile-bell-dark, mobile-events, mobile-feed-dark, mobile-moderation-dark, moderation-queue, moderation-reports,
-notifications-page, pending-member, portal-admin-light, portal-dark, portal-manage, portal-members, portal-mobile,
-portal-space-dark-mobile, portal-spaces, profile-badges, report-dialog, search-all, setup-2, setup-3, space-feed.
+Everything is in `/home/forhad/projects/spacebay-demo/`:
 
-## Skipped: old file left untouched (7)
+- `seed/`: the PHP seed scripts (`boot.php` shared setup, then `seed1.php` to `seed4.php`, plus `fix.php`) and
+  `make_posts.py` with `posts.json`. Run each with `wp eval-file`, in order.
+  1. `seed1.php`: members, profiles, avatars, covers, spaces, topics.
+  2. `seed2.php`: posts, comments and likes over the last two weeks.
+  3. `seed3.php`: events, chats, reports, points and badges.
+  4. `seed4.php`: live activity aimed at Emma, so the bell has content.
+- `people.json`: the 31 members (login, name, headline, location, bio, avatar look).
+- `avatars/`, `covers/`, `banners/`, `images/`, `shop/`: the artwork the seed uploads.
+- `shots/`: the Playwright scripts (`lib.mjs` holds the shared setup; the others take the shots).
+- `out/`: where the shots land (set `OUT` to change it).
 
-All need SpaceBay Pro, which is not installed on the test site:
+The scripts expect the dev site at `http://127.0.0.1:8182`, a Chrome at `/usr/bin/google-chrome`, and Playwright
+from the Playwright MCP install (see `shots/lib.mjs`).
 
-- `plugins-row.png` (needs Pro active in the plugin list)
-- `messages-settings.png` (Messages settings with the Pro call settings)
-- `admin-profile-fields.png`, `shop-admin.png`, `shop-page.png`, `admin-login-settings.png`, `account-security.png`
-  (pages under `pro/`)
+## The demo community
 
-These still show the old look and should be retaken once Pro is available.
+- Name: **Creators Hub**. Site time zone `Europe/London`. Brand colour `#3f22ff`. English, light theme unless the
+  file is a dark one.
+- 31 members with English names. Their avatars are illustrations made with DiceBear "avataaars" by Pablo Stanley
+  (free for commercial use; credit DiceBear and Pablo Stanley wherever the avatars are published). The covers, post
+  images and other illustrations were made by Kolpona.
+- 8 spaces: Announcements, General, Introductions, Showcase, Product Ideas, Events & Meetups, Photography Club
+  (private) and Beta Testers (secret).
+- Profile fields: Company, Role and Portfolio.
+- Two-factor sign-in is optional. Voice and video calls are on.
 
-## Test-site data I changed or created
+## Demo accounts
 
-- Settings: community name and welcome title set to "Creators Hub" (was "Green Hub"); WordPress site title set to
-  "Creators Hub" (the admin bar shows it). `signup_enabled` was set to 1 for the login shot and put back to 0.
-- Mina Rahman (user 1) bio changed to "I look after Creators Hub. Say hello in Introductions and ask me anything about
-  the community."
-- Post 42 (a leftover test post, "nest-1791900242011", with comments 74 and 75) was edited into "Say hello to this
-  week's new members". Delete was refused, so it stays. Junk comments 73 ("cache check comment" on post 32), 74 and 75
-  are leftover test data and can be deleted.
-- Reports on post 19 (from users 2 and 3, spam; the post is now auto-hidden) and a member report on user 22 by user 5,
-  for the moderation shots.
-- Maya Patel (user 2) added as a community moderator (admin-moderators).
-- Throwaway passwords set: `demo_grace` (user 24) and `demo_ethan` (user 25). Ethan posted one real-looking first post
-  ("Golden hour at the city reservoir"), now held in the moderation queue (composer-pending).
-- Two images uploaded to the media library by the composer shot (not posted).
-- No `tmp_` users created.
+These are for a throwaway local demo site only. Never use them anywhere else.
 
-## Caveats
+| Account | Role | Password |
+| --- | --- | --- |
+| `emma` (Emma Clarke) | Administrator | `admin-test-pw` |
+| every other member | Member | `demo-pw-2026` |
 
-- `pngquant` is not installed, so PNGs are not optimised (49 files, 6.6 MB in total).
-- `member-profile`: the About section is below the fold at 900 px high.
-- `account-emails` shows 8 notification checkboxes, not 4.
-- `portal-space-dark-mobile` shows Events, Members and Manage tabs because Mina is an administrator of every space.
-- `portal-manage` is Photography Club (private): join request from Ethan, a pending invitation to Isabel Garcia, space
-  details; the 1755 px height cuts off the Save button.
-- Admin shots show the real WP admin bar and menu at 127.0.0.1:8182, as the old ones did.
-- `composer-pending`: the mouse rests over the Showcase chip, so it looks slightly darker.
-- Header greeting is "Hi, Mina" text only (no emoji) in the new build.
+`shots/lib.mjs` logs in with these when a script names a user.
+
+## Free and Pro shots
+
+- **Free-plugin screenshots are taken with SpaceBay Pro deactivated.** Pro adds a **Shop** item to the navigation and
+  shop strips to some pages, and the free docs must not show them.
+- **Pro screenshots are taken with SpaceBay Pro active.** These are `plugins-row`, `messages-settings`,
+  `admin-profile-fields`, `shop-admin`, `shop-page`, `admin-login-settings` and `account-security`.
+- Pro data: the shop **Mercer Print Studio** (owner Sam Mercer) with 3 products and 1 more awaiting review, and 1
+  pending shop request. This data is not in `seed/`; it is set up on the site before the Pro shots.
+
+## Rules for every shot
+
+- Chrome through Playwright, gravatar and web fonts blocked, the WordPress admin bar hidden on community pages.
+- Desktop shots are 1440x900 unless `SCREENSHOTS.md` says otherwise. `portal-mobile` is 375x812 at 2x (750x1624);
+  the other phone shots are 390x844 at 1x.
+- Dates in the data are relative to today, so seed again and take all shots on the same day.
+- Look at each file before it goes in: no real names, no emoji in the header greeting, nothing cut off.
+
+## What the shots should show now
+
+- `comments`: nested replies, each indented under the comment it answers.
+- `account-emails`: the **Email me when…** list with all 8 tick boxes (messages, events and points on).
+- `space-feed`: a space with a pinned post. The "From our members' shops" strip is Pro, so it is not in free shots.
+- `messages`: an open group chat.
+- `events-calendar`: the Calendar tab with a month calendar.
+- `composer`: the title field, the text, two images, topics and the space picker.
+
+## Before you publish
+
+- Remove the demo site's leftover test posts and comments, and any extra users made for a shot.
+- Run an image optimiser on the PNGs if one is installed (`pngquant` was not on the last machine).
+- Update `SCREENSHOTS.md` if a "Should show" cell no longer matches.

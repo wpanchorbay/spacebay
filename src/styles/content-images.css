@@ -15,6 +15,16 @@
   border: none;
 }
 
+/* ── Phone screenshots: a fixed height, centred, instead of the full column width ── */
+
+.sl-markdown-content img[src*="mobile"] {
+  display: block;
+  width: auto;
+  height: auto;
+  max-height: 520px;
+  margin: 1rem auto;
+}
+
 /* ── Lightbox trigger cursor ── */
 
 .sl-markdown-content img[data-lightbox="true"] {

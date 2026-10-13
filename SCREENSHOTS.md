@@ -18,20 +18,20 @@ Replace a file in `public/assets/screenshots/` with a new one of the same name a
 | `pro/voice-and-video-calls` | `messages-settings.png` | The Messages settings with the call settings of SpaceBay Pro | 1206x1408 |
 | `user-guide/community-portal` | `portal-dark.png` | The portal in dark mode | 1440x900 |
 | `user-guide/community-portal` | `portal-mobile.png` | The portal on a phone | 750x1624 |
-| `user-guide/events` | `events-calendar.png` | The Events page showing a month calendar with events | 1440x900 |
+| `user-guide/events` | `events-calendar.png` | The Events page on the Calendar tab, a month calendar with events | 1440x900 |
 | `user-guide/events` | `event-page.png` | An event page with time, place, answers and calendar buttons | 1440x900 |
 | `user-guide/events` | `mobile-events.png` | Upcoming events on a phone | 390x844 |
 | `user-guide/feed-and-posts` | `feed-post.png` | The home feed with the post box and a post with two images | 1440x900 |
 | `user-guide/feed-and-posts` | `composer.png` | Writing a post with images, a topic and a mention | 1440x900 |
-| `user-guide/feed-and-posts` | `space-feed.png` | A space feed with a pinned post and a video | 1440x2003 |
-| `user-guide/feed-and-posts` | `comments.png` | A post with a comment and a reply | 1440x900 |
+| `user-guide/feed-and-posts` | `space-feed.png` | A space feed with a pinned post | 1440x2003 |
+| `user-guide/feed-and-posts` | `comments.png` | A post with a comment and nested replies | 1440x900 |
 | `user-guide/feed-and-posts` | `admin-topics.png` | The Topics screen in the admin | 1440x900 |
 | `user-guide/feed-and-posts` | `mobile-feed-dark.png` | The feed on a phone in dark mode | 390x844 |
 | `user-guide/login-and-signup` | `login.png` | The community login page with email, password and a link to create an account | 1440x900 |
 | `user-guide/member-approval-and-moderators` | `pending-member.png` | The message a new member sees while waiting for approval | 1440x900 |
 | `user-guide/member-approval-and-moderators` | `mobile-moderation-dark.png` | New members waiting for approval on a phone in dark mode | 390x844 |
 | `user-guide/member-approval-and-moderators` | `admin-moderators.png` | The Community moderators card with an administrator and a moderator | 1192x329 |
-| `user-guide/messages` | `messages.png` | The Messages page with a conversation list and an open chat | 1366x860 |
+| `user-guide/messages` | `messages.png` | The Messages page with a list of chats and an open group chat | 1366x860 |
 | `user-guide/moderation` | `moderation-queue.png` | The Moderation page with a first post and a comment waiting for review | 1440x945 |
 | `user-guide/moderation` | `composer-pending.png` | The post box with a message that the post will appear after approval | 1440x900 |
 | `user-guide/moderation` | `admin-moderation-settings.png` | The Moderation section of the settings screen | 820x853 |
@@ -39,7 +39,7 @@ Replace a file in `public/assets/screenshots/` with a new one of the same name a
 | `user-guide/moderation` | `moderation-reports.png` | A post hidden after two spam reports, and a reported member | 1440x967 |
 | `user-guide/notifications` | `bell-open.png` | The notification bell open with a mention notification | 1440x900 |
 | `user-guide/notifications` | `notifications-page.png` | The Notifications page with unread notifications | 1440x900 |
-| `user-guide/notifications` | `account-emails.png` | Email notification choices with four checkboxes | 1440x900 |
+| `user-guide/notifications` | `account-emails.png` | The Email me when list with eight tick boxes | 1440x900 |
 | `user-guide/notifications` | `admin-email-settings.png` | The Emails section of the settings screen | 1440x900 |
 | `user-guide/notifications` | `mobile-bell-dark.png` | Notifications on a phone in dark mode | 390x844 |
 | `user-guide/points-badges-and-leaderboard` | `admin-points-settings.png` | The Points and badges settings with point values, level names and the badge list | 1440x900 |

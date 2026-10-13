@@ -298,11 +298,6 @@ html[data-has-hero] body {
 .license-footer-logo img {
     width: min(280px, 78vw);
     height: auto;
-    filter: drop-shadow(0 4px 12px rgba(21, 128, 61, 0.15));
-}
-
-:root[data-theme="dark"] .license-footer-logo img {
-    filter: drop-shadow(0 4px 16px rgba(127, 140, 255, 0.25));
 }
 
 .license-footer-tagline {

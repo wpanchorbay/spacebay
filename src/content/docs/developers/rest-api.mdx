@@ -12,7 +12,9 @@ All endpoints live under `/wp-json/spacebay/v1/` and use standard WordPress cook
 | `/auth/login` | POST | Visitors, while the community login pages are on. Returns `logged_in` with a redirect address, or a second step when an add-on asks for one (the code step of Pro). |
 | `/auth/signup` | POST | Visitors, while signing up is on. |
 | `/auth/forgot`, `/auth/reset` | POST | Visitors. Forgot always gives the same answer, whether the account exists or not. |
+| `/auth/social/{provider}`, `/auth/social/{provider}/callback` | GET | Visitors, while that provider (`google` or `facebook`) is switched on and has its keys; otherwise the route answers 404. The first sends the browser to the provider and takes an optional `redirect_to`. The second is the address the provider sends the visitor back to; it logs them in (or asks for a second step) and redirects to the portal. These are browser redirects, not JSON calls. |
 | `/me/security`, `/me/password` | GET, PUT | Logged-in members. Changing the password needs the current one. |
+| `/me/stats` | GET | Logged-in members. Their own activity totals: posts, comments, likes received and joined spaces. |
 | `/me/pulse` | GET | Logged-in members. Unread messages and notifications, plus what add-ons add (with Pro, calls ringing for them). |
 | `/conversations`, `/conversations/{id}` | GET, POST, PATCH | Members in the conversation. POST starts a one-to-one chat or group within the messaging rules; PATCH renames a group or mutes it. |
 | `/conversations/{id}/messages`, `/conversations/{id}/read` | GET, POST | Members in the conversation. GET takes `before`, `after` and `limit`. |
@@ -26,6 +28,7 @@ All endpoints live under `/wp-json/spacebay/v1/` and use standard WordPress cook
 | `/spaces/{id}/members` | GET, POST | GET active members: logged-in members who may read the space, while the member directory is on (space admins always). Hidden profiles are left out. Other lists and POST (invite): space admins. |
 | `/spaces/{id}/members/{user_id}` | PATCH, DELETE | Space admins. |
 | `/space-groups`, `/space-groups/{id}` | POST, PATCH, DELETE | Administrators. |
+| `/spaces/reorder`, `/space-groups/reorder` | POST | Administrators. Send `ids`, a list of IDs in the new order. |
 | `/members`, `/members/{id}` | GET | Logged-in members, when the directory is on. |
 | `/feed` | GET | Anyone who can open the community. Only posts in spaces they may read. Filters: space_id, user_id, topic, hashtag, bookmarked, search, orderby. The `X-WP-Total` header is the exact number of posts; send `count_total=false` (since 1.0.0, what the portal does) to skip that count on large communities: the header then gives the posts up to this page, plus one when another page follows. |
 | `/posts` | POST | Members who may post in the space. |
@@ -40,7 +43,7 @@ All endpoints live under `/wp-json/spacebay/v1/` and use standard WordPress cook
 | `/me/email-preferences` | GET, PUT | Logged-in members. |
 | `/notifications`, `/notifications/count` | GET | Logged-in members, for their own notifications. Filter: `unread`. |
 | `/notifications/read` | POST | Logged-in members. Send `ids` or `all: true`. |
-| `/reports` | POST | Logged-in members. `object_type` (post, comment, member), `object_id`, `reason`, optional `note`. |
+| `/reports` | POST | Logged-in members. `object_type` (post, comment, member, message), `object_id`, `reason`, optional `note`. |
 | `/moderation/counts`, `/moderation/queue` | GET | Moderators. |
 | `/moderation/queue/{type}/{id}` | POST | Moderators. `action`: approve or remove. |
 | `/moderation/members`, `/moderation/members/{id}` | GET, POST | Moderators. List pending or suspended members; POST `status`: active or blocked. |

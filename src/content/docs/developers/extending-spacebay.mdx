@@ -51,6 +51,15 @@ Add-ons such as SpaceBay Pro can add features to the portal, the admin screens, 
 | Portal | `app.layers`, `messages.header.actions`, `login.step`, `account.security`, `account.profile.fields`, `member.achievements.actions`, `event.form.fields`, `nav.items` (each component renders an `<li>`), `home.feed.top`, `space.posts.top` (receives `space`) | Hook `pulse` (receives the pulse data); filters `login.resume` and `member.tabs` (add `{ key, label, component }` profile tabs; receives `{ member, config }`; the component gets `member`) |
 | Admin | `settings.login`, `settings.signup`, `settings.messages`, `settings.events`, `settings.badges`, `admin.members`, and `settings.<id>` for sections you add | Filter `settings.sections` (add `{ id, icon, title }` sections to Settings; their content goes in slot `settings.<id>`, which receives the settings `form`). Routes added with `addRoute()` can set `meta.title` for the browser tab. |
 
+**Check the extension version.** SpaceBay defines the constant `SPACEBAY_EXTENSION_API`, a whole number that is the version of the extension points on this page. It is raised whenever an extension point is added or changed. The current value is `2`. It is separate from `SPACEBAY_VERSION`, because a build can have the same plugin version and still lack a hook. Check it before your add-on registers anything, and show an admin notice instead of running when the constant is missing or too low. SpaceBay Pro does this, and requires the lowest value that has the hooks it uses:
+
+```php
+if ( ! defined( 'SPACEBAY_EXTENSION_API' ) || (int) SPACEBAY_EXTENSION_API < 2 ) {
+	// Show an admin notice and stop. Do not add your hooks.
+	return;
+}
+```
+
 A small add-on that puts a button at the top of every chat:
 
 ```php

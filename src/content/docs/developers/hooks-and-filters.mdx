@@ -61,10 +61,19 @@ Hooks marked <span class="sb-badge sb-badge--pro">Pro</span> come from SpaceBay 
 | `spacebay_member_pending` | Action | When a new member waits for approval. |
 | `spacebay_member_status_changed` | Action | After a member is approved, suspended or restored. |
 | `spacebay_link_preview_allowed` | Filter | Return false to stop link previews for a URL. |
+| `spacebay_link_preview_resolve` | Filter | Replace the DNS lookup SpaceBay does before it fetches a link preview, mainly for tests. Receives `null` and the host name. Return an array of IP addresses to use them, or leave `null` to ask DNS. Not called when the host is already an IP address. |
+| `spacebay_media_can_view` | Filter | Whether a viewer may see a private image. Receives the answer SpaceBay worked out (`bool`), the media row (`array`) and the viewer's user ID (`0` for a visitor). Return true or false. |
+| `spacebay_media_is_private` | Filter | Whether the images attached to an object are private files, served only to people allowed to read the object. Receives the answer SpaceBay worked out (`bool`), the object type (for example `post` or `message`) and the object ID. Message images are always private. Post images are private unless the space is public and published and the community is not set to members only. |
 | `spacebay_rate_limit` | Filter | Change how many posts, comments or uploads a member may send per minute. |
 | `spacebay_leaderboard_cache_seconds` | Filter | How long the weekly and monthly leaderboards are kept before they are added up again. Receives the seconds (300) and the period (`week` or `month`). Return 0 to add them up on every view. Since 1.0.0. |
 | `spacebay_comment_max_depth` | Filter | The deepest level a reply can nest. A top-level comment is level 1. Receives the limit (5) and returns it; values below 1 are raised to 1. A reply to a comment on the last level is placed next to that comment. Since 1.0.0. |
 | `spacebay_bootstrap_max_bytes` | Filter | The largest response, in bytes, that SpaceBay carries inside the portal page so the first screen needs no extra requests. Receives the limit (204800, which is 200 KB). A response over the limit is left out and loaded by a normal request. Since 1.0.0. |
+| `spacebay_pro_loaded` <span class="sb-badge sb-badge--pro">Pro</span> | Action | After SpaceBay Pro has loaded. Receives nothing. |
+| `spacebay_shop_requested` <span class="sb-badge sb-badge--pro">Pro</span> | Action | After a member asks to open a shop. Receives the user ID and the status: `pending`, or `active` for community managers. |
+| `spacebay_shop_status_changed` <span class="sb-badge sb-badge--pro">Pro</span> | Action | After an administrator changed the status of a shop. Receives the user ID, the new status, the old status (an empty string when there was no shop) and the administrator's user ID. |
+| `spacebay_shop_product_saved` <span class="sb-badge sb-badge--pro">Pro</span> | Action | After a seller added a product, or edited one so that the product or its status changed. Receives the product row and `true` for a new product or `false` for an edit. |
+| `spacebay_shop_product_reviewed` <span class="sb-badge sb-badge--pro">Pro</span> | Action | After an administrator approved or rejected a product. Receives the product row after the review, the status before it and the administrator's user ID. |
+| `spacebay_shop_product_deleted` <span class="sb-badge sb-badge--pro">Pro</span> | Action | After a product was deleted. Receives the deleted product row. |
 
 ```php
 add_action( 'spacebay_settings_updated', function ( $new, $old ) {

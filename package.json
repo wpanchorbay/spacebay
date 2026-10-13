@@ -1,0 +1,24 @@
+{
+  "name": "spacebay-docs",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "End-user, developer, and AI-agent documentation for the SpaceBay community plugin for WordPress.",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.2",
+    "@astrojs/starlight": "^0.38.5",
+    "astro": "^6.2.2",
+    "sharp": "^0.34.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "typescript": "^6.0.3"
+  }
+}

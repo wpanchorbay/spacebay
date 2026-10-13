@@ -1,0 +1,58 @@
+/**
+ * SpaceBay docs — reusable inline badges.
+ *
+ * Usage (works in both .md and .mdx, no import needed):
+ *   <span class="sb-badge sb-badge--pro">Pro</span>
+ *
+ * Place at the end of a heading when the whole subsection is a Pro feature,
+ * or inline right after a Pro feature name in prose / table cells.
+ * See .agents/CONTENT_AUTHORING.md → "Feature badges".
+ */
+
+.sb-badge {
+  display: inline-block;
+  vertical-align: middle;
+  margin-inline-start: 0.4em;
+  padding: 0.12em 0.5em;
+  border-radius: 999px;
+  font-size: 0.7em;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  /* Keep the badge from inheriting heading/link color or underline. */
+  text-decoration: none;
+  translate: 0 -0.05em;
+}
+
+/* A badge used inside a heading should not scale oddly with the heading. */
+:is(h1, h2, h3, h4, h5, h6) .sb-badge {
+  font-size: 0.6em;
+}
+
+/* "Pro" — premium amber/gold. Tuned for the light theme by default. */
+.sb-badge--pro {
+  color: #7a4b00;
+  background: linear-gradient(180deg, #ffe08a 0%, #ffcf4d 100%);
+  border-color: #eab308;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
+}
+
+/* Dark theme (Starlight stamps data-theme="dark" on <html>; also honor OS pref). */
+:root[data-theme="dark"] .sb-badge--pro {
+  color: #ffe9b0;
+  background: linear-gradient(180deg, rgba(234, 179, 8, 0.22) 0%, rgba(202, 138, 4, 0.28) 100%);
+  border-color: rgba(234, 179, 8, 0.55);
+  box-shadow: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .sb-badge--pro {
+    color: #ffe9b0;
+    background: linear-gradient(180deg, rgba(234, 179, 8, 0.22) 0%, rgba(202, 138, 4, 0.28) 100%);
+    border-color: rgba(234, 179, 8, 0.55);
+    box-shadow: none;
+  }
+}

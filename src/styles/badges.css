@@ -3,6 +3,7 @@
  *
  * Usage (works in both .md and .mdx, no import needed):
  *   <span class="sb-badge sb-badge--pro">Pro</span>
+ *   <span class="sb-badge sb-badge--since">Since 1.1.0</span>
  *
  * Place at the end of a heading when the whole subsection is a Pro feature,
  * or inline right after a Pro feature name in prose / table cells.
@@ -54,5 +55,26 @@
     background: linear-gradient(180deg, rgba(234, 179, 8, 0.22) 0%, rgba(202, 138, 4, 0.28) 100%);
     border-color: rgba(234, 179, 8, 0.55);
     box-shadow: none;
+  }
+}
+
+/* "Since x.y.z": marks a feature that arrived after 1.0.0. */
+.sb-badge--since {
+  color: #3f22ff;
+  background: #eeebff;
+  border-color: #d5ceff;
+}
+
+:root[data-theme="dark"] .sb-badge--since {
+  color: #c9c0ff;
+  background: rgba(63, 34, 255, 0.22);
+  border-color: rgba(138, 120, 255, 0.5);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .sb-badge--since {
+    color: #c9c0ff;
+    background: rgba(63, 34, 255, 0.22);
+    border-color: rgba(138, 120, 255, 0.5);
   }
 }

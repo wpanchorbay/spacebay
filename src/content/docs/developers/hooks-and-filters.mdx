@@ -1,0 +1,75 @@
+---
+title: "Hooks and filters"
+description: "Every PHP action and filter SpaceBay fires, with what it receives."
+---
+
+Hooks marked <span class="sb-badge sb-badge--pro">Pro</span> come from SpaceBay Pro and only fire while it is active.
+
+| Hook | Type | Description |
+| --- | --- | --- |
+| `spacebay_loaded` | Action | After every component is loaded. |
+| `spacebay_installed` | Action | After install or database upgrade on a site. |
+| `spacebay_settings_updated` | Action | After settings are saved. Receives new and old settings. |
+| `spacebay_settings_schema` | Filter | Add your own settings. See [Extending SpaceBay](/spacebay/developers/extending-spacebay/). |
+| `spacebay_rest_controllers` | Filter | Add REST controllers that extend `SpaceBay\Rest\Controller`. |
+| `spacebay_portal_template` | Filter | Change the template file used for the portal. |
+| `spacebay_member_signed_up` | Action | After someone created an account on the signup page. Receives the user ID and the checked form values (without the password). |
+| `spacebay_two_factor_enabled` <span class="sb-badge sb-badge--pro">Pro</span> | Action | After a member turned on two-factor authentication. Receives the user ID and the method (`app` or `email`). |
+| `spacebay_two_factor_disabled` <span class="sb-badge sb-badge--pro">Pro</span> | Action | After two-factor authentication was removed from an account by the member or an administrator. Receives the user ID. |
+| `spacebay_account_email` | Filter | Change an account email (login code, password reset, welcome) before it is sent. Receives the email parts, the user ID and the parts it was built from. |
+| `spacebay_auth_attempts` | Filter | Change how many login, signup or code attempts are allowed. Receives the limit and the action name. |
+| `spacebay_client_ip` | Filter | Return the visitor's real network address when your site is behind a proxy or CDN. |
+| `spacebay_space_created` | Action | After a space is created. Receives the space ID and creator ID. |
+| `spacebay_space_updated` | Action | After a space is edited. Receives the space ID and changed fields. |
+| `spacebay_space_deleted` | Action | After a space or group is deleted. Receives the deleted row. |
+| `spacebay_membership_changed` | Action | After someone joins, asks to join, is approved, invited, blocked or gets a new role. |
+| `spacebay_membership_removed` | Action | After someone leaves or is removed from a space. |
+| `spacebay_space_member_invited` | Action | After a space admin invites or adds someone. |
+| `spacebay_member_directory_args` | Filter | Change the WP_User_Query arguments of the member directory. |
+| `spacebay_can_message` | Filter | Whether one member may message another. Receives the decision, sender ID and recipient ID. |
+| `spacebay_message_sent` | Action | After a private message is sent. Receives the message, conversation and recipient IDs. |
+| `spacebay_message_email_delay` | Filter | Seconds a message stays unread before the reminder email (900 by default). |
+| `spacebay_message_email_parts` | Filter | Change the unread-messages email (to, subject, message, headers). |
+| `spacebay_call_started` <span class="sb-badge sb-badge--pro">Pro</span> | Action | After a member starts a call. Receives the call and the conversation. |
+| `spacebay_call_ice_servers` <span class="sb-badge sb-badge--pro">Pro</span> | Filter | Change the STUN/TURN servers sent to browsers, for example to create short-lived TURN credentials per member. |
+| `spacebay_member_stats` | Filter | Change the activity totals (posts, comments, likes, spaces) shown on a member's home page. Receives the totals and the member ID. |
+| `spacebay_post_created` | Action | After a post is published. Receives the post and the IDs of mentioned members. |
+| `spacebay_post_updated` | Action | After a post is edited. |
+| `spacebay_post_deleted` | Action | After a post is deleted. |
+| `spacebay_comment_created` | Action | After a comment is added. Receives the comment, the post and mentioned member IDs. |
+| `spacebay_comment_deleted` | Action | After a comment and its replies are deleted. Receives the comment and the IDs of every removed comment. |
+| `spacebay_reaction_added` | Action | After a like or save. |
+| `spacebay_reaction_removed` | Action | After a like or save is removed. |
+| `spacebay_points_added` | Action | After points are added or taken away. Receives the user ID, the points, the reason (`post`, `comment`, `like`, `daily`, `event`, `manual`), the total before and the total after. |
+| `spacebay_badge_awarded` | Action | After a member gets a badge. Receives the user ID, badge key, the ID of the person who gave it (0 when earned), the row ID and whether a notification is sent. |
+| `spacebay_event_created` | Action | After an event is added. Receives the event and the space. |
+| `spacebay_event_updated` | Action | After an event is changed. Receives the new and the old event. |
+| `spacebay_event_deleted` | Action | After an event is deleted. Receives the deleted event. |
+| `spacebay_event_rsvp` | Action | After a member answers an event. Receives the event, the user ID, the new answer (empty when removed) and the previous answer. |
+| `spacebay_profile_updated` | Action | After a member saves their profile. Receives the user ID and the saved fields. |
+| `spacebay_create_notification` | Filter | Return false to skip a notification. Receives the recipient ID, action key and actor ID. |
+| `spacebay_notification_created` | Action | After a notification is stored. Receives the notification ID, recipient ID and action key. |
+| `spacebay_notification_text` | Filter | Text for custom notification actions. Receives the text, action, actor name and stored data. |
+| `spacebay_notification_email` | Filter | Change the recipient, subject, message or headers of a notification email before it is sent. |
+| `spacebay_email_preference_defaults` | Filter | Change which emails new members get by default. |
+| `spacebay_blocked_words` | Filter | Change the list of blocked words. |
+| `spacebay_hold_content` | Filter | Return a reason key to hold a post or comment for review, or an empty string to publish it. |
+| `spacebay_content_held` | Action | After a post or comment is held for review. |
+| `spacebay_content_reported` | Action | After a member reports a post, comment or member. |
+| `spacebay_content_approved` | Action | After a moderator approves held content. `spacebay_post_created` and `spacebay_comment_created` also fire when new content is approved. |
+| `spacebay_content_removed` | Action | Before a moderator deletes reported or held content. |
+| `spacebay_member_pending` | Action | When a new member waits for approval. |
+| `spacebay_member_status_changed` | Action | After a member is approved, suspended or restored. |
+| `spacebay_link_preview_allowed` | Filter | Return false to stop link previews for a URL. |
+| `spacebay_rate_limit` | Filter | Change how many posts, comments or uploads a member may send per minute. |
+| `spacebay_leaderboard_cache_seconds` | Filter | How long the weekly and monthly leaderboards are kept before they are added up again. Receives the seconds (300) and the period (`week` or `month`). Return 0 to add them up on every view. Since 1.0.0. |
+
+```php
+add_action( 'spacebay_settings_updated', function ( $new, $old ) {
+	if ( $new['portal_slug'] !== $old['portal_slug'] ) {
+		// The community moved to a new address.
+	}
+}, 10, 2 );
+```
+
+For hooks that add features to the portal and admin screens, see [Extending SpaceBay](/spacebay/developers/extending-spacebay/).

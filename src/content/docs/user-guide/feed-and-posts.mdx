@@ -1,0 +1,75 @@
+---
+title: "Feed and posts"
+description: "How the home feed works, writing posts with images, topics and mentions, formatting, link previews, comments, likes, saved posts, topics and hashtags."
+---
+
+Members post in the spaces they belong to. The **Home** feed shows posts from every space the member can read, newest first; **Recent activity** puts posts with new comments first. Each space has its own feed on its **Posts** tab, where pinned posts stay at the top.
+
+<img src="/spacebay/assets/screenshots/feed-post.png" alt="The home feed with the post box and a post with two images" width="1440" height="900" data-lightbox="true" />
+
+*The home feed.*
+
+## Writing a post
+
+- Click the post box, write, choose a space and press **Post**. <kbd>Ctrl</kbd> or <kbd>Cmd</kbd> + <kbd>Enter</kbd> also posts.
+- **Add title** gives the post a heading.
+- The image button adds up to 10 JPG, PNG, GIF or WebP images. Large photos are resized and their hidden data, such as GPS location, is removed.
+- Choose up to three topics.
+- Type `@` and a name to mention a member.
+
+<img src="/spacebay/assets/screenshots/composer.png" alt="Writing a post with images, a topic and a mention" width="1440" height="900" data-lightbox="true" />
+
+*The post box with images, topics and a mention.*
+
+| Type | To get |
+| --- | --- |
+| `**bold**` | **bold** |
+| `*italic*` or `_italic_` | *italic* |
+| `` `code` `` | `code` |
+| Lines starting with `- ` or `1. ` | A list |
+| Lines starting with `> ` | A quote |
+| `@name` | A mention linking to the member |
+| `#word` | A hashtag |
+| A web address | A link |
+
+<figure class="sb-video">
+<video controls muted playsinline preload="none" poster="/spacebay/assets/videos/video-write-post.jpg" width="1280" height="720" aria-label="Video of a member writing a post with a photo">
+<source src="/spacebay/assets/videos/video-write-post.mp4" type="video/mp4" />
+<source src="/spacebay/assets/videos/video-write-post.webm" type="video/webm" />
+</video>
+<figcaption>Video (17 s): writing a post with a photo and a topic.</figcaption>
+</figure>
+
+## Link previews and videos
+
+YouTube and Vimeo links show a video player. Nothing is loaded from YouTube or Vimeo until someone presses play. Other links show a preview card with the page title, description and image when **Show link previews** is on in Settings. To build the card, your site requests the linked page once and stores the result for a day. Turn the setting off if you do not want your site to contact linked websites.
+
+## Who can post
+
+Active members of a space can post. In a space's details, **Who can start posts** can be set to **Only space admins and moderators**, which suits announcement spaces; members can still like and comment. Authors can edit and delete their own posts. Space admins, moderators and WordPress administrators can edit, delete and pin any post in the space.
+
+<img src="/spacebay/assets/screenshots/space-feed.png" alt="A space feed with a pinned post and a video" width="1440" height="2003" data-lightbox="true" />
+
+*A space feed with a pinned post and a click-to-play video.*
+
+## Comments, likes and saved posts
+
+Members of a space comment on its posts and reply to comments. Replies stay one level deep, so conversations remain easy to follow. Members can like posts and comments, and **Save** any post they can read; saved posts appear on the **Saved** page, which only they can see.
+
+<img src="/spacebay/assets/screenshots/comments.png" alt="A post with a comment and a reply" width="1440" height="900" data-lightbox="true" />
+
+*Comments and replies.*
+
+To slow down spam, a member can publish 5 posts and 20 comments per minute. WordPress administrators are not limited. Developers can change the limits with the `spacebay_rate_limit` filter.
+
+## Topics and hashtags
+
+Create topics such as Questions, Ideas or Events in **SpaceBay → Topics**. Members add up to three topics to a post, and everyone can filter the home feed by topic. Hashtags are created automatically from `#words` in posts; clicking one shows every post with that hashtag.
+
+<img src="/spacebay/assets/screenshots/admin-topics.png" alt="The Topics screen in the admin" width="1440" height="900" data-lightbox="true" />
+
+*SpaceBay → Topics.*
+
+<img src="/spacebay/assets/screenshots/mobile-feed-dark.png" alt="The feed on a phone in dark mode" width="390" height="844" data-lightbox="true" />
+
+*The feed on a phone, in dark mode.*

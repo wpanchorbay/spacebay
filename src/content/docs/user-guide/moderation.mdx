@@ -1,0 +1,51 @@
+---
+title: "Moderation and reports"
+description: "The Moderation page, content held for review, blocked words, and reports from members."
+---
+
+Community moderators and administrators see **Moderation** in the community sidebar, with a red number when something needs a decision. The page has three tabs: **To review**, **New members** and **Suspended**.
+
+<figure class="sb-video">
+<video controls muted playsinline preload="none" poster="/spacebay/assets/videos/video-moderation.jpg" width="1280" height="720" aria-label="Video of approving content and a new member">
+<source src="/spacebay/assets/videos/video-moderation.mp4" type="video/mp4" />
+<source src="/spacebay/assets/videos/video-moderation.webm" type="video/webm" />
+</video>
+<figcaption>Video (15 s): approving a held first post and a new member.</figcaption>
+</figure>
+
+<img src="/spacebay/assets/screenshots/moderation-queue.png" alt="The Moderation page with a first post and a comment waiting for review" width="1440" height="945" data-lightbox="true" />
+
+*Posts and comments waiting for review.*
+
+Each item shows the post or comment, its author, its space and why it is there. Choose **Approve** (or **Keep** for visible content) to publish it and close its reports, or **Delete** to remove it. Delete asks you to click a second time. Authors are told when their post or comment is approved or removed, but never who reported it.
+
+Content is held for review when:
+
+- it contains a **blocked word** and the blocked-word action is *Hold for review*;
+- it is a member's **first post** and *New posts* is set to review the first post (after one approval the member posts freely);
+- *New posts* is set to review **every new post**;
+- enough members **reported** it (see [Reports](/spacebay/user-guide/moderation/#reports)).
+
+The author sees a message that a moderator will review it. Held content is not shown in feeds, search or notifications, and mentions are sent only after approval. Space admins, space moderators and community moderators are never held, and edits that add a blocked word are refused with a message. Blocked words match whole words in any letter case, so `cat` does not match `category`.
+
+<img src="/spacebay/assets/screenshots/composer-pending.png" alt="The post box with a message that the post will appear after approval" width="1440" height="900" data-lightbox="true" />
+
+*What a member sees when their post is held.*
+
+<img src="/spacebay/assets/screenshots/admin-moderation-settings.png" alt="The Moderation section of the settings screen" width="820" height="853" data-lightbox="true" />
+
+*SpaceBay → Settings → Moderation.*
+
+## Reports
+
+Logged-in members can report a post or comment from its menu, and a member from the flag button on their profile. They choose a reason (spam, harassment or hate, inappropriate content, or something else) and can add a note for moderators. A member can report the same thing once; members cannot report themselves.
+
+<img src="/spacebay/assets/screenshots/report-dialog.png" alt="The Report post dialog with reasons and a note" width="1440" height="900" data-lightbox="true" />
+
+*Reporting a post.*
+
+When a post or comment reaches the number of reports set in **Hide content after this many reports**, it is hidden until a moderator decides. **Keep** shows it again in its original place; **Delete** removes it. For a reported member, **Dismiss** closes the reports and **Suspend member** suspends the account. Content written by moderators is never hidden automatically.
+
+<img src="/spacebay/assets/screenshots/moderation-reports.png" alt="A post hidden after two spam reports, and a reported member" width="1440" height="967" data-lightbox="true" />
+
+*Reports with reasons, reporters and notes.*

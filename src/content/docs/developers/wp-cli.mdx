@@ -1,0 +1,26 @@
+---
+title: "WP-CLI"
+description: "WP-CLI commands: sample content for demos, and two-factor status and reset."
+---
+
+## Sample content
+
+To try SpaceBay or build a demo site, add sample spaces, members, topics, posts, comments and likes with WP-CLI:
+
+```bash
+wp spacebay demo
+wp spacebay demo --remove
+```
+
+It adds 7 spaces (reusing spaces you already have with the same names), 24 members, 23 posts with comments, replies and likes, a member waiting for approval, a join request, a reported post, two private chats with the first administrator, and five events (four coming up, one past) with answers. It refuses to run twice. Sample members get addresses ending in `example.invalid` and cannot receive email, and no notifications are sent. `--remove` deletes exactly what the command added.
+
+## Two-factor commands <span class="sb-badge sb-badge--pro">Pro</span>
+
+With SpaceBay Pro, you can see how a member logs in and reset their two-factor setup:
+
+```bash
+wp spacebay two-factor status <user>
+wp spacebay two-factor reset <user>
+```
+
+See [Two-factor authentication](/spacebay/pro/two-factor-authentication/).

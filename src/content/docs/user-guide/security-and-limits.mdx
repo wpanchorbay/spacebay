@@ -1,0 +1,34 @@
+---
+title: "Security and limits"
+description: "Permission checks, upload handling, and the limits that slow down spam and password guessing."
+---
+
+Every REST request checks the member's permission and the WordPress nonce. Posts, comments and profile text are cleaned before they are saved and shown. Uploaded JPG, PNG and WebP images are saved again by WordPress, which removes hidden data and location details; GIF images are checked for hidden code. Link previews only fetch public web addresses on ports 80 and 443.
+
+| Action | Limit per member |
+| --- | --- |
+| New posts | 5 a minute |
+| Comments | 20 a minute |
+| Edits of posts and comments | 20 a minute |
+| Image uploads | 20 a minute, up to 30 images not yet posted |
+| Likes and saves | 60 a minute |
+| Joining or leaving spaces | 20 a minute |
+| Invitations | 30 a minute |
+| Profile saves | 20 a minute |
+| Reports | 10 a minute |
+| Members mentioned in one post or comment | 20 |
+
+Logging in and signing up have their own limits, which apply to everyone:
+
+| Action | Limit |
+| --- | --- |
+| Wrong passwords for one account | 5 in 15 minutes from one network address, 20 in 15 minutes in total |
+| Wrong login codes for one login <span class="sb-badge sb-badge--pro">Pro</span> | 5, then the member logs in again |
+| Wrong login codes for one account <span class="sb-badge sb-badge--pro">Pro</span> | 10 in 15 minutes and 30 a day. The member gets an email when the daily limit is reached. |
+| Login codes by email for one account <span class="sb-badge sb-badge--pro">Pro</span> | 10 an hour |
+| New accounts from one network address | 5 an hour |
+| Password reset emails | 3 an hour for one account, 5 requests in 15 minutes from one network address |
+
+Change these with the `spacebay_auth_attempts` filter. They cover the community login page; to also limit attempts on `wp-login.php`, use a login protection plugin or your host's firewall. If your site is behind a proxy or CDN that hides visitor addresses, return the real address with the `spacebay_client_ip` filter, otherwise all visitors share one limit. With Pro, authenticator keys are stored encrypted, and backup codes and emailed codes are stored as hashes.
+
+For the other actions, administrators are not limited. Change limits with the `spacebay_rate_limit` filter. Images can be up to 8000 pixels on the longest side; the server's memory limit can lower this.

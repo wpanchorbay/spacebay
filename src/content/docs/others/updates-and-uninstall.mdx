@@ -1,0 +1,41 @@
+---
+title: "Updates and uninstall"
+description: "How SpaceBay and SpaceBay Pro are updated, and what happens when you deactivate or delete them."
+---
+
+## Updates
+
+### SpaceBay (free)
+
+Updates come from WordPress.org. New versions appear on **Dashboard → Updates** and on the Plugins screen like any other plugin, and WordPress can install them automatically.
+
+### SpaceBay Pro <span class="sb-badge sb-badge--pro">Pro</span>
+
+Pro does not update itself yet. To update it:
+
+1. Download the new **spacebay-pro.zip** from your wpanchorbay.com account.
+2. Go to **Plugins → Add New Plugin → Upload Plugin**, choose the zip and click **Install Now**.
+3. Confirm **Replace current with uploaded**.
+
+### Bought on CodeCanyon
+
+CodeCanyon buyers can keep using the free Envato Market plugin for updates:
+
+1. Download and install the Envato Market plugin from [envato.com/lp/market-plugin](https://www.envato.com/lp/market-plugin/).
+2. Create a personal token at [build.envato.com/create-token](https://build.envato.com/create-token/) with the default permissions.
+3. Paste the token in **Envato Market** in your WordPress admin and save.
+4. New versions now appear on **Dashboard → Updates**.
+
+You can also download the latest zips from your CodeCanyon Downloads page and upload each one with **Replace current with uploaded**.
+
+Your community data is kept during updates. SpaceBay Pro 1.0.0 needs SpaceBay 1.0.0 or newer. Updating to SpaceBay 1.0.0 adds a few database indexes the first time a page loads, which takes a moment on a large community.
+
+Your community data is kept during updates. SpaceBay Pro 1.0.0 needs SpaceBay 1.0.0 or newer. Updating to SpaceBay 1.0.0 adds a few database indexes the first time a page loads, which takes a moment on a large community.
+
+## Deactivate and uninstall
+
+Deactivating keeps all data. Deleting the plugin keeps all data unless **Delete all SpaceBay data when the plugin is deleted** is on in Settings. When it is on, deleting removes SpaceBay tables, settings, capabilities (including the moderator capability given to single members), cached data and the uploaded images in `wp-content/uploads/spacebay/` from every site in a network.
+
+**SpaceBay Pro** <span class="sb-badge sb-badge--pro">Pro</span> keeps its data the same way. When **Delete all SpaceBay data when the plugin is deleted** is on, deleting Pro also removes the calls tables, the custom profile fields and members' two-factor settings. With that setting off, deleting Pro keeps its data, so installing Pro again brings the features back as they were.
+
+When a WordPress user is deleted, their SpaceBay profile, photo, cover, notifications, posts, comments, likes, images, memberships, points, badges, event answers and the events they organized are deleted too. Images uploaded but never posted are removed after a day.

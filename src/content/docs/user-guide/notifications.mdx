@@ -1,0 +1,45 @@
+---
+title: "Notifications and emails"
+description: "The notification bell, the Notifications page, which events send emails, and how email delivery works."
+---
+
+The bell in the top bar shows how many notifications a member has not read. It updates every minute while the page is open. Clicking a notification opens the post and marks it read. **See all notifications** opens the full list, with an **Unread** filter and **Mark all as read**.
+
+Notification emails are sent in the background, a little after the notification itself: one background job sends everything that is waiting, so an announcement to a large space does not slow the site down. How soon they leave depends on how often your site runs its scheduled tasks (see [Large communities and speed](/spacebay/others/large-communities-and-speed/)).
+
+<img src="/spacebay/assets/screenshots/bell-open.png" alt="The notification bell open with a mention notification" width="1440" height="900" data-lightbox="true" />
+
+*The notification bell.*
+
+<img src="/spacebay/assets/screenshots/notifications-page.png" alt="The Notifications page with unread notifications" width="1440" height="900" data-lightbox="true" />
+
+*The Notifications page.*
+
+| Members are notified when | Email by default |
+| --- | --- |
+| Someone mentions them in a post or comment | Yes |
+| Someone comments on their post or replies to their comment | Yes |
+| They are invited to a space, or their join request is approved | Yes |
+| Someone asks to join a private space they manage | Yes |
+| Someone likes their post or comment | No |
+| A new event in their space, or an event they answered changes, is cancelled, or starts soon (reminders need [Pro](/spacebay/pro/event-limits-and-reminders/)) | Yes |
+| They earn a badge (or are given one, with Pro), or reach a new level | No |
+| Their held post or comment is approved, or a moderator removes it | Yes |
+| Their account is approved | Yes |
+| Moderators only: content or reports wait for review, or a new member waits for approval | Yes |
+
+Members choose their emails in **Account settings → Email notifications**. Notifications under the bell are always shown. Members are only notified about posts they can still read, and never about their own actions.
+
+<img src="/spacebay/assets/screenshots/account-emails.png" alt="Email notification choices with four checkboxes" width="1440" height="900" data-lightbox="true" />
+
+*Account settings → Email notifications.*
+
+Emails are sent in the background a few seconds later by WP-Cron, using `wp_mail()`, so they work with any SMTP plugin. If a member reads the notification first, the email is skipped. On sites with little traffic, set up a real cron job for `wp-cron.php` so emails are not delayed. Read notifications are deleted after 90 days and all notifications after 180 days.
+
+<img src="/spacebay/assets/screenshots/admin-email-settings.png" alt="The Emails section of the settings screen" width="1440" height="900" data-lightbox="true" />
+
+*SpaceBay → Settings → Emails.*
+
+<img src="/spacebay/assets/screenshots/mobile-bell-dark.png" alt="Notifications on a phone in dark mode" width="390" height="844" data-lightbox="true" />
+
+*Notifications on a phone, in dark mode.*

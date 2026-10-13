@@ -1,0 +1,31 @@
+---
+title: Not found
+description: The page you requested is not found.
+template: splash
+editUrl: false
+lastUpdated: false
+prev: false
+next: false
+pagefind: false
+hero:
+  title: Lost the route?
+  tagline: "404: The page you requested is not found."
+  image:
+    html: '<div class="license-404-mark-wrap" aria-hidden="true"><div class="license-404-mark-glow"></div><div class="license-404-mark-shell"><img class="license-404-mark" src="/spacebay/assets/spacebay-icon.svg" alt="" width="215" height="215" /></div></div>'
+  actions:
+    - text: Back to Docs Home
+      icon: right-caret
+      link: /spacebay/
+    - text: Introduction
+      icon: rocket
+      variant: minimal
+      link: /spacebay/getting-started/introduction/
+---
+
+import { PAGE_LINKS } from '../../lib/links';
+
+<div class="license-404-links">
+	<a href={PAGE_LINKS.introduction}>Introduction</a>
+	<a href={`${PAGE_LINKS.home}user-guide/community-portal/`}>The community portal</a>
+	<a href={`${PAGE_LINKS.home}others/troubleshooting/`}>Troubleshooting</a>
+</div>

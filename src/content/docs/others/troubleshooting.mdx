@@ -1,0 +1,63 @@
+---
+title: "Troubleshooting"
+description: "Fixes for common SpaceBay problems: page not found, late emails, posting problems, locked-out members, calls, social login and missing Pro features."
+---
+
+## The community page shows "Page not found"
+
+Open **Settings → Permalinks** in WordPress and select **Save Changes**. This could happen after activation on some sites, when another plugin rebuilt the site's addresses without the community address. SpaceBay notices this and repairs it on the next page load, but saving the permalinks fixes it at once.
+
+## Emails arrive late or not at all
+
+- WordPress runs background jobs when someone visits the site. On a busy community, ask your host to call `wp-cron.php` every minute. See [Large communities and speed](/spacebay/others/large-communities-and-speed/).
+- Check that emails from your site arrive at all: log out and use **Forgot your password?**. An SMTP plugin makes delivery reliable.
+- Check **Settings → Emails**: **Send notification emails** must be on. See [Emails, welcome banner and advanced](/spacebay/user-guide/settings/emails-banner-and-advanced/).
+
+## A member cannot post
+
+- The member may be waiting for approval, or be suspended. See [Member approval and community moderators](/spacebay/user-guide/member-approval-and-moderators/).
+- The space may limit who can post. See [Feed and posts](/spacebay/user-guide/feed-and-posts/) and [Spaces and groups](/spacebay/user-guide/spaces/).
+- The member may have reached a limit, such as 5 new posts a minute. See [Security and limits](/spacebay/user-guide/security-and-limits/).
+
+## A post is "held for review"
+
+New posts can be held by the **Moderation** settings or because of a blocked word. A moderator approves them on the Moderation page. See [Moderation and reports](/spacebay/user-guide/moderation/).
+
+## The leaderboard is a few minutes behind
+
+The weekly and monthly leaderboards are added up once every five minutes, not on every view.
+
+## A link preview does not show
+
+Link previews only fetch public web addresses on ports 80 and 443. Check that **Show link previews** is on. See [Feed and posts](/spacebay/user-guide/feed-and-posts/).
+
+## People cannot sign up
+
+- In **Settings → Login and signup**, check that **Let people sign up** is on.
+- On multisite, the network administrator must allow new accounts (**Network Admin → Settings → Allow new registrations**).
+- Only 5 new accounts an hour are allowed from one network address. See [Security and limits](/spacebay/user-guide/security-and-limits/).
+
+## A member is locked out by two-factor authentication
+
+An administrator can reset it. See [Two-factor authentication](/spacebay/pro/two-factor-authentication/).
+
+## Google or Facebook login does not work
+
+- Check that the redirect (callback) address in the Google or Facebook app is exactly the one shown in SpaceBay.
+- Make sure the app is **Live**, not in test mode.
+- A Facebook account without an email address cannot be used to sign up.
+- Changed the community address? Update the apps too. See [Log in with Google or Facebook](/spacebay/user-guide/social-login/).
+
+## Calls do not connect
+
+Calls need HTTPS. Behind strict firewalls, add a TURN server in **Settings → Messages**. See [Voice and video calls](/spacebay/pro/voice-and-video-calls/).
+
+## Pro features are missing
+
+- SpaceBay Pro needs the free SpaceBay plugin installed and active, and WordPress 6.5 or newer.
+- Check **Plugins** and make sure both plugins are active. See [Installation](/spacebay/getting-started/installation/).
+- SpaceBay Pro is not updated from the WordPress Plugins screen yet. Upload the new zip. See [Updates and uninstall](/spacebay/others/updates-and-uninstall/).
+
+## Still stuck?
+
+See [Support](/spacebay/others/faq/#where-can-i-get-help) in the FAQ.

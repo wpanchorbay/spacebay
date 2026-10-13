@@ -1,0 +1,33 @@
+---
+title: "Compatibility: themes, multisite and languages"
+description: "What SpaceBay was tested with, how it works inside your theme, on a multisite network, in right-to-left languages and with page-cache plugins."
+---
+
+| Area | Tested |
+| --- | --- |
+| WordPress | 6.2 and 7.1, single site and multisite (network activation, sub-sites) |
+| PHP | 7.4, 8.3 and 8.4 |
+| Themes (inside theme layout) | Twenty Twenty-Five (block theme), Twenty Twenty-One, Astra, GeneratePress, Kadence |
+| Plugins active together | WooCommerce, Yoast SEO, Elementor, Contact Form 7, Wordfence |
+| Languages | English and Arabic (right to left) |
+| Accessibility | Automated WCAG 2.1 AA checks (axe) on every portal and admin screen, light and dark mode |
+| Size | 5,000 members, 25,000 posts, 100,000 comments and 60,000 chat messages. See [Large communities and speed](/spacebay/others/large-communities-and-speed/). |
+
+## Themes and layout
+
+In **Settings → Appearance**, **Layout** can be **Full page**, which shows the community as a full-screen app, or **Inside your theme**, which places it between your theme header and footer. You can override the layout files: see [Template overrides](/spacebay/developers/template-overrides/).
+
+## Multisite
+
+- SpaceBay was tested on single sites and on multisite (network activation and sub-sites).
+- Signing up only works when the network administrator allows new accounts (**Network Admin → Settings → Allow new registrations**).
+- The two-factor policy is set per site. Someone who logs in on another site of the network where no code is required is logged in on every site, so use the same policy on each site.
+- Deleting the plugin with **Delete all SpaceBay data when the plugin is deleted** on removes the data and images from every site in a network.
+
+## Right-to-left languages and translation
+
+The portal supports right-to-left languages and was tested in Arabic. SpaceBay is translation ready: see [Translation](/spacebay/developers/translation-and-building/).
+
+## Page-cache plugins
+
+SpaceBay marks portal pages as not cacheable (`DONOTCACHEPAGE` and no-cache headers), so members always see their own data.

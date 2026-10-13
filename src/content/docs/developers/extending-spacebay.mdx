@@ -1,0 +1,71 @@
+---
+title: "Extending SpaceBay (add-ons)"
+description: "The PHP hooks and the window.SpaceBay JavaScript API that add-ons such as SpaceBay Pro use."
+---
+
+Add-ons such as SpaceBay Pro can add features to the portal, the admin screens, the login, events, badges, messages and settings. These are the PHP hooks for that:
+
+| Hook | Type | Purpose |
+| --- | --- | --- |
+| `spacebay_settings_schema` | Filter | Add settings. An entry can have a `sanitize` callable that cleans the value. Type `array` takes a list of objects and needs `sanitize`. |
+| `spacebay_settings_response` | Filter | Add what your settings need to the data sent to the settings screen. |
+| `spacebay_table_names` | Filter | Register the short names of your own tables. Add-ons create and remove their tables themselves. |
+| `spacebay_app_config` | Filter | Change the configuration passed to the portal and admin apps. Receives the config and the current user. |
+| `spacebay_pulse` | Filter | Add data to the pulse that the apps poll (`/me/pulse`). Receives the data and the member ID. |
+| `spacebay_conversation_messages` | Filter | Change a page of a conversation's messages. |
+| `spacebay_conversation_items` | Filter | Change the list of conversations sent to a member. |
+| `spacebay_message_system_text` | Filter | Text of a system line in a chat for your own events, such as Pro's call lines. |
+| `spacebay_social_profile` | Filter | The profile read from Google or Facebook (`id`, `email`, `verified`, `name`) and the provider. Set `verified` to false to stop accounts from being connected by email address. |
+| `spacebay_login_challenge` | Filter | Add a second login step after a correct password or a Google or Facebook login. Return an array that describes the step, a `WP_Error`, or null to log the member in. |
+| `spacebay_security_summary` | Filter | Add data to the member's Password and security page. |
+| `spacebay_signup_catalogue` | Filter | Add fields that can be on the signup form. Keys start with `field_`. |
+| `spacebay_signup_rows` | Filter | Choose which signup fields are shown, which are required and their order. |
+| `spacebay_profile_field_values` | Filter | Clean answers to extra profile fields before they are saved. |
+| `spacebay_profile_display_fields` | Filter | Extra profile fields shown on a profile, as label and value. |
+| `spacebay_default_badges` | Filter | Change the badges new communities start with. |
+| `spacebay_achievements` | Filter | Change the points, level and badges shown on a profile. Receives the summary, the member ID and the viewer ID. |
+| `spacebay_event_fields` | Filter | Add fields an event form may send, as REST argument definitions. |
+| `spacebay_event_clean` | Filter | Add your own clean values to an event before it is saved. |
+| `spacebay_event_answer_check` | Filter | Return a `WP_Error` to refuse an event answer, for example when the event is full. |
+| `spacebay_event_can_see_link` | Filter | Whether the viewer may see an event's online link. |
+| `spacebay_event_data` | Filter | Change an event as sent to the apps. |
+| `spacebay_enqueue_app` | Action | After the portal or admin app is enqueued. Receives `$app` (`portal` or `admin`) and `$handle`. Enqueue your script here with `$handle` as a dependency. |
+| `spacebay_conversation_deleting` | Action | Before a conversation is deleted, so you can remove your own data. Receives the conversation ID. |
+| `spacebay_admin_screens` | Filter | Add a screen to the SpaceBay admin menu: route (for example `/shops`) => label. Add the route with `addRoute()` in the admin app. |
+| `spacebay_member_profile` | Filter | Add data to a member's profile page. Receives the data, the member ID and the viewer ID. |
+| `spacebay_notification_group` | Filter | Choose the email preference group (for example `moderation`) of your own notification actions, so they can be emailed. |
+
+**JavaScript.** The portal and admin apps expose `window.SpaceBay`. Your script loads after the app script and registers before the app starts.
+
+| Name | Purpose |
+| --- | --- |
+| `extend( callback )` | Register your add-on. The callback receives `{ app, router, config, api, area }` (and `pinia` in the portal) before the app mounts. `area` is `portal` or `admin`. |
+| `addSlot( name, component, { order, replace } )` | Show a Vue component in a named slot. Lower `order` shows first; `replace: true` shows it instead of the slot's own content. |
+| `addRoute( route )` | Add a Vue Router route. |
+| `addHook( name, fn )`, `runHook( name, ...args )` | Run code when the app calls a hook. |
+| `addFilter( name, fn )`, `applyFilters( name, value, ...args )` | Change a value the app passes through a filter. |
+| `Vue`, `VueRouter`, `Pinia` | The libraries the app uses (`Pinia` in the portal only). Build your add-on with `vue`, `vue-router` and `pinia` as externals that point here, so both scripts share one copy. |
+
+| App | Slots | Hooks and filters |
+| --- | --- | --- |
+| Portal | `app.layers`, `messages.header.actions`, `login.step`, `account.security`, `account.profile.fields`, `member.achievements.actions`, `event.form.fields`, `nav.items` (each component renders an `<li>`), `home.feed.top`, `space.posts.top` (receives `space`) | Hook `pulse` (receives the pulse data); filters `login.resume` and `member.tabs` (add `{ key, label, component }` profile tabs; receives `{ member, config }`; the component gets `member`) |
+| Admin | `settings.login`, `settings.signup`, `settings.messages`, `settings.events`, `settings.badges`, `admin.members`, and `settings.<id>` for sections you add | Filter `settings.sections` (add `{ id, icon, title }` sections to Settings; their content goes in slot `settings.<id>`, which receives the settings `form`). Routes added with `addRoute()` can set `meta.title` for the browser tab. |
+
+A small add-on that puts a button at the top of every chat:
+
+```php
+// my-addon.php
+add_action( 'spacebay_enqueue_app', function ( $app, $handle ) {
+	if ( 'portal' === $app ) {
+		wp_enqueue_script( 'my-addon', plugins_url( 'my-addon.js', __FILE__ ), array( $handle ), '1.0.0', true );
+	}
+}, 10, 2 );
+
+// my-addon.js
+window.SpaceBay.extend( () => {
+	const { h } = window.SpaceBay.Vue;
+	const MyButton = { render: () => h( 'button', { type: 'button' }, 'Hello' ) };
+
+	window.SpaceBay.addSlot( 'messages.header.actions', MyButton, { order: 20 } );
+} );
+```

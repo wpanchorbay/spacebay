@@ -1,0 +1,29 @@
+---
+title: "Translation and building from source"
+description: "Translate SpaceBay with Poedit or Loco Translate, build the portal and admin apps from source, and the libraries SpaceBay uses."
+---
+
+## Translation
+
+SpaceBay is translation ready with the text domain `spacebay`. The template file is `languages/spacebay.pot`. Translate it with Poedit or Loco Translate and save files as `spacebay-{locale}.po/.mo`. Portal and admin strings also need the JSON files that Loco Translate or `wp i18n make-json` creates.
+
+SpaceBay supports right-to-left languages and was tested in English and Arabic.
+
+## Building from source
+
+The readable source of the portal and admin apps is in `src/`. The compiled files are in `assets/build/`.
+
+```bash
+npm install
+npm run build
+```
+
+## Credits
+
+| Library | Version | Licence | Source |
+| --- | --- | --- | --- |
+| Vue | 3.5 | MIT | [github.com/vuejs/core](https://github.com/vuejs/core) |
+| Vue Router | 4 | MIT | [github.com/vuejs/router](https://github.com/vuejs/router) |
+| Pinia | 2 | MIT | [github.com/vuejs/pinia](https://github.com/vuejs/pinia) |
+
+All icons were drawn for SpaceBay. Screenshots use placeholder content only.

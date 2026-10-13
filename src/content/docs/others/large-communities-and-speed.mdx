@@ -1,0 +1,36 @@
+---
+title: "Large communities and speed"
+description: "Load-test results for 5,000 members, what SpaceBay does for speed, and what you can do for a busy community."
+---
+
+SpaceBay keeps its content in its own database tables with indexes for every list it shows, so pages stay fast as a community grows. Version 1.0.0 was load-tested with 5,000 members, 50 spaces (three of them with about 4,400 members each), 25,000 posts, 100,000 comments, 200,000 likes, 60,000 chat messages, 300 events and 120,000 notifications.
+
+| What a member opens | Time SpaceBay needs |
+| --- | --- |
+| Home feed, a space's feed | 13 to 25 ms |
+| Comments of a post with 1,700 comments | 15 ms |
+| Spaces list, one space | 13 ms, 3 ms |
+| Member directory, a member's profile | 8 ms, 14 ms |
+| Leaderboard for this week or this month | 10 ms (60 to 90 ms once every five minutes, when it is added up again) |
+| Chat list with 50 chats, an open chat | 25 ms, 6 ms |
+| Notifications, events, search | 7 ms, 13 ms, 18 ms |
+
+These times are for SpaceBay's own work on a small test server (PHP 8.3, MariaDB 10.11, no object cache). WordPress, your theme and your other plugins add their own loading time to every request, usually more than SpaceBay itself.
+
+**What SpaceBay does for you.**
+
+- The weekly and monthly leaderboards are added up once every five minutes, not on every view.
+- The number of members in each space is remembered between page loads and updated when someone joins or leaves.
+- The feed and the search do not count every post; they only check whether there is more to load.
+- Lists load the people they show together, not one by one.
+- Notification emails leave through one background job, also when an event is announced to thousands of members.
+- Each open community page asks the server for news less often while nobody is using it.
+
+**What you can do for a busy community.**
+
+- **Enough PHP workers.** What limits a community is the number of members who have it open at the same moment, not the number who signed up. Every open page asks for news about every 15 seconds while it is in use (every 5 seconds when Pro calls are on), and an open chat every 3 seconds. As a rough guide from our test, 4 to 8 PHP workers are comfortable for a few hundred members online at once, but your theme and other plugins change this a lot; ask your host for more workers if pages start to wait.
+- **A persistent object cache** (Redis or Memcached), when your host offers one. SpaceBay uses it without any setting.
+- **A real scheduled task.** WordPress runs background jobs when someone visits the site. On a busy community, ask your host to call `wp-cron.php` every minute, so notification emails and reminders leave on time.
+- **A current PHP version.** PHP 8.2 or newer is clearly faster than 7.4.
+
+**The community page shows “Page not found”.** This could happen after activation on some sites, when another plugin rebuilt the site's addresses without the community address. Since 1.0.0 SpaceBay notices this and repairs it on the next page load. If it ever stays, open *Settings → Permalinks* and click **Save Changes**.

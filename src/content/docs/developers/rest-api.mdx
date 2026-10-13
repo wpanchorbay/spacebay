@@ -1,0 +1,74 @@
+---
+title: "REST API"
+description: "All SpaceBay REST endpoints under /wp-json/spacebay/v1/, who can call them, and the extra endpoints from SpaceBay Pro."
+---
+
+All endpoints live under `/wp-json/spacebay/v1/` and use standard WordPress cookie authentication with the `X-WP-Nonce` header.
+
+| Endpoint | Method | Who |
+| --- | --- | --- |
+| `/me` | GET | Anyone. Returns the current member or `logged_in: false`. |
+| `/settings` | GET, POST, PUT | Administrators. |
+| `/auth/login` | POST | Visitors, while the community login pages are on. Returns `logged_in` with a redirect address, or a second step when an add-on asks for one (the code step of Pro). |
+| `/auth/signup` | POST | Visitors, while signing up is on. |
+| `/auth/forgot`, `/auth/reset` | POST | Visitors. Forgot always gives the same answer, whether the account exists or not. |
+| `/me/security`, `/me/password` | GET, PUT | Logged-in members. Changing the password needs the current one. |
+| `/me/pulse` | GET | Logged-in members. Unread messages and notifications, plus what add-ons add (with Pro, calls ringing for them). |
+| `/conversations`, `/conversations/{id}` | GET, POST, PATCH | Members in the conversation. POST starts a one-to-one chat or group within the messaging rules; PATCH renames a group or mutes it. |
+| `/conversations/{id}/messages`, `/conversations/{id}/read` | GET, POST | Members in the conversation. GET takes `before`, `after` and `limit`. |
+| `/conversations/{id}/members`, `/conversations/{id}/members/{user_id}` | POST, DELETE | Group owner adds and removes people; anyone can remove themselves. |
+| `/messages/{id}` | DELETE | The author, or a moderator. |
+| `/messages/recipients`, `/me/blocks` | GET, POST | Logged-in members. |
+| `/admin/stats` | GET | Administrators. |
+| `/spaces` | GET, POST | GET: anyone who can open the community (only spaces they may see). POST: administrators. |
+| `/spaces/{id}`, `/spaces/slug/{slug}` | GET, PATCH, DELETE | GET: people who may see the space. PATCH: space admins. DELETE: administrators. |
+| `/spaces/{id}/join`, `/spaces/{id}/leave` | POST | Logged-in members. |
+| `/spaces/{id}/members` | GET, POST | GET active members: logged-in members who may read the space, while the member directory is on (space admins always). Hidden profiles are left out. Other lists and POST (invite): space admins. |
+| `/spaces/{id}/members/{user_id}` | PATCH, DELETE | Space admins. |
+| `/space-groups`, `/space-groups/{id}` | POST, PATCH, DELETE | Administrators. |
+| `/members`, `/members/{id}` | GET | Logged-in members, when the directory is on. |
+| `/feed` | GET | Anyone who can open the community. Only posts in spaces they may read. Filters: space_id, user_id, topic, hashtag, bookmarked, search, orderby. The `X-WP-Total` header is the exact number of posts; send `count_total=false` (since 1.0.0, what the portal does) to skip that count on large communities: the header then gives the posts up to this page, plus one when another page follows. |
+| `/posts` | POST | Members who may post in the space. |
+| `/posts/{id}` | GET, PATCH, DELETE | GET: readers of the space. PATCH and DELETE: the author and space moderators. |
+| `/posts/{id}/like`, `/bookmark`, `/pin` | POST | Like: space members. Save: logged-in readers. Pin: space moderators. |
+| `/posts/{id}/comments` | GET, POST | GET: readers of the space. POST: space members. |
+| `/comments/{id}`, `/comments/{id}/like` | PATCH, DELETE, POST | Edit and delete: the author and space moderators. Like: space members. |
+| `/media` | POST | Logged-in members. One image per request in the `file` field. |
+| `/topics`, `/topics/{id}` | GET, POST, PATCH, DELETE | GET: anyone who can open the community. Changes: administrators. |
+| `/me/profile` | GET, PATCH | Logged-in members, for their own profile. |
+| `/me/avatar`, `/me/cover` | POST, DELETE | Logged-in members. POST one image in the `file` field. |
+| `/me/email-preferences` | GET, PUT | Logged-in members. |
+| `/notifications`, `/notifications/count` | GET | Logged-in members, for their own notifications. Filter: `unread`. |
+| `/notifications/read` | POST | Logged-in members. Send `ids` or `all: true`. |
+| `/reports` | POST | Logged-in members. `object_type` (post, comment, member), `object_id`, `reason`, optional `note`. |
+| `/moderation/counts`, `/moderation/queue` | GET | Moderators. |
+| `/moderation/queue/{type}/{id}` | POST | Moderators. `action`: approve or remove. |
+| `/moderation/members`, `/moderation/members/{id}` | GET, POST | Moderators. List pending or suspended members; POST `status`: active or blocked. |
+| `/moderators`, `/moderators/{id}` | GET, POST, DELETE | Administrators. |
+| `/admin/setup` | GET, POST | Administrators. Setup wizard state and starter spaces. |
+| `/leaderboard` | GET | Logged-in members, while the leaderboard is on. `period`: week, month or all; `limit` up to 50. |
+| `/me/points` | GET | Logged-in members, their own points history. Paged. |
+| `/events` | GET, POST | GET: anyone who can open the community; only events in spaces they may read. Filters: `space_id`, `when` (upcoming, past, range), `from` and `to` (up to 62 days), `rsvp=going`, `page`, `per_page`. POST: members who may add events in the space. |
+| `/events/{id}` | GET, PATCH, DELETE | GET: readers of the space. PATCH and DELETE: the organizer and space moderators. |
+| `/events/{id}/cancel` | POST | The organizer and space moderators. |
+| `/events/{id}/rsvp` | POST | Members of the space. `answer`: going, maybe, not_going, or empty to remove it. |
+| `/events/{id}/attendees` | GET | Readers of the space. `answer`: going or maybe. Paged. |
+| `/search` | GET | Anyone who can open the community. Parameters: `q` (2 to 100 characters), `type` (all, posts, spaces, members), `page`. |
+
+## Endpoints added by SpaceBay Pro <span class="sb-badge sb-badge--pro">Pro</span>
+
+These endpoints exist only while SpaceBay Pro is active. They use the same `/wp-json/spacebay/v1/` base.
+
+| Endpoint | Method | Who |
+| --- | --- | --- |
+| `/auth/two-factor`, `/auth/two-factor/status`, `/auth/two-factor/send` | POST | Visitors in the code step of a login. |
+| `/me/two-factor`, `/me/two-factor/app`, `/me/two-factor/email`, `/me/two-factor/confirm`, `/me/two-factor/backup-codes` | POST, DELETE | Logged-in members, for their own account. Every change except confirm needs the current password. |
+| `/members/{id}/two-factor` | DELETE | Administrators who may edit that user. |
+| `/conversations/{id}/calls`, `/calls/{id}`, `/calls/{id}/join\|decline\|leave`, `/calls/{id}/signals` | GET, POST | People invited to the call, while calls are on. |
+| `/profile-fields` | GET, PUT | GET: logged-in members. PUT: administrators. |
+| `/members/{id}/badges` | POST | Admins and community moderators. `badge` (key) and `on` (true to give, false to take away). |
+| `/members/{id}/points` | POST | Community managers. `points` (−10,000 to 10,000, not 0) and an optional `note`. |
+| `/shop/products`, `/shop/products/{id}`, `/shop/featured`, `/shop/sellers/{id}` | GET | Anyone who can open the community, while shops are on. Only published products of open shops; sellers and admins also see their pending and rejected products. |
+| `/shop/me`, `/shop/request` | GET, POST | Logged-in members, for their own shop. |
+| `/shop/products`, `/shop/products/{id}`, `/shop/media` | POST, DELETE | Sellers with an open shop, for their own products (sellers can delete their own products when the shop is closed), and community managers. |
+| `/shop/admin/summary`, `/shop/admin/sellers`, `/shop/admin/sellers/{id}`, `/shop/admin/products`, `/shop/admin/products/{id}/review`, `/shop/admin/products/{id}/placement` | GET, POST | Community managers. |

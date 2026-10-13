@@ -1,0 +1,33 @@
+---
+title: "Log in with Google or Facebook"
+description: "Let members log in and sign up with Google or Facebook, and how to create the Google and Facebook apps."
+---
+
+Members can log in and sign up with their Google or Facebook account. The login and signup pages then show **Continue with Google** and **Continue with Facebook** under the form. Both are off until you turn them on.
+
+- **One button for both.** Someone who used the button before is logged in. Someone whose email address already belongs to a member is logged in to that account, when Google or Facebook has confirmed the address. Anyone else gets a new account.
+- **Administrators and community managers log in with their password.** The buttons never connect to an account that can manage the site or the community, so a Google or Facebook account cannot be used to get into one.
+- **When signing up is closed** (Let people sign up is off), the buttons only log in existing members. A new person sees a message that the community is not open for new members.
+- **New accounts** get the name and email address from Google or Facebook and a password nobody knows. To also log in with a password, the member uses **Forgot your password?** once. New accounts follow your settings like any signup, including **Approve new members**.
+- **With two-factor authentication** <span class="sb-badge sb-badge--pro">Pro</span> the member still enters their 6-digit code after Google or Facebook.
+- Each service needs an app of your own. Creating one is free. Your keys stay on your site, and nothing is sent to Google or Facebook before a visitor clicks the button.
+
+## Set up Google
+
+1. In SpaceBay, go to **Settings → Login and signup**, turn on **Continue with Google** and copy the **Callback address**.
+2. Open **console.cloud.google.com** and create a project (or pick one).
+3. Go to **APIs and services → OAuth consent screen**. Choose **External**, enter your community name, support email and the address of your privacy policy, and publish the app.
+4. Go to **APIs and services → Credentials → Create credentials → OAuth client ID**. Choose **Web application** and paste the callback address under **Authorized redirect URIs**.
+5. Copy the **Client ID** and **Client secret** into SpaceBay and select **Save changes**.
+
+## Set up Facebook
+
+1. In SpaceBay, turn on **Continue with Facebook** and copy the **Callback address**.
+2. Open **developers.facebook.com**, create an app and choose the use case **Authenticate and request data from users with Facebook Login**. The **email** and **public_profile** permissions it needs do not need a review by Meta.
+3. Under **Facebook Login → Settings**, paste the callback address under **Valid OAuth Redirect URIs**.
+4. Under **App settings → Basic**, add your privacy policy address and a data deletion page, then switch the app to **Live**. While it is in development, only people added to the app can log in.
+5. Copy the **App ID** and **App secret** into SpaceBay and select **Save changes**.
+
+## When the community address changes
+
+If the community address changes (for example from http to https), the callback address changes too: update it in your Google and Facebook apps. Facebook accounts made with a phone number and no email address cannot be used; those people sign up with their email address.

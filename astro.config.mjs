@@ -61,6 +61,7 @@ export default defineConfig({
         ThemeProvider: "./src/components/ThemeProvider.astro",
         ThemeSelect: "./src/components/ThemeSelect.astro",
         LanguageSelect: "./src/components/starlight/LanguageSelect.astro",
+        Footer: "./src/components/starlight/Footer.astro",
         SocialIcons: "./src/components/starlight/SocialIcons.astro",
       },
       head: [

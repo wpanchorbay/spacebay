@@ -62,8 +62,9 @@ a:hover {
 }
 
 :root[data-theme="dark"] .actions .primary:hover {
-    background: #c4b9ff;
-    border-color: #ddd6ff;
+    background: #4a30e0;
+    border-color: #6a52ff;
+    color: #ffffff;
 }
 
 /* Scrollbar Dimensions - Chrome, Edge, Safari */
@@ -185,6 +186,7 @@ html[data-has-hero] body {
 :root {
     --sl-hue-accent: 248;
     --sl-color-accent: #3f22ff;
+    --sl-color-bg-sidebar: var(--sl-color-bg);
     --license-nav-bg: color-mix(in srgb,
             var(--sl-color-bg-nav) 76%,
             transparent);
@@ -243,155 +245,6 @@ html[data-has-hero] body {
     }
 }
 
-.license-footer {
-    display: grid;
-    gap: 1.5rem;
-    justify-items: center;
-    margin-top: clamp(3rem, 8vw, 6rem);
-    padding: clamp(3rem, 8vw, 5rem) 1.5rem;
-    border-top: 1px solid var(--sl-color-gray-6);
-    text-align: center;
-}
-
-:root[data-theme="dark"] .license-footer {
-    border-top-color: color-mix(in srgb,
-            var(--sl-color-gray-6) 60%,
-            transparent);
-}
-
-.license-footer-inner {
-    display: grid;
-    gap: 1.25rem;
-    width: 100%;
-    max-width: 64rem;
-}
-
-.license-footer-brand {
-    display: grid;
-    gap: 0.75rem;
-    justify-items: center;
-}
-
-.license-footer-kicker {
-    margin: 0;
-    font-size: clamp(0.75rem, 0.7rem + 0.3vw, 0.875rem);
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--sl-color-text-accent);
-    opacity: 0.8;
-}
-
-.license-footer-logo {
-    display: inline-block;
-    transition:
-        transform 0.3s ease,
-        opacity 0.3s ease;
-}
-
-.license-footer-logo:hover {
-    transform: scale(1.02);
-    opacity: 0.9;
-    text-decoration: none;
-}
-
-.license-footer-logo img {
-    width: min(280px, 78vw);
-    height: auto;
-}
-
-.license-footer-tagline {
-    margin: 0;
-    max-width: 52rem;
-    font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
-    line-height: 1.7;
-    color: var(--sl-color-gray-1);
-    font-weight: 400;
-}
-
-:root[data-theme="dark"] .license-footer-tagline {
-    color: color-mix(in srgb,
-            var(--sl-color-white) 85%,
-            var(--sl-color-gray-3));
-}
-
-.license-footer-meta {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.85rem;
-    width: 100%;
-}
-
-@media (min-width: 50rem) {
-    .license-footer-meta {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-}
-
-.license-footer-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    border-radius: 9999px;
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--sl-color-text-accent);
-    text-decoration: none;
-    background: color-mix(in srgb, var(--sl-color-bg-nav) 80%, transparent);
-    border: 1px solid color-mix(in srgb, var(--sl-color-gray-5) 60%, transparent);
-    transition: all 0.2s ease;
-}
-
-.license-footer-link:hover {
-    color: #fff;
-    background: var(--sl-color-accent);
-    border-color: var(--sl-color-accent);
-    text-decoration: none;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px color-mix(in srgb, var(--sl-color-accent) 30%, transparent);
-}
-
-:root[data-theme="dark"] .license-footer-link {
-    background: color-mix(in srgb, var(--sl-color-bg-nav) 70%, #1f2b4d);
-    border-color: color-mix(in srgb, var(--sl-color-gray-4) 40%, transparent);
-    color: color-mix(in srgb,
-            var(--sl-color-white) 80%,
-            var(--sl-color-gray-2));
-}
-
-:root[data-theme="dark"] .license-footer-link:hover {
-    background: var(--sl-color-accent);
-    border-color: var(--sl-color-accent);
-    box-shadow: 0 6px 20px color-mix(in srgb, var(--sl-color-accent) 40%, transparent);
-}
-
-.license-footer-divider {
-    width: 1px;
-    height: 1.25rem;
-    background: var(--sl-color-gray-5);
-}
-
-:root[data-theme="dark"] .license-footer-divider {
-    background: color-mix(in srgb, var(--sl-color-gray-4) 50%, transparent);
-}
-
-.license-footer-copyright {
-    margin: 0;
-    font-size: 0.8rem;
-    color: var(--sl-color-gray-2);
-    opacity: 0.7;
-}
-
-:root[data-theme="dark"] .license-footer-copyright {
-    color: color-mix(in srgb,
-            var(--sl-color-gray-2) 70%,
-            var(--sl-color-gray-3));
-}
-
 @media (min-width: 50rem) {
     [data-has-hero] .hero {
         grid-template-columns: 7fr 4fr;
@@ -426,17 +279,29 @@ html[data-has-hero] body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 2.75rem;
-    padding: 0.65rem 1.1rem;
-    border-radius: 0.5rem;
-    border: 1px solid #3f22ff;
+    min-height: 3.5rem;
+    padding: 0.9rem 2.6rem;
+    border-radius: 9999px;
+    border: 2px solid #3f22ff;
+    font-size: 1.125rem;
     font-weight: 700;
     text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+:root[data-theme="dark"] .license-center-button-outlined {
+    border-color: #6a52ff;
 }
 
 .license-center-button-outlined:hover {
     background: color-mix(in srgb, #3f22ff 88%, #000);
     color: #fff;
+    box-shadow: 0 8px 24px -8px color-mix(in srgb, #3f22ff 55%, transparent);
+}
+
+:root[data-theme="dark"] .license-center-button-outlined:hover {
+    background: #4a30e0;
+    border-color: #6a52ff;
 }
 
 .license-404-mark-wrap {
@@ -606,4 +471,66 @@ html[data-has-hero] body {
     font-size: var(--sl-text-sm);
     color: var(--sl-color-gray-2);
     text-align: center;
+}
+
+/* ── Video player (Plyr), in the SpaceBay brand colour ── */
+
+.sl-markdown-content .sb-video .plyr {
+    --plyr-color-main: var(--sl-color-accent);
+    --plyr-video-control-background-hover: var(--sl-color-accent);
+    --plyr-range-thumb-height: 14px;
+    --plyr-control-radius: 8px;
+    --plyr-font-family: var(--sl-font);
+    --plyr-tooltip-radius: 6px;
+    border-radius: 12px;
+    border: 1px solid var(--sl-color-gray-5);
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 10px 30px -12px rgba(15, 10, 60, 0.35);
+}
+
+.sl-markdown-content .sb-video .plyr video {
+    border: 0;
+    border-radius: 0;
+}
+
+.sl-markdown-content .sb-video .plyr--video .plyr__control--overlaid {
+    padding: 22px;
+    background: var(--sl-color-accent);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+}
+
+.sl-markdown-content .sb-video .plyr--video .plyr__control--overlaid svg {
+    width: 22px;
+    height: 22px;
+}
+
+/* Starlight adds a top margin between sibling elements in articles; the player needs none. */
+.sl-markdown-content .sb-video .plyr *,
+.sl-markdown-content .sb-video .plyr *::before,
+.sl-markdown-content .sb-video .plyr *::after {
+    margin-top: 0;
+}
+
+/* ── Left sidebar: the scrollbar only shows while the pointer is over the sidebar ── */
+
+.sidebar-pane {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+}
+
+.sidebar-pane:hover {
+    scrollbar-color: #cbd5e1 transparent;
+}
+
+:root[data-theme="dark"] .sidebar-pane:hover {
+    scrollbar-color: #475569 transparent;
+}
+
+/* Homepage "Start from" cards: a plain responsive grid, no staggering */
+.start-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr));
+    gap: 1.25rem;
+    margin-top: 1.5rem;
 }

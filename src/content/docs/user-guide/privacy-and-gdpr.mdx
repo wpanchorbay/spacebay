@@ -9,7 +9,13 @@ SpaceBay works with the WordPress privacy tools in **Tools → Export Personal D
 - **Erase** deletes the member's posts, comments, private messages (a "Message deleted" line stays in the chat), likes, images, blocked members list, profile, memberships, notifications, reports, points, badges, event answers and events they organized. Replies that other members wrote to their comments are kept as separate comments.
 - Deleting a WordPress user also deletes their community data, including their two-factor setup when Pro is active.
 
-SpaceBay adds suggested text to **Settings → Privacy → Policy Guide**. Review it and add what fits to your privacy policy. Note that images are stored in `wp-content/uploads/spacebay/` with random names; anyone who knows an image address can open it, also for private spaces.
+SpaceBay adds suggested text to **Settings → Privacy → Policy Guide**. Review it and add what fits to your privacy policy.
+
+## Images and privacy
+
+{/* update if media gating lands */}
+
+Images are stored in `wp-content/uploads/spacebay/` with random names, and your web server sends them without a login check. Anyone who has the exact link can open an image, also one posted in a private space. Photo details such as GPS location are removed when JPG, PNG and WebP images are uploaded. See [Security and limits](/spacebay/user-guide/security-and-limits/#images-and-privacy). Consider saying this in your privacy policy if your members share personal photos.
 
 ## What happens when a user is deleted
 

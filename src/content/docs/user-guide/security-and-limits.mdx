@@ -3,7 +3,7 @@ title: "Security and limits"
 description: "Permission checks, upload handling, and the limits that slow down spam and password guessing."
 ---
 
-Every REST request checks the member's permission and the WordPress nonce. Posts, comments and profile text are cleaned before they are saved and shown. Uploaded JPG, PNG and WebP images are saved again by WordPress, which removes hidden data and location details; GIF images are checked for hidden code. Link previews only fetch public web addresses on ports 80 and 443.
+Every REST request checks the member's permission and the WordPress nonce. Posts, comments and profile text are cleaned before they are saved and shown. Link previews only fetch public web addresses on ports 80 and 443.
 
 | Action | Limit per member |
 | --- | --- |
@@ -32,3 +32,19 @@ Logging in and signing up have their own limits, which apply to everyone:
 Change these with the `spacebay_auth_attempts` filter. They cover the community login page; to also limit attempts on `wp-login.php`, use a login protection plugin or your host's firewall. If your site is behind a proxy or CDN that hides visitor addresses, return the real address with the `spacebay_client_ip` filter, otherwise all visitors share one limit. With Pro, authenticator keys are stored encrypted, and backup codes and emailed codes are stored as hashes.
 
 For the other actions, administrators are not limited. Change limits with the `spacebay_rate_limit` filter. Images can be up to 8000 pixels on the longest side; the server's memory limit can lower this.
+
+## Images and privacy
+
+{/* update if media gating lands */}
+
+Images that members upload are stored in `wp-content/uploads/spacebay/YYYY/MM/`. Each file name starts with a random 12-character prefix, so addresses cannot be guessed easily.
+
+SpaceBay does not check who is asking for an image. Your web server sends the file directly, with no login check. **Anyone who has the exact link can open the image**, even if they are not logged in and even if the image was posted in a private space. An empty `index.php` file in each folder stops anyone listing the images in a folder.
+
+What SpaceBay does to protect members:
+
+- JPG, PNG and WebP images are saved again on upload. This removes hidden data and photo details such as the GPS location.
+- GIF images keep their animation, so they are checked for hidden code instead, and refused if any is found.
+- Images that are uploaded but never posted are removed after a day. Images are deleted with their post, and with their member.
+
+If your community needs to keep images private, tell members not to upload sensitive ones.

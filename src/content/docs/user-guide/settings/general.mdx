@@ -1,12 +1,24 @@
 ---
 title: "General settings"
-description: "Community name, community address and who can view the community."
+description: "Community name, community address, who can view the community, the member directory, and the Posts and uploads section."
 ---
 
 Open **SpaceBay → Settings** and choose the **General** section in the left column. Select **Save changes** at the top right when you are done.
 
-| Setting | What it does |
-| --- | --- |
-| Community name | Shown in the portal top bar and the browser tab. |
-| Community address | The part of the URL after your domain, for example `community`. Needs pretty permalinks. |
-| Who can view the community | **Everyone** lets visitors read public content. **Logged-in members only** shows visitors the community login page. |
+| Setting | Default | What it does |
+| --- | --- | --- |
+| Community name | Your site name | Shown in the top bar, in emails and in page titles. |
+| Community address | `community` | The part of the URL after your domain. Needs pretty permalinks; without them the field is greyed out. |
+| Who can view the community | Everyone | **Everyone** lets visitors read public content. **Logged-in members only** shows visitors a login page. |
+| Member directory | On | Shows the list of members to logged-in members. WordPress administrators can see it even when it is off. |
+
+## Posts and uploads
+
+Choose the **Posts and uploads** section in the left column.
+
+| Setting | Default | What it does |
+| --- | --- | --- |
+| Link previews | On | When a post contains a link, your site visits that page once to read its title, description and image. YouTube and Vimeo links always show a video that loads only when someone presses play. Turn it off if you do not want your site to contact other websites. See [Feed and posts](/spacebay/user-guide/feed-and-posts/#link-previews-and-videos). |
+| Largest image upload (MB) | 5 | A number from 1 to 50. Members can attach up to 10 JPG, PNG, GIF or WebP images per post. Large images are resized to 2048 pixels on the longest side. Your server's own upload limit also applies, and the lower of the two wins. |
+
+For how images are stored and who can open them, see [Security and limits](/spacebay/user-guide/security-and-limits/#images-and-privacy).

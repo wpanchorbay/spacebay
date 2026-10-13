@@ -63,6 +63,8 @@ Hooks marked <span class="sb-badge sb-badge--pro">Pro</span> come from SpaceBay 
 | `spacebay_link_preview_allowed` | Filter | Return false to stop link previews for a URL. |
 | `spacebay_rate_limit` | Filter | Change how many posts, comments or uploads a member may send per minute. |
 | `spacebay_leaderboard_cache_seconds` | Filter | How long the weekly and monthly leaderboards are kept before they are added up again. Receives the seconds (300) and the period (`week` or `month`). Return 0 to add them up on every view. Since 1.0.0. |
+| `spacebay_comment_max_depth` | Filter | The deepest level a reply can nest. A top-level comment is level 1. Receives the limit (5) and returns it; values below 1 are raised to 1. A reply to a comment on the last level is placed next to that comment. Since 1.0.0. |
+| `spacebay_bootstrap_max_bytes` | Filter | The largest response, in bytes, that SpaceBay carries inside the portal page so the first screen needs no extra requests. Receives the limit (204800, which is 200 KB). A response over the limit is left out and loaded by a normal request. Since 1.0.0. |
 
 ```php
 add_action( 'spacebay_settings_updated', function ( $new, $old ) {

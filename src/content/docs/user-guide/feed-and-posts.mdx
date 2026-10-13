@@ -12,12 +12,12 @@ Members post in the spaces they belong to. The **Home** feed shows posts from ev
 ## Writing a post
 
 - Click the post box, write, choose a space and press **Post**. <kbd>Ctrl</kbd> or <kbd>Cmd</kbd> + <kbd>Enter</kbd> also posts.
-- **Add title** gives the post a heading.
-- The image button adds up to 10 JPG, PNG, GIF or WebP images. Large photos are resized and their hidden data, such as GPS location, is removed.
+- The **Title (optional)** field is always shown above the text. Fill it in to give the post a heading, or leave it empty.
+- The image button, next to **Post**, adds up to 10 JPG, PNG, GIF or WebP images. Large photos are resized and their hidden data, such as GPS location, is removed.
 - Choose up to three topics.
 - Type `@` and a name to mention a member.
 
-<img src="/spacebay/assets/screenshots/composer.png" alt="Writing a post with images, a topic and a mention" width="1440" height="900" data-lightbox="true" />
+<img src="/spacebay/assets/screenshots/composer.png" alt="The post box with a title, text with a mention, two images, topics and a space picker" width="1440" height="900" data-lightbox="true" />
 
 *The post box with images, topics and a mention.*
 
@@ -37,7 +37,7 @@ Members post in the spaces they belong to. The **Home** feed shows posts from ev
 <source src="/spacebay/assets/videos/video-write-post.mp4" type="video/mp4" />
 <source src="/spacebay/assets/videos/video-write-post.webm" type="video/webm" />
 </video>
-<figcaption>Video (17 s): writing a post with a photo and a topic.</figcaption>
+<figcaption>Video (21 s): writing a post with a photo and a topic.</figcaption>
 </figure>
 
 ## Link previews and videos
@@ -48,17 +48,23 @@ YouTube and Vimeo links show a video player. Nothing is loaded from YouTube or V
 
 Active members of a space can post. In a space's details, **Who can start posts** can be set to **Only space admins and moderators**, which suits announcement spaces; members can still like and comment. Authors can edit and delete their own posts. Space admins, moderators and WordPress administrators can edit, delete and pin any post in the space.
 
-<img src="/spacebay/assets/screenshots/space-feed.png" alt="A space feed with a pinned post and a video" width="1440" height="2003" data-lightbox="true" />
+<img src="/spacebay/assets/screenshots/space-feed.png" alt="A space feed with a pinned post and a post with an illustration" width="1440" height="2003" data-lightbox="true" />
 
-*A space feed with a pinned post and a click-to-play video.*
+*A space feed with a pinned post.*
 
 ## Comments, likes and saved posts
 
-Members of a space comment on its posts and reply to comments. Replies stay one level deep, so conversations remain easy to follow. Members can like posts and comments, and **Save** any post they can read; saved posts appear on the **Saved** page, which only they can see.
+Members of a space comment on its posts and reply to comments. Replies nest up to 5 levels deep, with a top-level comment counting as level 1. A reply to a comment on the last level appears next to that comment instead of below it. Developers can change the limit with the `spacebay_comment_max_depth` filter. Members can like posts and comments, and **Save** any post they can read; saved posts appear on the **Saved** page, which only they can see.
 
-<img src="/spacebay/assets/screenshots/comments.png" alt="A post with a comment and a reply" width="1440" height="900" data-lightbox="true" />
+<img src="/spacebay/assets/screenshots/comments.png" alt="A post with a comment and nested replies, each reply indented under the comment it answers" width="1440" height="900" data-lightbox="true" />
 
-*Comments and replies.*
+*Comments and nested replies.*
+
+Authors can edit and delete their own comments. Space admins, moderators and WordPress administrators can edit and delete any comment in the space. What happens to the replies depends on who deletes:
+
+- When a space admin, moderator or WordPress administrator deletes a comment, every reply below it is deleted too.
+- When the author deletes their own comment, replies from other members are kept and move up to the deleted comment's parent, or to the top level if it had none. The author's own direct replies are deleted with the comment, and the replies to those move up as well.
+- When a member's account is erased through the privacy tools, their comments are deleted the same way, so other members' replies stay.
 
 To slow down spam, a member can publish 5 posts and 20 comments per minute. WordPress administrators are not limited. Developers can change the limits with the `spacebay_rate_limit` filter.
 

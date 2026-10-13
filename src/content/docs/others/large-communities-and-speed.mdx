@@ -22,6 +22,8 @@ These times are for SpaceBay's own work on a small test server (PHP 8.3, MariaDB
 - The weekly and monthly leaderboards are added up once every five minutes, not on every view.
 - The number of members in each space is remembered between page loads and updated when someone joins or leaves.
 - The feed and the search do not count every post; they only check whether there is more to load.
+- The portal page already carries its first answers, so the first screen needs no extra requests: the spaces list and topics for everyone, and for logged-in members their numbers, the notification count and, for moderators, the review counts. Each answer is used once, then the portal asks the server as usual. An answer larger than 200 KB is left out of the page and loaded normally, which keeps the page small in a very large community. Developers can change that limit with the `spacebay_bootstrap_max_bytes` filter.
+- The portal keeps recent answers for a short time, so going back to a page you just left is quick. Any change you make, such as posting a comment, clears them.
 - Lists load the people they show together, not one by one.
 - Notification emails leave through one background job, also when an event is announced to thousands of members.
 - Each open community page asks the server for news less often while nobody is using it.

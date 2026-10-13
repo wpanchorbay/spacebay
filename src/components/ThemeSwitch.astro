@@ -35,7 +35,7 @@ const { centered = false, size = 'md' } = Astro.props;
 	}
 
 	.theme-switch {
-		--toggle-accent: #15803d;
+		--toggle-accent: #3f22ff;
 		--toggle-border: color-mix(in srgb, var(--toggle-accent) 22%, var(--sl-color-hairline));
 		--toggle-bg-top: color-mix(in srgb, var(--sl-color-bg-nav) 84%, white 16%);
 		--toggle-bg-bottom: color-mix(in srgb, var(--sl-color-bg) 88%, white 12%);
@@ -57,7 +57,7 @@ const { centered = false, size = 'md' } = Astro.props;
 		background: linear-gradient(180deg, var(--toggle-bg-top) 0%, var(--toggle-bg-bottom) 100%);
 		box-shadow:
 			0 1px 0 color-mix(in srgb, #fff 70%, transparent) inset,
-			0 12px 26px color-mix(in srgb, #15803d 10%, transparent);
+			0 12px 26px color-mix(in srgb, #3f22ff 10%, transparent);
 		color: var(--toggle-text);
 		font-size: var(--toggle-font-size);
 		font-weight: 700;
@@ -83,7 +83,7 @@ const { centered = false, size = 'md' } = Astro.props;
 	}
 
 	:root[data-theme='dark'] .theme-switch {
-		--toggle-accent: #4ade80;
+		--toggle-accent: #8f7dff;
 		--toggle-border: color-mix(in srgb, var(--toggle-accent) 28%, var(--sl-color-hairline));
 		--toggle-bg-top: color-mix(in srgb, #182038 72%, var(--sl-color-bg-nav) 28%);
 		--toggle-bg-bottom: color-mix(in srgb, #0f1527 82%, var(--sl-color-bg) 18%);
@@ -133,7 +133,7 @@ const { centered = false, size = 'md' } = Astro.props;
 			linear-gradient(180deg,
 				color-mix(in srgb, var(--toggle-accent) 24%, #17203b 76%) 0%,
 				color-mix(in srgb, var(--toggle-accent) 14%, #0d1325 86%) 100%);
-		color: #dcfce7;
+		color: #e8e4ff;
 		border-color: color-mix(in srgb, var(--toggle-accent) 34%, rgba(255, 255, 255, 0.08));
 	}
 

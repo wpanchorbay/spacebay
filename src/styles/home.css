@@ -33,37 +33,37 @@ a:hover {
 }
 
 .actions .minimal:hover {
-    background: #bbf7d0;
+    background: #ddd6ff;
 }
 
 .actions .primary {
-    background: #15803d;
+    background: #3f22ff;
 }
 
 .actions .primary:hover {
-    background: #166534;
+    background: #3319d6;
 }
 
 :root[data-theme="dark"] .actions .minimal {
     background: color-mix(in srgb, #0f172a 72%, #1f2b4d 28%);
-    border-color: color-mix(in srgb, #22c55e 28%, transparent);
+    border-color: color-mix(in srgb, #6a52ff 28%, transparent);
     color: #dbe5ff;
 }
 
 :root[data-theme="dark"] .actions .minimal:hover {
-    background: color-mix(in srgb, #1d2b57 70%, #86efac 30%);
+    background: color-mix(in srgb, #1d2b57 70%, #c4b9ff 30%);
     color: #ffffff;
 }
 
 :root[data-theme="dark"] .actions .primary {
-    background: #22c55e;
-    border-color: #4ade80;
+    background: #6a52ff;
+    border-color: #8f7dff;
     color: #ffffff;
 }
 
 :root[data-theme="dark"] .actions .primary:hover {
-    background: #86efac;
-    border-color: #bbf7d0;
+    background: #c4b9ff;
+    border-color: #ddd6ff;
 }
 
 /* Scrollbar Dimensions - Chrome, Edge, Safari */
@@ -167,12 +167,12 @@ html[data-has-hero] body {
 
 /* ── Dark mode base: 4-layer opacity ramp ── */
 :root[data-theme="dark"] [data-has-hero] .hero img {
-    filter: drop-shadow(0 4px 16px rgba(21, 128, 61, 0.08)) drop-shadow(0 8px 32px rgba(21, 128, 61, 0.1)) drop-shadow(0 16px 56px rgba(21, 128, 61, 0.1)) drop-shadow(0 24px 80px rgba(21, 128, 61, 0.07));
+    filter: drop-shadow(0 4px 16px rgba(63, 34, 255, 0.08)) drop-shadow(0 8px 32px rgba(63, 34, 255, 0.1)) drop-shadow(0 16px 56px rgba(63, 34, 255, 0.1)) drop-shadow(0 24px 80px rgba(63, 34, 255, 0.07));
 }
 
 /* ── Dark mode hover: same layer count, stepped up evenly ── */
 :root[data-theme="dark"] [data-has-hero] .hero img:hover {
-    filter: drop-shadow(0 4px 16px rgba(21, 128, 61, 0.14)) drop-shadow(0 8px 36px rgba(21, 128, 61, 0.2)) drop-shadow(0 18px 64px rgba(21, 128, 61, 0.24)) drop-shadow(0 28px 100px rgba(21, 128, 61, 0.16));
+    filter: drop-shadow(0 4px 16px rgba(63, 34, 255, 0.14)) drop-shadow(0 8px 36px rgba(63, 34, 255, 0.2)) drop-shadow(0 18px 64px rgba(63, 34, 255, 0.24)) drop-shadow(0 28px 100px rgba(63, 34, 255, 0.16));
     transform: translateY(-0.5rem) !important;
 }
 
@@ -183,8 +183,8 @@ html[data-has-hero] body {
 }
 
 :root {
-    --sl-hue-accent: 142;
-    --sl-color-accent: #15803d;
+    --sl-hue-accent: 248;
+    --sl-color-accent: #3f22ff;
     --license-nav-bg: color-mix(in srgb,
             var(--sl-color-bg-nav) 76%,
             transparent);
@@ -192,11 +192,11 @@ html[data-has-hero] body {
             var(--sl-color-hairline-shade) 72%,
             transparent);
     --license-hero-gradient: linear-gradient(176deg,
-            rgba(227, 243, 232, 1) 0%,
+            rgba(232, 229, 255, 1) 0%,
             rgba(255, 255, 255, 1) 50%,
             rgba(255, 255, 255, 1) 100%);
-    --license-hero-shadow: drop-shadow(0 28px 60px color-mix(in srgb, #15803d 28%, transparent));
-    --license-hero-shadow-hover: drop-shadow(0 32px 76px color-mix(in srgb, #15803d 46%, transparent)) drop-shadow(0 10px 24px color-mix(in srgb, #15803d 34%, transparent));
+    --license-hero-shadow: drop-shadow(0 28px 60px color-mix(in srgb, #3f22ff 28%, transparent));
+    --license-hero-shadow-hover: drop-shadow(0 32px 76px color-mix(in srgb, #3f22ff 46%, transparent)) drop-shadow(0 10px 24px color-mix(in srgb, #3f22ff 34%, transparent));
 }
 
 :root[data-theme="light"] {
@@ -208,11 +208,11 @@ html[data-has-hero] body {
     --license-nav-bg: color-mix(in srgb, #0f111a 64%, transparent);
     --license-nav-border: color-mix(in srgb, #fff 10%, transparent);
     --license-hero-gradient: linear-gradient(176deg,
-            color-mix(in srgb, #15803d 28%, var(--sl-color-bg) 72%) 0%,
+            color-mix(in srgb, #3f22ff 28%, var(--sl-color-bg) 72%) 0%,
             var(--sl-color-bg) 56%,
             var(--sl-color-bg) 100%);
-    --license-hero-shadow: drop-shadow(0 24px 48px rgba(21, 128, 61, 0.18));
-    --license-hero-shadow-hover: drop-shadow(0 28px 64px rgba(21, 128, 61, 0.32)) drop-shadow(0 8px 20px rgba(21, 128, 61, 0.22));
+    --license-hero-shadow: drop-shadow(0 24px 48px rgba(63, 34, 255, 0.18));
+    --license-hero-shadow-hover: drop-shadow(0 28px 64px rgba(63, 34, 255, 0.32)) drop-shadow(0 8px 20px rgba(63, 34, 255, 0.22));
 }
 
 /* ── Standard Docs Page Layout (Non-Index) ── */
@@ -416,14 +416,14 @@ html[data-has-hero] body {
     min-height: 2.75rem;
     padding: 0.65rem 1.1rem;
     border-radius: 0.5rem;
-    background: #15803d;
+    background: #3f22ff;
     color: #fff;
     font-weight: 700;
     text-decoration: none;
 }
 
 .license-center-button:hover {
-    background: color-mix(in srgb, #15803d 88%, #000);
+    background: color-mix(in srgb, #3f22ff 88%, #000);
     color: #fff;
 }
 
@@ -434,13 +434,13 @@ html[data-has-hero] body {
     min-height: 2.75rem;
     padding: 0.65rem 1.1rem;
     border-radius: 0.5rem;
-    border: 1px solid #15803d;
+    border: 1px solid #3f22ff;
     font-weight: 700;
     text-decoration: none;
 }
 
 .license-center-button-outlined:hover {
-    background: color-mix(in srgb, #15803d 88%, #000);
+    background: color-mix(in srgb, #3f22ff 88%, #000);
     color: #fff;
 }
 
@@ -458,8 +458,8 @@ html[data-has-hero] body {
     inset: 14%;
     border-radius: 999px;
     background: radial-gradient(circle,
-            color-mix(in srgb, #15803d 30%, transparent) 0%,
-            color-mix(in srgb, #86efac 20%, transparent) 32%,
+            color-mix(in srgb, #3f22ff 30%, transparent) 0%,
+            color-mix(in srgb, #c4b9ff 20%, transparent) 32%,
             transparent 72%);
     transform: scale(1.08);
 }
@@ -478,12 +478,12 @@ html[data-has-hero] body {
             rgba(255, 255, 255, 0.52) 16%,
             transparent 40%),
         linear-gradient(155deg,
-            color-mix(in srgb, #15803d 22%, white 78%) 0%,
-            color-mix(in srgb, #86efac 14%, white 86%) 100%);
-    border: 1px solid color-mix(in srgb, #15803d 20%, transparent);
+            color-mix(in srgb, #3f22ff 22%, white 78%) 0%,
+            color-mix(in srgb, #c4b9ff 14%, white 86%) 100%);
+    border: 1px solid color-mix(in srgb, #3f22ff 20%, transparent);
     box-shadow:
         0 1px 0 rgba(255, 255, 255, 0.9) inset,
-        0 28px 70px rgba(21, 128, 61, 0.18);
+        0 28px 70px rgba(63, 34, 255, 0.18);
 }
 
 .license-404-mark {
@@ -516,11 +516,11 @@ html[data-has-hero] body {
     padding: 0.65rem 1rem;
     border-radius: 999px;
     background: color-mix(in srgb, var(--sl-color-bg-nav) 82%, white 18%);
-    border: 1px solid color-mix(in srgb, #15803d 16%, var(--sl-color-hairline));
+    border: 1px solid color-mix(in srgb, #3f22ff 16%, var(--sl-color-hairline));
     color: var(--sl-color-text-accent);
     font-weight: 700;
     text-decoration: none;
-    box-shadow: 0 12px 24px rgba(21, 128, 61, 0.08);
+    box-shadow: 0 12px 24px rgba(63, 34, 255, 0.08);
     transition:
         transform 160ms ease,
         border-color 160ms ease,
@@ -530,10 +530,10 @@ html[data-has-hero] body {
 
 .license-404-links a:hover {
     transform: translateY(-1px);
-    border-color: color-mix(in srgb, #15803d 34%, var(--sl-color-hairline));
+    border-color: color-mix(in srgb, #3f22ff 34%, var(--sl-color-hairline));
     color: var(--sl-color-white);
     text-decoration: none;
-    box-shadow: 0 16px 30px rgba(21, 128, 61, 0.14);
+    box-shadow: 0 16px 30px rgba(63, 34, 255, 0.14);
 }
 
 :root[data-theme="dark"] .license-404-mark-shell {
@@ -543,22 +543,22 @@ html[data-has-hero] body {
             rgba(255, 255, 255, 0.05) 16%,
             transparent 42%),
         linear-gradient(155deg,
-            color-mix(in srgb, #15803d 24%, #11182c 76%) 0%,
-            color-mix(in srgb, #86efac 14%, #0b1321 86%) 100%);
-    border-color: color-mix(in srgb, #22c55e 28%, rgba(255, 255, 255, 0.08));
+            color-mix(in srgb, #3f22ff 24%, #11182c 76%) 0%,
+            color-mix(in srgb, #c4b9ff 14%, #0b1321 86%) 100%);
+    border-color: color-mix(in srgb, #6a52ff 28%, rgba(255, 255, 255, 0.08));
     box-shadow:
         0 1px 0 rgba(255, 255, 255, 0.08) inset,
-        0 34px 76px rgba(21, 128, 61, 0.24);
+        0 34px 76px rgba(63, 34, 255, 0.24);
 }
 
 :root[data-theme="dark"] .license-404-mark {
-    filter: drop-shadow(0 12px 28px rgba(21, 128, 61, 0.22));
+    filter: drop-shadow(0 12px 28px rgba(63, 34, 255, 0.22));
 }
 
 :root[data-theme="dark"] .license-404-links a {
     background: color-mix(in srgb, #11182c 76%, var(--sl-color-bg-nav) 24%);
-    border-color: color-mix(in srgb, #22c55e 18%, var(--sl-color-hairline));
-    box-shadow: 0 16px 28px rgba(21, 128, 61, 0.14);
+    border-color: color-mix(in srgb, #6a52ff 18%, var(--sl-color-hairline));
+    box-shadow: 0 16px 28px rgba(63, 34, 255, 0.14);
 }
 
 :root[data-theme="dark"] .wpanchor-bay-logo {
@@ -567,7 +567,7 @@ html[data-has-hero] body {
 
 .pagination-links a {
     background-color: #e0ffff;
-    border: 1px solid #bbf7d0;
+    border: 1px solid #ddd6ff;
     box-shadow: none;
     text-decoration: none;
 }
@@ -579,18 +579,18 @@ html[data-has-hero] body {
 
 :root[data-theme="dark"] .pagination-links a {
     background-color: color-mix(in srgb, #0f172a 70%, #1f2b4d 30%);
-    border-color: color-mix(in srgb, #22c55e 20%, transparent);
+    border-color: color-mix(in srgb, #6a52ff 20%, transparent);
     color: var(--sl-color-white);
 }
 
 :root[data-theme="dark"] .pagination-links a:hover {
-    background-color: color-mix(in srgb, #1d2b57 70%, #86efac 30%);
-    border-color: color-mix(in srgb, #86efac 40%, transparent);
+    background-color: color-mix(in srgb, #1d2b57 70%, #c4b9ff 30%);
+    border-color: color-mix(in srgb, #c4b9ff 40%, transparent);
 }
 :root[data-theme="dark"] {
-    --sl-color-accent-low: #052e16;
-    --sl-color-accent: #16a34a;
-    --sl-color-accent-high: #86efac;
+    --sl-color-accent-low: #17104d;
+    --sl-color-accent: #6a52ff;
+    --sl-color-accent-high: #c4b9ff;
 }
 
 .sl-markdown-content .sb-video {

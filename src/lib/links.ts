@@ -28,6 +28,9 @@ export const EXTERNAL_LINKS = {
   /** Project-specific WPAnchorBay landing page */
   wpAnchorBayProjectLanding: WPANCHORBAY_PROJECT_LANDING_URL,
 
+  /** SpaceBay Pro product site */
+  spacebayPro: "https://wpanchorbay.com/spacebay-pro/",
+
   /** SpaceBay plugin page on WordPress.org */
   wordpressPlugin: "https://wordpress.org/plugins/spacebay/",
 

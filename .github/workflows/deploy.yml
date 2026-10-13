@@ -19,7 +19,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      SITE_ORIGIN: https://${{ github.repository_owner }}.github.io
+      SITE_ORIGIN: https://docs.wpanchorbay.com
       DOCS_REPO_URL: https://github.com/${{ github.repository }}
     steps:
       - name: Checkout

@@ -4,7 +4,7 @@ Replace a file in `public/assets/screenshots/` with a new one of the same name a
 
 | Page | File | Should show | Size |
 | --- | --- | --- | --- |
-| `getting-started/installation` | `plugins-row.png` | The WordPress Plugins screen with SpaceBay and SpaceBay Pro active, showing the Settings and Documentation links | 1440x900 |
+| `getting-started/installation` | `plugins-row.png` | The WordPress Plugins screen with SpaceBay and SpaceBay Pro active, showing the Manage and Documentation links | 1440x900 |
 | `getting-started/introduction` | `portal-admin-light.png` | The SpaceBay portal home page with a welcome banner and the community feed | 1440x900 |
 | `getting-started/setup-wizard` | `setup-2.png` | Setup wizard step two with the logo, brand colour and layout | 1440x900 |
 | `getting-started/setup-wizard` | `setup-3.png` | Setup wizard step three with starter spaces | 1440x900 |

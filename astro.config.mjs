@@ -11,6 +11,9 @@ import {
 } from "./site-config.mjs";
 
 const srcDir = fileURLToPath(new URL("./src", import.meta.url));
+const plyrDist = fileURLToPath(
+  new URL("./node_modules/plyr/dist", import.meta.url),
+);
 const customIconPath = fileURLToPath(
   new URL("./src/components/starlight/Icon.astro", import.meta.url),
 );
@@ -23,6 +26,8 @@ export default defineConfig({
     resolve: {
       alias: [
         { find: "~", replacement: srcDir },
+        // Plyr only exports its entry point, so its stylesheet and icon sprite are aliased.
+        { find: "plyr-dist", replacement: plyrDist },
         {
           find: "@astrojs/starlight/user-components/Icon.astro",
           replacement: customIconPath,

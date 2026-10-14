@@ -80,7 +80,11 @@ const columns = [
       support@wpanchorbay.com
     </a>
     <div class="sb-footer-theme"><ThemeToggle /></div>
-    <p class="sb-footer-copy">&copy; {new Date().getFullYear()} WPAnchorBay. All rights reserved.</p>
+    <p class="sb-footer-copy">
+      &copy; {new Date().getFullYear()} WPAnchorBay. All rights reserved.
+      <span aria-hidden="true">&middot;</span>
+      <a href={doc("trademarks")}>Trademarks</a>
+    </p>
   </div>
 </div>
 
@@ -253,5 +257,14 @@ const columns = [
     text-align: center;
     font-size: 0.8rem;
     color: var(--sl-color-gray-3);
+  }
+  .sb-footer-copy a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .sb-footer-copy a:hover,
+  .sb-footer-copy a:focus-visible {
+    color: var(--sl-color-white);
   }
 </style>

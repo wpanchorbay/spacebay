@@ -59,7 +59,7 @@ export const FEED_LINKS = {
   canonical: buildAbsoluteUrl("/"),
 
   /** Absolute URL of the OpenGraph share image */
-  ogImage: buildAbsoluteUrl("/assets/WPAnchorBay-Documentation-OG.png"),
+  ogImage: buildAbsoluteUrl("/assets/spacebay-docs-og.png"),
 
   /** XML sitemap index */
   sitemap: buildAbsoluteUrl("/sitemap-index.xml"),

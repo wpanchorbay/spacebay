@@ -8,6 +8,8 @@ import {
   ICON_HREF,
   SITE_ORIGIN,
   LOGO_SVG_PATH,
+  OG_IMAGE_URL,
+  OG_IMAGE_ALT,
 } from "./site-config.mjs";
 
 const srcDir = fileURLToPath(new URL("./src", import.meta.url));
@@ -65,6 +67,14 @@ export default defineConfig({
         SocialIcons: "./src/components/starlight/SocialIcons.astro",
       },
       head: [
+        // Share image for every page; a page can override these in its own frontmatter.
+        { tag: "meta", attrs: { property: "og:image", content: OG_IMAGE_URL } },
+        { tag: "meta", attrs: { property: "og:image:type", content: "image/png" } },
+        { tag: "meta", attrs: { property: "og:image:width", content: "1200" } },
+        { tag: "meta", attrs: { property: "og:image:height", content: "630" } },
+        { tag: "meta", attrs: { property: "og:image:alt", content: OG_IMAGE_ALT } },
+        { tag: "meta", attrs: { name: "twitter:image", content: OG_IMAGE_URL } },
+        { tag: "meta", attrs: { name: "twitter:image:alt", content: OG_IMAGE_ALT } },
         {
           tag: "link",
           attrs: {

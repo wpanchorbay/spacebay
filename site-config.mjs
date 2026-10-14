@@ -15,7 +15,12 @@ export const LOGO_SVG_PATH = "./src/assets/spacebay-icon.svg";
 export const ICON_HREF = `${BASE_PATH}/assets/spacebay-icon.svg`;
 
 /** Absolute site-relative path to the OpenGraph share image. */
-export const OG_IMAGE_HREF = `${BASE_PATH}/assets/WPAnchorBay-Documentation-OG.png`;
+export const OG_IMAGE_HREF = `${BASE_PATH}/assets/spacebay-docs-og.png`;
+
+/** Absolute URL of the OpenGraph share image (crawlers need a full URL). */
+export const OG_IMAGE_URL = new URL(OG_IMAGE_HREF, SITE_ORIGIN).toString();
+
+export const OG_IMAGE_ALT = "SpaceBay Documentation by WPAnchorBay";
 
 export const WPANCHORBAY_URL = "https://wpanchorbay.com";
 export const WPANCHORBAY_PROJECT_LANDING_URL = "https://wpanchorbay.com/plugins/spacebay/";

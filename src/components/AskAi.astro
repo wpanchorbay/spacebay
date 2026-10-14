@@ -1,0 +1,126 @@
+---
+/**
+ * Icon-only "ask an AI about SpaceBay" row for the home page. The assistant's
+ * name shows as a tooltip on hover and focus and is the accessible name. Gemini
+ * cannot be prefilled from a URL, so that link copies the prompt on click and
+ * opens the plain chat (src/scripts/copy-prompt.ts).
+ */
+import { buildAbsoluteUrl } from "../../site-config.mjs";
+import { ASSISTANTS } from "../lib/assistants";
+
+const prompt = `Read ${buildAbsoluteUrl("/llms.txt")} so I can ask questions about SpaceBay`;
+---
+
+<div class="ask-ai">
+  <span class="ask-ai-label">Ask AI about SpaceBay</span>
+  <ul class="ask-ai-list">
+    {
+      ASSISTANTS.map((a) => (
+        <li>
+          <a
+            class="ask-ai-chip"
+            href={a.href(prompt)}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-copy-prompt={a.copyPrompt ? prompt : undefined}
+            aria-label={a.copyPrompt ? `${a.name}: copies the prompt, then opens the chat` : `Ask ${a.name}`}
+          >
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+              <path d={a.icon} />
+            </svg>
+            <span class="ask-ai-tip" data-tip data-idle={a.name} aria-hidden="true">
+              {a.name}
+            </span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+  <span class="ask-ai-sr" role="status" data-ai-status></span>
+</div>
+
+<style>
+  .ask-ai {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin: 0 0 2rem;
+  }
+  .ask-ai-label {
+    font-size: var(--sl-text-sm);
+    font-weight: 500;
+    color: var(--sl-color-gray-3);
+  }
+  .ask-ai-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .ask-ai-list li {
+    margin: 0;
+    padding: 0;
+  }
+  .ask-ai-chip {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.6rem;
+    border: 1px solid var(--sl-color-gray-5);
+    background: var(--sl-color-bg);
+    color: var(--sl-color-gray-2);
+    text-decoration: none;
+    transition: background-color 0.15s, color 0.15s;
+  }
+  .ask-ai-chip:hover,
+  .ask-ai-chip:focus-visible {
+    background: var(--sl-color-gray-6);
+    color: var(--sl-color-white);
+    text-decoration: none;
+  }
+  .ask-ai-chip:focus-visible {
+    outline: 2px solid var(--sl-color-text-accent);
+    outline-offset: 2px;
+  }
+  .ask-ai-tip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    z-index: 10;
+    margin-bottom: 0.4rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
+    background: var(--sl-color-black);
+    color: var(--sl-color-white);
+    border: 1px solid var(--sl-color-gray-5);
+    font-size: var(--sl-text-xs);
+    font-weight: 500;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateX(-50%);
+    transition: opacity 0.15s;
+  }
+  .ask-ai-chip:hover .ask-ai-tip,
+  .ask-ai-chip:focus-visible .ask-ai-tip {
+    opacity: 1;
+  }
+  .ask-ai-sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+</style>
+
+<script>
+  import "../scripts/copy-prompt";
+</script>

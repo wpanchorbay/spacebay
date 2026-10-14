@@ -1,0 +1,15 @@
+---
+import Default from "@astrojs/starlight/components/PageSidebar.astro";
+import PageTools from "../PageTools.astro";
+
+const { toc } = Astro.locals.starlightRoute;
+---
+
+{
+  toc && (
+    <div class="sl-hidden lg:sl-block">
+      <PageTools />
+    </div>
+  )
+}
+<Default><slot /></Default>

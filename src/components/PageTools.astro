@@ -1,0 +1,320 @@
+---
+/**
+ * "Copy as markdown" split button with a menu: copy or view the page as
+ * markdown, or hand it to an AI assistant. Sits above "On this page" in the
+ * right sidebar (see starlight/PageSidebar.astro). The markdown comes from
+ * src/pages/markdown/[...slug].md.ts, one file per page.
+ */
+import { BASE_PATH, buildAbsoluteUrl } from "../../site-config.mjs";
+import { ASSISTANTS, pagePrompt } from "../lib/assistants";
+
+const { id } = Astro.locals.starlightRoute;
+const markdownPath = `${BASE_PATH}/markdown/${id}.md`;
+const markdownUrl = buildAbsoluteUrl(`/markdown/${id}.md`);
+const prompt = pagePrompt(markdownUrl);
+---
+
+<div class="page-tools" data-md-src={markdownPath}>
+  <div class="pt-group" role="group">
+    <button class="pt-btn pt-copy" type="button" data-pt-copy>
+      <span class="pt-icon"><svg aria-hidden="true"><use href="#pt-i-copy"></use></svg></span>
+      <span data-pt-copy-label>Copy as markdown</span>
+    </button>
+    <button
+      class="pt-btn pt-toggle"
+      type="button"
+      aria-label="Page tools"
+      aria-haspopup="menu"
+      aria-expanded="false"
+      aria-controls="page-tools-menu"
+    >
+      <span class="pt-icon"><svg aria-hidden="true"><use href="#pt-i-chevron"></use></svg></span>
+    </button>
+  </div>
+
+  <div class="pt-menu" id="page-tools-menu" role="menu" aria-label="Page tools" hidden>
+    <div class="pt-menu-group" role="presentation">
+      <div class="pt-menu-label">Copy and view</div>
+      <button class="pt-item" role="menuitem" type="button" data-pt-copy>
+        <span class="pt-left"><span class="pt-icon"><svg aria-hidden="true"><use href="#pt-i-copy"></use></svg></span>Copy as markdown</span>
+      </button>
+      <a class="pt-item" role="menuitem" href={markdownPath} target="_blank" rel="noopener">
+        <span class="pt-left"><span class="pt-icon"><svg aria-hidden="true"><use href="#pt-i-file"></use></svg></span>View as markdown</span>
+        <span class="pt-right"><span class="pt-icon"><svg aria-hidden="true"><use href="#pt-i-ext"></use></svg></span></span>
+      </a>
+    </div>
+
+    <hr class="pt-sep" role="separator" />
+
+    <div class="pt-menu-group" role="presentation">
+      <div class="pt-menu-label">Open in assistant</div>
+      {
+        ASSISTANTS.map((a) => (
+          <a
+            class="pt-item"
+            role="menuitem"
+            href={a.href(prompt)}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-copy-prompt={a.copyPrompt ? prompt : undefined}
+          >
+            <span class="pt-left">Open in {a.name}</span>
+            <span class="pt-right"><span class="pt-icon"><svg aria-hidden="true"><use href="#pt-i-ext"></use></svg></span></span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+
+  <span class="pt-sr" role="status" data-ai-status></span>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="pt-i-copy" viewBox="0 0 20 20"><path fill="currentColor" fill-rule="evenodd" d="M13.469 2.5c.63 0 1.15.48 1.212 1.094l.007.125-.001 1.593h1.407c.73 0 1.331.558 1.4 1.271l.006.136v9.375c0 .776-.63 1.406-1.406 1.406H6.719c-.777 0-1.407-.63-1.407-1.406v-1.407H3.719c-.631 0-1.15-.48-1.213-1.094L2.5 13.47v-9.75c0-.631.48-1.15 1.094-1.213L3.72 2.5h9.75zm2.625 3.75H6.719a.469.469 0 00-.469.469v9.375c0 .259.21.468.469.468h9.375c.259 0 .468-.21.468-.468V6.719a.469.469 0 00-.468-.469zm-2.625-2.813h-9.75a.281.281 0 00-.274.217l-.007.065v9.75c0 .133.092.244.216.274l.065.007 1.593-.001v-7.03c0-.731.558-1.332 1.271-1.4l.136-.006 7.031-.001V3.719a.281.281 0 00-.217-.274l-.064-.007z"></path></symbol>
+    <symbol id="pt-i-chevron" viewBox="0 0 20 20"><path fill="currentColor" fill-rule="evenodd" d="M6.293 8.293a1 1 0 011.32-.083l.094.083L10 10.585l2.293-2.292a1 1 0 011.32-.083l.094.083a1 1 0 01.083 1.32l-.083.094-3 3a1 1 0 01-1.32.083l-.094-.083-3-3a1 1 0 010-1.414z"></path></symbol>
+    <symbol id="pt-i-file" viewBox="0 0 20 20"><path fill="currentColor" fill-rule="evenodd" d="M16.5 17h-13a.5.5 0 01-.5-.5v-13a.5.5 0 01.5-.5h9.879a.5.5 0 01.353.146l3.122 3.122A.5.5 0 0117 6.62v9.88a.5.5 0 01-.5.5zM2 3.5A1.5 1.5 0 013.5 2h9.879a1.5 1.5 0 011.06.44l3.122 3.12A1.5 1.5 0 0118 6.622V16.5a1.5 1.5 0 01-1.5 1.5h-13A1.5 1.5 0 012 16.5v-13zM5.5 6a.5.5 0 000 1h6a.5.5 0 000-1h-6zM5 10a.5.5 0 01.5-.5h9a.5.5 0 010 1h-9A.5.5 0 015 10zm.5 3a.5.5 0 000 1h8a.5.5 0 000-1h-8z"></path></symbol>
+    <symbol id="pt-i-ext" viewBox="0 0 20 20"><path fill="currentColor" fill-rule="evenodd" d="M8.4 4.5a.5.5 0 01.5.5v.1a.5.5 0 01-.5.5H5.6v8.8h8.8v-2.8a.5.5 0 01.41-.492l.09-.008h.1a.5.5 0 01.492.41l.008.09V15a.5.5 0 01-.41.492L15 15.5H5a.5.5 0 01-.492-.41L4.5 15V5a.5.5 0 01.41-.492L5 4.5h3.4zm6.6 0a.5.5 0 01.5.5v.1l-.001.01.001 3.29a.5.5 0 01-.5.5h-.1a.5.5 0 01-.5-.5l-.001-1.935-3.967 3.967a.611.611 0 01-.78.07l-.084-.07a.611.611 0 01-.07-.78l.07-.084L13.534 5.6H11.6a.5.5 0 01-.5-.5V5a.5.5 0 01.5-.5H15z"></path></symbol>
+  </svg>
+</div>
+
+<style is:global>
+  .page-tools {
+    position: relative;
+    padding: 1rem var(--sl-sidebar-pad-x) 0;
+  }
+  .pt-group {
+    display: inline-flex;
+    max-width: 100%;
+  }
+  .pt-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    font: inherit;
+    font-size: var(--sl-text-sm);
+    font-weight: 500;
+    color: var(--sl-color-text);
+    background: var(--sl-color-bg);
+    border: 1px solid var(--sl-color-gray-5);
+    cursor: pointer;
+  }
+  .pt-btn:hover {
+    background: var(--sl-color-gray-6);
+  }
+  .pt-btn:focus-visible {
+    outline: 2px solid var(--sl-color-text-accent);
+    outline-offset: 2px;
+  }
+  .pt-copy {
+    border-radius: 6px 0 0 6px;
+  }
+  .pt-toggle {
+    border-radius: 0 6px 6px 0;
+    border-left: 0;
+    padding: 6px 8px;
+  }
+  .pt-icon {
+    width: 16px;
+    height: 16px;
+    flex: none;
+    display: inline-block;
+  }
+  .pt-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* Fixed, so no scrolling ancestor can clip it; the script sets top/left/width/max-height. */
+  .pt-menu {
+    position: fixed;
+    z-index: 1000;
+    margin: 0;
+    padding: 6px 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: var(--sl-color-bg);
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.14);
+  }
+  .pt-menu[hidden] {
+    display: none;
+  }
+  .pt-menu-group {
+    padding: 4px 0;
+  }
+  .pt-menu-label {
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--sl-color-gray-3);
+    white-space: nowrap;
+  }
+  .pt-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+    padding: 8px 12px;
+    font: inherit;
+    font-size: var(--sl-text-sm);
+    text-align: left;
+    white-space: nowrap;
+    color: var(--sl-color-text);
+    background: none;
+    border: 0;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .pt-item:hover,
+  .pt-item:focus-visible {
+    background: var(--sl-color-gray-6);
+    outline: none;
+    text-decoration: none;
+  }
+  .pt-left {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+  }
+  .pt-right {
+    display: inline-flex;
+    align-items: center;
+    flex: none;
+    color: var(--sl-color-gray-3);
+  }
+  .pt-sep {
+    height: 1px;
+    margin: 4px 0;
+    border: 0;
+    background: var(--sl-color-gray-5);
+  }
+  .pt-sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+</style>
+
+<script>
+  import "../scripts/copy-prompt";
+
+  const root = document.querySelector<HTMLElement>(".page-tools");
+  if (root) {
+    const group = root.querySelector<HTMLElement>(".pt-group")!;
+    const toggle = root.querySelector<HTMLButtonElement>(".pt-toggle")!;
+    const menu = root.querySelector<HTMLElement>("#page-tools-menu")!;
+    const status = root.querySelector<HTMLElement>("[data-ai-status]")!;
+    const mainLabel = root.querySelector<HTMLElement>("[data-pt-copy-label]")!;
+    const GAP = 6;
+    const MARGIN = 8;
+    const MIN_WIDTH = 232;
+    const idleLabel = mainLabel.textContent ?? "";
+    let resetTimer: number | undefined;
+
+    const isOpen = () => !menu.hidden;
+
+    function position() {
+      const r = group.getBoundingClientRect();
+      const vw = document.documentElement.clientWidth;
+      const vh = document.documentElement.clientHeight;
+
+      // At least as wide as the button group, wide enough for the longest label, clamped into the viewport.
+      const w = Math.min(Math.max(r.width, MIN_WIDTH), vw - MARGIN * 2);
+      const left = Math.min(Math.max(r.left, MARGIN), Math.max(MARGIN, vw - w - MARGIN));
+      menu.style.width = `${w}px`;
+      menu.style.left = `${left}px`;
+
+      menu.style.maxHeight = "none";
+      const h = menu.offsetHeight;
+      const below = vh - r.bottom - GAP - MARGIN;
+      const above = r.top - GAP - MARGIN;
+
+      // Down if it fits, else up if it fits, else the roomier side (it scrolls).
+      const down = h <= below || (h > above && below >= above);
+      const avail = down ? below : above;
+      const mh = Math.max(80, Math.min(h, avail));
+      menu.style.maxHeight = `${mh}px`;
+      menu.style.top = `${down ? r.bottom + GAP : r.top - GAP - mh}px`;
+    }
+
+    function open() {
+      menu.hidden = false;
+      toggle.setAttribute("aria-expanded", "true");
+      position();
+    }
+
+    function close(refocus = false) {
+      menu.hidden = true;
+      toggle.setAttribute("aria-expanded", "false");
+      if (refocus) toggle.focus();
+    }
+
+    function flash(label: string, announce: string) {
+      mainLabel.textContent = label;
+      status.textContent = announce;
+      window.clearTimeout(resetTimer);
+      resetTimer = window.setTimeout(() => {
+        mainLabel.textContent = idleLabel;
+        status.textContent = "";
+      }, 2000);
+    }
+
+    async function copyMarkdown() {
+      try {
+        const response = await fetch(root!.dataset.mdSrc!);
+        if (!response.ok) throw new Error(String(response.status));
+        await navigator.clipboard.writeText(await response.text());
+        flash("Copied", "Page copied as markdown.");
+      } catch {
+        flash("Copy failed", "Could not copy the page.");
+      }
+    }
+
+    toggle.addEventListener("click", (event) => {
+      event.stopPropagation();
+      if (isOpen()) close();
+      else open();
+    });
+
+    root.querySelectorAll("[data-pt-copy]").forEach((el) => el.addEventListener("click", copyMarkdown));
+
+    // Click outside closes; clicks inside the menu are left alone.
+    document.addEventListener("click", (event) => {
+      const target = event.target as Node;
+      if (isOpen() && !menu.contains(target) && !toggle.contains(target)) close();
+    });
+
+    // Choosing an item closes the menu.
+    menu.addEventListener("click", (event) => {
+      if ((event.target as Element).closest(".pt-item")) close();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (!isOpen()) return;
+      if (event.key === "Escape") {
+        close(true);
+        return;
+      }
+      if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+        const items = [...menu.querySelectorAll<HTMLElement>(".pt-item")];
+        const at = items.indexOf(document.activeElement as HTMLElement);
+        const next = event.key === "ArrowDown" ? (at + 1) % items.length : (at - 1 + items.length) % items.length;
+        items[next]?.focus();
+        event.preventDefault();
+      }
+    });
+
+    // Keep it anchored when the page moves; capture catches nested scrollers.
+    window.addEventListener("resize", () => isOpen() && position());
+    window.addEventListener("scroll", () => isOpen() && position(), true);
+  }
+</script>

@@ -65,6 +65,7 @@ export default defineConfig({
         LanguageSelect: "./src/components/starlight/LanguageSelect.astro",
         Footer: "./src/components/starlight/Footer.astro",
         SocialIcons: "./src/components/starlight/SocialIcons.astro",
+        PageSidebar: "./src/components/starlight/PageSidebar.astro",
       },
       head: [
         // Share image for every page; a page can override these in its own frontmatter.

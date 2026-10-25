@@ -17,6 +17,7 @@ Every REST request checks the member's permission and the WordPress nonce. Posts
 | Profile saves | 20 a minute |
 | Reports | 10 a minute |
 | Messages | 30 a minute |
+| Starting chats | 10 an hour. Creating groups and adding people to groups is limited per hour too. Together, a member can reach 30 new people an hour. Managers are not limited. |
 | New events | 10 an hour. Counted only after the form is valid. |
 | Starting a call <span class="sb-badge sb-badge--pro">Pro</span> | 10 a minute. Joining a call that is already running does not count. |
 | Shop requests <span class="sb-badge sb-badge--pro">Pro</span> | 3 an hour |
@@ -28,7 +29,7 @@ Logging in and signing up have their own limits, which apply to everyone:
 
 | Action | Limit |
 | --- | --- |
-| Wrong passwords for one account | 5 in 15 minutes from one network address, 20 in 15 minutes in total. The limit for one network address applies only after failed attempts; a correct password is never refused. |
+| Wrong passwords for one account | 5 in 15 minutes from one network address, 20 in 15 minutes in total. Every spelling of one account (login name or email) counts together. Since 1.1.0, one network address is also limited to 30 failed logins in 15 minutes; while it is, even a correct password from that address is refused, and the normal WordPress login page still works. |
 | Wrong login codes for one login <span class="sb-badge sb-badge--pro">Pro</span> | 5, then the member logs in again |
 | Wrong login codes for one account <span class="sb-badge sb-badge--pro">Pro</span> | 10 in 15 minutes and 30 a day. The member gets an email when the daily limit is reached. |
 | Login codes by email for one account <span class="sb-badge sb-badge--pro">Pro</span> | 10 an hour |

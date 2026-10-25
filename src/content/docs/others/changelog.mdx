@@ -3,6 +3,24 @@ title: "Changelog"
 description: "Release notes for SpaceBay and SpaceBay Pro."
 ---
 
+## 1.1.0
+
+### SpaceBay 1.1.0
+
+- New: the post box is a short bar that opens a focused window, full screen on phones. It has a live character counter, a clear reason when **Post** is off, a collapsed **Add title and topics** section and a **Discard?** check.
+- New: set the longest post (500 to 50,000 characters) and comment (200 to 10,000) under **Settings → Posts and uploads**. Lowering a limit never locks old posts: a long post can still be edited shorter.
+- New: filters `spacebay_post_max_length`, `spacebay_comment_max_length` and `spacebay_message_max_length`.
+- New: short text-only posts can show in larger type. An admin switch and a character limit (140 by default, 40 to 280) control it.
+- New: Site Health tells you when your site seems to be behind a proxy or CDN and shows how to fix it with the `spacebay_client_ip` filter.
+- Changed: `/community/register` now goes to the sign-up page.
+- Security: login limits count every spelling of one account together and also cap failed logins per address.
+- Security: the members directory and profile pages show only people who belong to the community, not every site user such as shop customers.
+- Security: starting chats, creating groups and adding people to groups is limited per hour. The first email to someone who has not written in a chat has no message text, chat title or sender name.
+- Security: only community members can be @mentioned or messaged by other members. Replies in a chat stay open.
+- Fixed: long posts are no longer cut short without warning when the limit was raised.
+
+SpaceBay Pro stays at 1.0.0 and works with SpaceBay 1.1.0.
+
 ## 1.0.0
 
 ### SpaceBay 1.0.0

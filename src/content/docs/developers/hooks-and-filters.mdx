@@ -18,7 +18,7 @@ Hooks marked <span class="sb-badge sb-badge--pro">Pro</span> come from SpaceBay 
 | `spacebay_two_factor_disabled` <span class="sb-badge sb-badge--pro">Pro</span> | Action | After two-factor authentication was removed from an account by the member or an administrator. Receives the user ID. |
 | `spacebay_account_email` | Filter | Change an account email (login code, password reset, welcome) before it is sent. Receives the email parts, the user ID and the parts it was built from. |
 | `spacebay_auth_attempts` | Filter | Change how many login, signup or code attempts are allowed. Receives the limit and the action name. |
-| `spacebay_client_ip` | Filter | Return the visitor's real network address when your site is behind a proxy or CDN. |
+| `spacebay_client_ip` | Filter | Return the visitor's real network address when your site is behind a proxy or CDN. Since 1.1.0, *Tools → Site Health* recommends it when requests seem to come through a proxy and the filter is not used. |
 | `spacebay_space_created` | Action | After a space is created. Receives the space ID and creator ID. |
 | `spacebay_space_updated` | Action | After a space is edited. Receives the space ID and changed fields. |
 | `spacebay_space_deleted` | Action | After a space or group is deleted. Receives the deleted row. |
@@ -66,6 +66,9 @@ Hooks marked <span class="sb-badge sb-badge--pro">Pro</span> come from SpaceBay 
 | `spacebay_media_is_private` | Filter | Whether the images attached to an object are private files, served only to people allowed to read the object. Receives the answer SpaceBay worked out (`bool`), the object type (for example `post` or `message`) and the object ID. Message images are always private. Post images are private unless the space is public and published and the community is not set to members only. |
 | `spacebay_rate_limit` | Filter | Change how many posts, comments or uploads a member may send per minute. |
 | `spacebay_leaderboard_cache_seconds` | Filter | How long the weekly and monthly leaderboards are kept before they are added up again. Receives the seconds (300) and the period (`week` or `month`). Return 0 to add them up on every view. Since 1.0.0. |
+| `spacebay_post_max_length` | Filter | Change the longest post allowed, in characters. Receives the *Maximum post length* setting. The result is kept between 1 and 100,000. Since 1.1.0. |
+| `spacebay_comment_max_length` | Filter | Change the longest comment allowed, in characters. Receives the *Maximum comment length* setting. The result is kept between 1 and 100,000. Since 1.1.0. |
+| `spacebay_message_max_length` | Filter | Change the longest chat message allowed, in characters. Starts at 5,000; there is no setting. The result is kept between 1 and 100,000. Since 1.1.0. |
 | `spacebay_comment_max_depth` | Filter | The deepest level a reply can nest. A top-level comment is level 1. Receives the limit (5) and returns it; values below 1 are raised to 1. A reply to a comment on the last level is placed next to that comment. Since 1.0.0. |
 | `spacebay_bootstrap_max_bytes` | Filter | The largest response, in bytes, that SpaceBay carries inside the portal page so the first screen needs no extra requests. Receives the limit (204800, which is 200 KB). A response over the limit is left out and loaded by a normal request. Since 1.0.0. |
 | `spacebay_pro_loaded` <span class="sb-badge sb-badge--pro">Pro</span> | Action | After SpaceBay Pro has loaded. Receives nothing. |

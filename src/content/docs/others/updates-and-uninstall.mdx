@@ -32,6 +32,8 @@ Your community data is kept during updates. SpaceBay Pro 1.0.0 needs SpaceBay 1.
 
 Updating from 1.0.0 to 1.1.0 changes no database tables. If your site is behind a proxy or CDN, open **Tools → Site Health** after updating: SpaceBay tells you whether it can tell visitors apart, and the `spacebay_client_ip` filter fixes it (see [Hooks and filters](/spacebay/developers/hooks-and-filters/)).
 
+Updating from 1.1.0 to 1.1.1 adds one small table (the member decision log), a `comment_id` column to the notifications table and an `entered_at` column to the profiles table. Everyone who was already in your community is marked as a member, so member approval does not hold existing members.
+
 ## Deactivate and uninstall
 
 Deactivating keeps all data. Deleting the plugin keeps all data unless **Delete all data when the plugin is deleted** is on in Settings. When it is on, deleting removes SpaceBay tables, settings, capabilities (including the moderator capability given to single members), cached data and the uploaded images in `wp-content/uploads/spacebay/` from every site in a network.

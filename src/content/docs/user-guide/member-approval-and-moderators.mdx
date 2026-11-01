@@ -7,6 +7,15 @@ description: "Approve new members, suspend and restore accounts, and add communi
 
 With **Approve new members before they can take part** on, people who sign up can log in but see a message that their account is waiting for approval. They can read public content like a visitor, but cannot post, comment, react, join spaces or see the member directory. Moderators approve or decline them on **Moderation → New members**; approved members get a notification and an email. Turning the setting on does not affect existing members.
 
+Who waits, and when <span class="sb-badge sb-badge--since">Since 1.1.1</span>:
+
+- People who sign up on the community page, or with social login, wait for approval from the start.
+- Accounts made anywhere else, such as a shop customer at checkout, a sign-up on the WordPress login page or a user added in the WordPress admin, are left alone until they open the community for the first time. Only then do they wait for approval, once, and only then do moderators hear about them. A shop customer who never opens the community never reaches the moderators.
+- Existing members keep their access. So does an account that a moderator decides on, or that a space admin adds or invites to a space.
+- Erasing a member's personal data with the WordPress privacy tools removes their community profile. With approval on, that account waits for approval again on its next visit.
+
+Below the list, **Recent decisions** shows who approved, declined, suspended or restored which member, and when. When someone decides, the notices about that waiting member close for every moderator.
+
 <img src="/spacebay/assets/screenshots/pending-member.png" alt="The message a new member sees while waiting for approval" width="1440" height="900" data-lightbox="true" />
 
 *A new member waiting for approval.*

@@ -11,6 +11,15 @@ Hooks marked <span class="sb-badge sb-badge--pro">Pro</span> come from SpaceBay 
 | `spacebay_installed` | Action | After install or database upgrade on a site. |
 | `spacebay_settings_updated` | Action | After settings are saved. Receives new and old settings. |
 | `spacebay_settings_schema` | Filter | Add your own settings. See [Extending SpaceBay](/spacebay/developers/extending-spacebay/). |
+| `spacebay_exchange_register` | Action | Since 1.2.0. Lets an add-on register its own entities for import and export. Receives the registry. See [SpaceBay Exchange Format](/spacebay/developers/exchange-format/). |
+| `spacebay_import_record` | Filter | Since 1.2.0. Change one record before it is imported, or return `null` to leave it out. Receives the record, the entity name and the run ID. |
+| `spacebay_import_finished` | Action | Since 1.2.0. After an import has written everything. Receives the run ID and a summary (counters per entity, `started_at`, `finished_at`). |
+| `spacebay_exchange_replace_emptied` | Action | Since 1.2.0. In Replace mode, after SpaceBay has emptied its tables. Empty your own tables here. Receives the run ID. |
+| `spacebay_import_max_bytes` | Filter | Since 1.2.0. Largest import file in bytes. The default is 2 GB; the lowest value is 1. |
+| `spacebay_transfer_retention_days` | Filter | Since 1.2.0. Days a finished export is kept. The default is 7; the value is held between 1 and 30. |
+| `spacebay_import_media_roots` | Filter | Since 1.2.0. Folders an import may read picture files from. The default is the uploads folder and the temporary folder; an import from a folder adds that folder while it reads the pictures. A file outside them, or a link that leads out, is refused. Receives the list of absolute folder paths. |
+| `spacebay_members_csv_columns` | Filter | Since 1.2.0. Add columns to the members list. A name may use only `a` to `z`, `0` to `9` and underscore, up to 64 characters. The fixed columns cannot be removed. |
+| `spacebay_members_csv_row` | Filter | Since 1.2.0. Fill your columns in one row. Receives the row, the `WP_User` and the profile. SpaceBay blanks hidden members' details and the email column after this filter runs. |
 | `spacebay_rest_controllers` | Filter | Add REST controllers that extend `SpaceBay\Rest\Controller`. |
 | `spacebay_portal_template` | Filter | Change the template file used for the portal. |
 | `spacebay_member_signed_up` | Action | After someone created an account on the signup page. Receives the user ID and the checked form values (without the password). |
@@ -28,6 +37,7 @@ Hooks marked <span class="sb-badge sb-badge--pro">Pro</span> come from SpaceBay 
 | `spacebay_member_directory_args` | Filter | Change the WP_User_Query arguments of the member directory. |
 | `spacebay_can_message` | Filter | Whether one member may message another. Receives the decision, sender ID and recipient ID. |
 | `spacebay_message_sent` | Action | After a private message is sent. Receives the message, conversation and recipient IDs. |
+| `spacebay_conversation_member_left` | Action | Since 1.1.2. After someone leaves a conversation or is removed from it. Receives the conversation ID, the ID of the member who went and the ID of the member who acted (the same when they left). |
 | `spacebay_message_email_delay` | Filter | Seconds a message stays unread before the reminder email (900 by default). |
 | `spacebay_message_email_parts` | Filter | Change the unread-messages email (to, subject, message, headers). |
 | `spacebay_call_started` <span class="sb-badge sb-badge--pro">Pro</span> | Action | After a member starts a call. Receives the call and the conversation. |

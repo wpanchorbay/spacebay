@@ -134,6 +134,7 @@ export default defineConfig({
             { label: "Search", slug: "user-guide/search" },
             { label: "Moderation and reports", slug: "user-guide/moderation" },
             { label: "Member approval and moderators", slug: "user-guide/member-approval-and-moderators" },
+            { label: "Import and export", slug: "user-guide/import-and-export" },
             { label: "Privacy and personal data", slug: "user-guide/privacy-and-gdpr" },
             { label: "Security and limits", slug: "user-guide/security-and-limits" },
             {
@@ -159,6 +160,7 @@ export default defineConfig({
             { label: "Hooks and filters", slug: "developers/hooks-and-filters" },
             { label: "Extending SpaceBay", slug: "developers/extending-spacebay" },
             { label: "REST API", slug: "developers/rest-api" },
+            { label: "Exchange format", slug: "developers/exchange-format" },
             { label: "Template overrides", slug: "developers/template-overrides" },
             { label: "WP-CLI", slug: "developers/wp-cli" },
             { label: "Translation and building", slug: "developers/translation-and-building" },
@@ -169,6 +171,7 @@ export default defineConfig({
           items: [
             { label: "Overview", slug: "pro/overview" },
             { label: "Licence and activation", slug: "pro/licence-and-activation" },
+            { label: "Import and export", slug: "pro/import-and-export" },
             { label: "Member shops", slug: "pro/member-shops" },
             { label: "Voice and video calls", slug: "pro/voice-and-video-calls" },
             { label: "Two-factor authentication", slug: "pro/two-factor-authentication" },

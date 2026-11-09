@@ -5,6 +5,8 @@ description: "All SpaceBay REST endpoints under /wp-json/spacebay/v1/, who can c
 
 All endpoints live under `/wp-json/spacebay/v1/` and use standard WordPress cookie authentication with the `X-WP-Nonce` header.
 
+This page is the short list of routes and who may call them. List routes take `page` (1 to 100000) and `per_page`, and a value outside the range, or a `search` text over 100 characters, answers 400 `rest_invalid_param`.
+
 | Endpoint | Method | Who |
 | --- | --- | --- |
 | `/me` | GET | Anyone. Returns the current member or `logged_in: false`. |
@@ -20,7 +22,7 @@ All endpoints live under `/wp-json/spacebay/v1/` and use standard WordPress cook
 | `/conversations/{id}/messages`, `/conversations/{id}/read` | GET, POST | Members in the conversation. GET takes `before`, `after` and `limit`. |
 | `/conversations/{id}/members`, `/conversations/{id}/members/{user_id}` | POST, DELETE | Group owner adds and removes people; anyone can remove themselves. |
 | `/messages/{id}` | DELETE | The author, or a moderator. |
-| `/messages/recipients`, `/me/blocks` | GET, POST | Logged-in members. |
+| `/messages/recipients`, `/me/blocks` | GET, POST | Logged-in members. A member can block up to 500 members (since 1.1.2). With the member directory off, `/messages/recipients` finds only people who share a space or a chat with the caller. |
 | `/admin/stats` | GET | Administrators. |
 | `/spaces` | GET, POST | GET: anyone who can open the community (only spaces they may see). POST: administrators. |
 | `/spaces/{id}`, `/spaces/slug/{slug}` | GET, PATCH, DELETE | GET: people who may see the space. PATCH: space admins. DELETE: administrators. |
@@ -47,6 +49,7 @@ All endpoints live under `/wp-json/spacebay/v1/` and use standard WordPress cook
 | `/moderation/counts`, `/moderation/queue` | GET | Moderators. |
 | `/moderation/queue/{type}/{id}` | POST | Moderators. `action`: approve or remove. |
 | `/moderation/members`, `/moderation/members/{id}` | GET, POST | Moderators. List pending or suspended members; POST `status`: active or blocked. |
+| `/moderation/decisions` | GET | Moderators. The log of account decisions (approved, suspended, restored), newest first. Paged; `before_id` returns the entries older than that log ID. |
 | `/moderators`, `/moderators/{id}` | GET, POST, DELETE | Administrators. |
 | `/admin/setup` | GET, POST | Administrators. Setup wizard state and starter spaces. |
 | `/leaderboard` | GET | Logged-in members, while the leaderboard is on. `period`: week, month or all; `limit` up to 50. |
@@ -57,6 +60,22 @@ All endpoints live under `/wp-json/spacebay/v1/` and use standard WordPress cook
 | `/events/{id}/rsvp` | POST | Members of the space. `answer`: going, maybe, not_going, or empty to remove it. |
 | `/events/{id}/attendees` | GET | Readers of the space. `answer`: going or maybe. Paged. |
 | `/search` | GET | Anyone who can open the community. Parameters: `q` (2 to 100 characters), `type` (all, posts, spaces, members), `page`. |
+
+## Import and export <span class="sb-badge sb-badge--since">Since 1.2.0</span>
+
+These routes serve the Import and export screen. They are internal, so they may change. The caller needs both the WordPress capability `manage_options` and the SpaceBay capability `spacebay_manage`. Download, plan, run and undo work only for the person who made the job. The rate limits count managers too. The routes are listed, with what each does, in [SpaceBay Exchange Format](/spacebay/developers/exchange-format/#rest-routes).
+
+| Endpoint | Method |
+| --- | --- |
+| `/transfers` | GET |
+| `/transfers/exports` | POST |
+| `/transfers/uploads`, `/transfers/uploads/{uid}/finish` | POST |
+| `/transfers/uploads/{uid}?offset=` | PUT |
+| `/transfers/{id}` | GET, DELETE |
+| `/transfers/{id}/step`, `/transfers/{id}/plan`, `/transfers/{id}/run`, `/transfers/{id}/undo` | POST |
+| `/transfers/{id}/preview`, `/transfers/{id}/download`, `/transfers/{id}/remaps` | GET |
+| `/transfers/{id}/redirects` | GET, DELETE |
+| `/moved` | GET. Anyone who can open the community. Where an old address went after an import. |
 
 ## Endpoints added by SpaceBay Pro <span class="sb-badge sb-badge--pro">Pro</span>
 

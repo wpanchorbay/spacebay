@@ -38,6 +38,19 @@ Logging in and signing up have their own limits, which apply to everyone:
 
 Change these with the `spacebay_auth_attempts` filter. They cover the community login page; to also limit attempts on `wp-login.php`, use a login protection plugin or your host's firewall. If your site is behind a proxy or CDN that hides visitor addresses, return the real address with the `spacebay_client_ip` filter, otherwise all visitors share one limit. With Pro, authenticator keys are stored encrypted, and backup codes and emailed codes are stored as hashes.
 
+Since 1.1.2, IPv6 addresses are counted per /64 network, the block one home or phone usually gets.
+
+**Login forms and other addresses.** Since 1.1.2, the login and signup forms (and with Pro, the code form) only accept requests sent from your site's own address (scheme, host and port of the site and admin addresses). If members also reach the site through another address, such as the `www.` or non-`www` version, a portal on a subdomain, or `http` behind a proxy that serves `https`, add that address with the WordPress `allowed_http_origins` filter. Otherwise their login is refused.
+
+```php
+add_filter( 'allowed_http_origins', function ( $origins ) {
+	$origins[] = 'https://www.example.com';
+	return $origins;
+} );
+```
+
+**Blocking.** Since 1.1.2, a member can block up to 500 members. Searching for someone to message, blocking and reporting no longer show who is a member. With the member directory off, the search for someone to message finds only people who share a space or a chat with the member.
+
 For the other actions, administrators are not limited. Change limits with the `spacebay_rate_limit` filter. Images can be up to 8000 pixels on the longest side; the server's memory limit can lower this.
 
 ## Images and privacy

@@ -1,6 +1,6 @@
 ---
 title: "WP-CLI"
-description: "WP-CLI commands: sample content for demos, and two-factor status and reset."
+description: "WP-CLI commands: sample content for demos, export and import, and two-factor status and reset."
 ---
 
 ## Sample content
@@ -13,6 +13,81 @@ wp spacebay demo --remove
 ```
 
 It adds 7 spaces (reusing spaces you already have with the same names), 24 members, 23 posts with comments, replies and likes, a member waiting for approval, a join request, a reported post, two private chats with the first administrator, and five events (four coming up, one past) with answers. It refuses to run twice. Sample members get addresses ending in `example.invalid` and cannot receive email, and no notifications are sent. `--remove` deletes exactly what the command added.
+
+## Export and import <span class="sb-badge sb-badge--since">Since 1.2.0</span>
+
+Every step of [Import and export](/spacebay/user-guide/import-and-export/) also works from the command line. This suits big sites and servers with short web time limits.
+
+```bash
+wp spacebay export <space|spaces|members|full|members-csv> [options]
+wp spacebay import <file-or-folder> [options]
+wp spacebay import-remaps <transfer-id> [--out=<file>]
+```
+
+### wp spacebay export
+
+The scope is one of `space`, `spaces`, `members`, `full` or `members-csv` (the members list as a CSV file).
+
+| Option | Meaning |
+| --- | --- |
+| `--space=<slug or id>` | The space to export (scope `space`), or a comma-separated list (scope `spaces`; leave it out for all spaces). |
+| `--out=<file>` | Where to write the zip. The default is a generated name in the current folder. The file must not exist yet. |
+| `--dir=<folder>` | Write an unpacked export folder instead of a zip. The folder must not exist or must be empty. Use either `--out` or `--dir`, not both. |
+| `--no-media` | Leave out pictures and files. |
+| `--no-messages` | Leave out private chats (scope `full`). Without this option, a `full` export from the command line includes them. |
+| `--no-members` | Leave out memberships (scopes `space` and `spaces`). |
+| `--no-content` | Leave out posts, comments, events and points (scopes `space` and `spaces`). |
+| `--structure-only` | Export only the space settings, groups and topics (scopes `space` and `spaces`). |
+| `--social-links` | Include the social links members put on their profile. |
+| `--include-secrets` | Include sign-in app IDs and secrets. Keep the file private. Needs `--yes`. |
+| `--yes` | Confirm `--include-secrets`. |
+| `--status=<list>` | `members-csv` only. Account states to include, comma-separated: `active`, `pending`, `blocked`. The default is `active`. |
+| `--hidden-details` | `members-csv` only. Keep the profile details of members who hid their profile. Without it they are blank. |
+
+```bash
+wp spacebay export full --out=community.sbx.zip
+wp spacebay export space --space=general --dir=/tmp/general-export
+```
+
+### wp spacebay import
+
+The file is a `.sbx.zip` file or an unpacked export folder. Without `--dry-run`, the command plans the import and then runs it to the end in the chosen mode.
+
+| Option | Meaning |
+| --- | --- |
+| `--mode=<mode>` | `merge` (the default), `new` or `replace`. |
+| `--dry-run` | Only plan the import and show what it would do. |
+| `--report=<file>` | Write the full plan report as JSON to this file. |
+| `--choices=<json>` | What to do with spaces whose address is taken, for example `{"spaces":{"12":"merge","15":"skip"}}`. |
+| `--apply-settings` | In merge mode, also plan the settings of the file. |
+| `--keep-moderators` | Give new members who were site moderators in the file the moderator role here. |
+| `--email-new-members` | Send new members a welcome email with a link to set their password. |
+| `--award-points` | Award points for the imported posts, comments and likes. |
+| `--leave-out-unsupported` | Leave out what this version cannot import (data of an add-on, for example) instead of stopping. |
+| `--leave-out=<list>` | Also leave out these, comma-separated: `settings`, `reports`, `redirects`, `messages`. |
+| `--import-secrets` | Apply the sign-in secrets of the file too. Only a file exported with `--include-secrets` has them. |
+| `--merge-chats` | When two members already have a direct chat here, add the imported messages to it instead of skipping that chat. |
+| `--yes` | Go on when the dry run says some data of the file will be left out. |
+| `--confirm-privileged-matches` | Go on when members of the file match accounts that manage this site (the same email address). The dry run names them. `--yes` does not cover this. |
+| `--confirm=<name>` | Replace mode only: the name of this community, or `replace` when it has none. |
+
+```bash
+wp spacebay import community.sbx.zip --dry-run --report=plan.json
+wp spacebay import /tmp/general-export --dry-run --mode=new
+wp spacebay import community.sbx.zip --email-new-members
+```
+
+There is no undo command. Undo a Merge or New import on the Import and export screen.
+
+### wp spacebay import-remaps
+
+Writes the list of rows an import gave a new ID or address, as CSV. Take the transfer ID from the Import and export screen.
+
+```bash
+wp spacebay import-remaps 42 --out=remaps.csv
+```
+
+Without `--out` the CSV is printed on the screen. With `--out` the file must not exist yet.
 
 ## Two-factor commands <span class="sb-badge sb-badge--pro">Pro</span>
 

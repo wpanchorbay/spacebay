@@ -1,0 +1,43 @@
+---
+title: "Import and export with Pro"
+description: "What SpaceBay Pro adds to SpaceBay's Import and export: shops, products, profile fields and Pro settings. Needs SpaceBay 1.2.0."
+---
+
+SpaceBay 1.2.0 can export your community to a file and import it on another site. See [Import and export](/spacebay/user-guide/import-and-export/) for how it works. With SpaceBay Pro 1.1.0 or newer, the Pro data comes along too. Pro 1.1.0 needs SpaceBay 1.2.0 or newer.
+
+## What goes into an export
+
+- **Shops**, one for each member who has one.
+- **Products**, with their photos.
+- **Shop placements**: where each product shows, such as a space. A placement points to the space by its slug, so the space must exist on the new site.
+- **Profile fields**: the field definitions. The answers members gave belong to the member data.
+- **Pro settings**: the settings Pro stores with the SpaceBay settings.
+
+Shops, products, placements and profile fields are also in a members-only export. Pro settings are only in a full export.
+
+## Members list CSV
+
+Each Pro profile field becomes a column in the members list CSV. The column is called `field_` followed by the field key, and it holds the member's answer.
+
+## What an import does
+
+- **Settings** follow the same rules as SpaceBay's own: they are applied in a new or Replace import, and in a Merge import only when you choose to apply settings. Undo puts the old values back.
+- **Call relay secrets.** The TURN user name and credential only leave the site when you ask the export to include secrets, and they only come in when you choose to import secrets.
+- **Profile fields** are only added. A field whose key already exists keeps its definition on your site, and no more than 20 fields fit.
+- **Shops and products of members who already exist on your site** wait for review: they come in pending, not trusted and not shown in the feed. Shops and products of accounts the import creates, and all of them in a Replace import, come in as they were.
+- **Admins and managers** get no shop from a file.
+
+## Replace
+
+A Replace import also empties the Pro shop data first, so the shops and products of the file are not mixed with the ones on your site. Pro settings and profile field definitions are not emptied; the values of the file are applied afterwards.
+
+## What is skipped
+
+Skipped items are counted in the result of the export or import.
+
+- A Pro setting that holds a list longer than 65,535 characters is left out of the export. A text setting longer than that is cut.
+- Shops and products whose member is not in the import, and placements whose product or space cannot be found.
+- Placements whose space no longer exists when you export.
+- Photos that are missing or damaged.
+- Shops, products and placements that already exist on the site.
+- Unknown settings, and call relay secrets without the secrets option.

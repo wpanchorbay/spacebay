@@ -11,6 +11,8 @@ Things to know before turning calls on:
 - **Sound and video go directly between browsers** (WebRTC). They never pass through your server, so calls do not use your hosting bandwidth. Your site only passes small connection messages while a call starts.
 - **Group calls work best for up to 4 people.** Every person sends their video to every other person.
 - **Some networks need a TURN server.** Most calls connect with the default STUN server alone, but strict office, school and some mobile networks block direct connections. Add a TURN server (from a provider such as Cloudflare, Twilio or Metered, or your own coturn server) under Settings so these calls connect too. Developers can hand out short-lived TURN credentials with the `spacebay_call_ice_servers` filter.
+- **The relay password stays hidden.** The TURN password is not sent back to the settings screen. Leave the field empty to keep it, or use Remove.
+- **Who may stay in a call.** A member who leaves a chat, is removed from it or is blocked in a direct chat can no longer stay in a running call.
 - **Privacy.** In a direct connection the people in a call can see each other's network (IP) address. With a TURN server, calls can be relayed instead.
 
 <img src="/spacebay/assets/screenshots/messages-settings.png" alt="The Messages settings with the call settings of SpaceBay Pro" width="1206" height="1408" data-lightbox="true" />

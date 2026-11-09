@@ -34,6 +34,9 @@ Members can get their code in two ways. You choose which ones are on offer:
 
 Good to know:
 
+- The code form only accepts requests from your own site address. If members also reach the site through a `www.` or subdomain address, add it with the `allowed_http_origins` filter.
+- After the emailed code, a login from the WooCommerce form goes back to the page it asked for (the `redirect` field), or else to the page the form was on, such as My Account. Only addresses on your site are followed.
+- If the server cannot send the email with the code, the member sees a temporary error.
 - Two-factor authentication needs the community login pages. When you turn those off, it is switched off as well.
 - If you change the security keys (salts) in `wp-config.php`, authenticator apps have to be set up again, because their keys are stored encrypted with those salts.
 - On a network of sites the policy is set per site. Someone who logs in on another site of the network where no code is required is logged in on every site, so use the same policy on each site.

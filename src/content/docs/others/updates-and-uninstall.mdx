@@ -34,6 +34,10 @@ Updating from 1.0.0 to 1.1.0 changes no database tables. If your site is behind 
 
 Updating from 1.1.0 to 1.1.1 adds one small table (the member decision log), a `comment_id` column to the notifications table and an `entered_at` column to the profiles table. Everyone who was already in your community is marked as a member, so member approval does not hold existing members.
 
+SpaceBay 1.1.2 was never released on its own, so an update from 1.1.1 goes straight to 1.2.0 and brings the 1.1.2 changes with it. One change needs a look after updating. The login, sign-up and Pro code forms now accept requests only from your own site address. If members also reach the site through a `www.` or subdomain address, add that address with the WordPress `allowed_http_origins` filter, or their login is refused. See [Security and limits](/spacebay/user-guide/security-and-limits/).
+
+Updating from 1.1.1 to 1.2.0 adds the **Import and export** screen. The update adds database tables for import and export jobs and for redirects from old addresses. SpaceBay Pro 1.1.0, which adds shops, profile fields and Pro settings to exports, needs SpaceBay 1.2.0 or newer.
+
 ## Deactivate and uninstall
 
 Deactivating keeps all data. Deleting the plugin keeps all data unless **Delete all data when the plugin is deleted** is on in Settings. When it is on, deleting removes SpaceBay tables, settings, capabilities (including the moderator capability given to single members), cached data and the uploaded images in `wp-content/uploads/spacebay/` from every site in a network.

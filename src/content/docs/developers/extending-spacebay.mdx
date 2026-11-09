@@ -31,9 +31,18 @@ Add-ons such as SpaceBay Pro can add features to the portal, the admin screens, 
 | `spacebay_event_data` | Filter | Change an event as sent to the apps. |
 | `spacebay_enqueue_app` | Action | After the portal or admin app is enqueued. Receives `$app` (`portal` or `admin`) and `$handle`. Enqueue your script here with `$handle` as a dependency. |
 | `spacebay_conversation_deleting` | Action | Before a conversation is deleted, so you can remove your own data. Receives the conversation ID. |
+| `spacebay_conversation_member_left` | Action | Since 1.1.2. After someone leaves a conversation or is removed from it, so you can drop what the member may no longer take part in (Pro uses it to remove the member from a running call). Receives the conversation ID, the member who went and the member who acted (the same ID when they left). |
+| `spacebay_exchange_register` | Action | Since 1.2.0. Register your own entities for import and export. Receives the registry. |
+| `spacebay_import_record` | Filter | Since 1.2.0. Change one record before it is imported, or return `null` to leave it out. Receives the record, the entity name and the run ID. |
+| `spacebay_import_finished` | Action | Since 1.2.0. After an import has written everything. Receives the run ID and a summary. |
+| `spacebay_exchange_replace_emptied` | Action | Since 1.2.0. In Replace mode, after SpaceBay has emptied its tables. Empty your own tables here. Receives the run ID. |
+| `spacebay_members_csv_columns` | Filter | Since 1.2.0. Add columns to the members list CSV. Names use `a` to `z`, `0` to `9` and underscore, up to 64 characters. |
+| `spacebay_members_csv_row` | Filter | Since 1.2.0. Fill your columns in one row. Receives the row, the `WP_User` and the profile. |
 | `spacebay_admin_screens` | Filter | Add a screen to the SpaceBay admin menu: route (for example `/shops`) => label. Add the route with `addRoute()` in the admin app. |
 | `spacebay_member_profile` | Filter | Add data to a member's profile page. Receives the data, the member ID and the viewer ID. |
 | `spacebay_notification_group` | Filter | Choose the email preference group (for example `moderation`) of your own notification actions, so they can be emailed. |
+
+To make an add-on's data part of an export, register its entities on `spacebay_exchange_register`. The file format is described in [SpaceBay Exchange Format](/spacebay/developers/exchange-format/). Two more filters, `spacebay_import_max_bytes` and `spacebay_transfer_retention_days`, change limits and are listed in [Hooks and filters](/spacebay/developers/hooks-and-filters/).
 
 **JavaScript.** The portal and admin apps expose `window.SpaceBay`. Your script loads after the app script and registers before the app starts.
 
@@ -51,7 +60,7 @@ Add-ons such as SpaceBay Pro can add features to the portal, the admin screens, 
 | Portal | `app.layers`, `messages.header.actions`, `login.step`, `account.security`, `account.profile.fields`, `member.achievements.actions`, `event.form.fields`, `nav.items` (each component renders an `<li>`), `home.feed.top`, `space.posts.top` (receives `space`) | Hook `pulse` (receives the pulse data); filters `login.resume` and `member.tabs` (add `{ key, label, component }` profile tabs; receives `{ member, config }`; the component gets `member`) |
 | Admin | `settings.login`, `settings.signup`, `settings.messages`, `settings.events`, `settings.badges`, `admin.members`, and `settings.<id>` for sections you add | Filter `settings.sections` (add `{ id, icon, title }` sections to Settings; their content goes in slot `settings.<id>`, which receives the settings `form`). Routes added with `addRoute()` can set `meta.title` for the browser tab. |
 
-**Check the extension version.** SpaceBay defines the constant `SPACEBAY_EXTENSION_API`, a whole number that is the version of the extension points on this page. It is raised whenever an extension point is added or changed. The current value is `2`. It is separate from `SPACEBAY_VERSION`, because a build can have the same plugin version and still lack a hook. Check it before your add-on registers anything, and show an admin notice instead of running when the constant is missing or too low. SpaceBay Pro does this, and requires the lowest value that has the hooks it uses:
+**Check the extension version.** SpaceBay defines the constant `SPACEBAY_EXTENSION_API`, a whole number that is the version of the extension points on this page. It is raised whenever an extension point is added or changed. The current value is `4`. Version 3 came with SpaceBay 1.1.2 (the `spacebay_conversation_member_left` action) and version 4 with 1.2.0 (the import and export hooks). It is separate from `SPACEBAY_VERSION`, because a build can have the same plugin version and still lack a hook. Check it before your add-on registers anything, and show an admin notice instead of running when the constant is missing or too low. SpaceBay Pro does this, and requires the lowest value that has the hooks it uses:
 
 ```php
 if ( ! defined( 'SPACEBAY_EXTENSION_API' ) || (int) SPACEBAY_EXTENSION_API < 2 ) {

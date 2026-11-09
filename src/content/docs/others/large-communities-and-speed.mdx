@@ -36,3 +36,15 @@ These times are for SpaceBay's own work on a small test server (PHP 8.3, MariaDB
 - **A current PHP version.** PHP 8.2 or newer is clearly faster than 7.4.
 
 **The community page shows “Page not found”.** This could happen after activation on some sites, when another plugin rebuilt the site's addresses without the community address. Since 1.0.0 SpaceBay notices this and repairs it on the next page load. If it ever stays, open *Settings → Permalinks* and click **Save Changes**.
+
+## Big exports and imports
+
+Since 1.2.0, [import and export](/spacebay/user-guide/import-and-export/) works for large communities too.
+
+- Do not cache the SpaceBay REST path (`/wp-json/spacebay/` and `?rest_route=`) or the **Import and export** admin screen in your page cache or CDN.
+- PHP's maximum execution time and upload limit do not matter. Uploads go in 5 MB pieces and the work runs in short steps.
+- Keep WP-Cron working, or leave the screen open so it drives the steps. On a big site you can run the same steps with WP-CLI: `wp spacebay export` and `wp spacebay import`.
+- The export download needs your browser login.
+- Temporary files live in the private folder under `wp-content/uploads/spacebay-private/` and are removed after the run. Finished exports are removed after 7 days by default, which the `spacebay_transfer_retention_days` filter changes.
+- The upload limit is 2 GB by default, which the `spacebay_import_max_bytes` filter changes.
+- A community with 5,000 or more members should run on a VPS or on a host with an object cache. Cheap shared hosting is likely to be slow or to stop the import.

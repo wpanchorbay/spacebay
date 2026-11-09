@@ -39,6 +39,26 @@ Yes. It was tested on multisite and in Arabic. See [Compatibility](/spacebay/oth
 
 Yes, with the WordPress privacy tools. See [Privacy and personal data](/spacebay/user-guide/privacy-and-gdpr/).
 
+## How do I move my community to another site?
+
+Since 1.2.0. On the old site open **SpaceBay → Import and export**, choose **Everything** and start the export. Download the file, then open the same screen on the new site, upload the file and look at the preview. When you start the import in **New** mode on an empty community, SpaceBay keeps the IDs of spaces, posts and events where it can and adds redirects from the old addresses. **Merge** adds the file to a community that already has content. **Replace** empties the community first, after saving a safety export. Every import shows a preview before it writes anything, and a Merge or New import can be undone from the same screen. See [Import and export](/spacebay/user-guide/import-and-export/).
+
+## What is not moved?
+
+Password hashes, two-factor secrets, login history, notifications and Pro calls are never in a file. Members get a new random password and use **Forgot your password?** to choose one, and members who used two-factor login set it up again. WordPress pages, the WordPress media library and the data of other plugins are not moved. Private messages are included only if you choose them in an **Everything** export. Accounts that already exist on the new site are matched by email address and are not changed.
+
+## Do export files contain passwords or keys?
+
+No passwords. Sign-in keys and secrets (Google, Facebook, the call relay) are left out unless you tick **Sign-in secrets**. A file made with that option has `-with-secrets` in its name. Keep it as private as a password. Any export holds email addresses, and an **Everything** export can hold private messages, so store the file safely. Files on the site are kept for 7 days by default and are deleted after that.
+
+## Can I import a big community?
+
+Yes. The upload limit is 2 GB by default. Imports run in small steps, so they do not hit the PHP time limit, and you can also use WP-CLI (`wp spacebay export` and `wp spacebay import`). A community with 5,000 or more members should run on a VPS or on a host with an object cache. Cheap shared hosting is likely to be slow or to stop the import. See [Large communities and speed](/spacebay/others/large-communities-and-speed/#big-exports-and-imports).
+
+## Why can members not log in on the www address?
+
+Since 1.1.2, the login, sign-up and Pro code forms only accept requests from your own site address. If members also reach the site through a `www.` or non-`www` version, a portal on a subdomain, or `http` behind a proxy that serves `https`, add that address with the WordPress `allowed_http_origins` filter. See [Security and limits](/spacebay/user-guide/security-and-limits/).
+
 ## What happens to my data if I delete the plugin?
 
 Nothing, unless **Delete all data when the plugin is deleted** is on. See [Updates and uninstall](/spacebay/others/updates-and-uninstall/).

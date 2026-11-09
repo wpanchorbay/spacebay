@@ -3,6 +3,64 @@ title: "Changelog"
 description: "Release notes for SpaceBay and SpaceBay Pro."
 ---
 
+## 1.2.0
+
+### SpaceBay 1.2.0
+
+- New: import and export. Open **SpaceBay → Import and export** to save a community, some spaces or the members to a file and to import a file again, with a preview before anything is written.
+- New: three import modes. **Merge** adds to what you have, **New** sets up an empty community with the original IDs and redirects, and **Replace** empties the community after saving a safety export.
+- New: undo for a Merge or New import, a list of the IDs an import changed, and redirects from old addresses.
+- New: a members list as a CSV file, with the option to leave out hidden members' details.
+- New: WP-CLI commands `wp spacebay export`, `wp spacebay import` and `wp spacebay import-remaps`.
+- New: the SpaceBay Exchange Format is documented in full, with its REST routes.
+- Developers: the actions `spacebay_exchange_register`, `spacebay_import_finished` and `spacebay_exchange_replace_emptied`, and the filters `spacebay_import_record`, `spacebay_import_max_bytes`, `spacebay_transfer_retention_days`, `spacebay_import_media_roots`, `spacebay_members_csv_columns` and `spacebay_members_csv_row`. The extension API is version 4.
+- Improved: the suggested privacy policy text now covers export files.
+
+### SpaceBay Pro 1.1.0 <span class="sb-badge sb-badge--pro">Pro</span>
+
+- New: shops, products, shop placements, profile fields and Pro settings go into SpaceBay exports and come back with an import (needs SpaceBay 1.2.0).
+- New: Pro profile fields are added as columns to the members list CSV.
+- Improved: a Replace import empties the Pro data too.
+
+SpaceBay Pro 1.1.0 needs SpaceBay 1.2.0 or newer.
+
+See [Import and export](/spacebay/user-guide/import-and-export/).
+
+## 1.1.2
+
+SpaceBay 1.1.2 was never released on its own. Its changes are part of 1.2.0.
+
+### SpaceBay 1.1.2
+
+- New: a full REST API reference, with every route, its arguments, errors and limits.
+- New: the action `spacebay_conversation_member_left` for add-ons, and extension API version 3.
+- Improved: saved social login secrets are no longer sent back to the settings screen. Leave a secret field empty to keep it, or use **Remove** to delete it. A secret that is too long is refused instead of cut.
+- Improved: other settings that are too long are cut to their limit when you save, so an old long value never blocks saving.
+- Improved: the members list of a space loads faster when many members are hidden.
+- Security: the login, sign-up and Pro code forms only accept requests from your own site address. If members also use a `www.` or subdomain address, add it with the `allowed_http_origins` filter. Logging in while already logged in now says so.
+- Security: failed logins from an IPv6 address are counted for the whole /64 network.
+- Security: images of posts in private spaces open only for people who may read the post.
+- Security: notifications no longer show the text of posts, comments or events the reader can no longer see.
+- Security: searching for someone to message, blocking and reporting no longer show who is a member. With the member directory off, the search finds only people who share a space or a chat. You can block up to 500 members.
+- Security: a moderator who edits a post can no longer attach the author's other uploads.
+- Fixed: a very large page number or a very long search text now gets a clear error instead of a server error.
+
+### SpaceBay Pro 1.0.1 <span class="sb-badge sb-badge--pro">Pro</span>
+
+- Fixed: after the emailed two-factor code, a login from the WooCommerce form goes back to the page it asked for (the `redirect` field), as `redirect_to` already did, or else to the page the form was on (such as My Account). Only addresses on your site are followed.
+- Fixed: on a network, a user's shop and products are removed when the user is removed from a site.
+
+### SpaceBay Pro 1.0.2 <span class="sb-badge sb-badge--pro">Pro</span>
+
+- Security: a member who leaves a chat, is removed from it or is blocked in a direct chat can no longer stay in a running call.
+- Security: product photos are private unless the product is public, so pending, rejected and unlisted products no longer show their photos. Existing photos move in the background after the update.
+- Security: the two-factor code form only accepts requests from your own site address. If members also use a `www.` or subdomain address, add it with the `allowed_http_origins` filter.
+- Improved: the call relay (TURN) password is no longer sent back to the settings screen. Leave it empty to keep it, or use **Remove**.
+- Fixed: when the server cannot send the two-factor email, the answer is now a temporary error, not an internal one.
+- Fixed: a manager who edits a product can no longer attach the seller's other uploads.
+
+SpaceBay Pro 1.0.2 needs SpaceBay 1.1.2 or newer.
+
 ## 1.1.1
 
 ### SpaceBay 1.1.1

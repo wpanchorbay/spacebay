@@ -1,0 +1,124 @@
+---
+title: "Import and export"
+description: "Save a community, some spaces or the members to a file, bring a file in with a preview first, undo an import, and keep the files safe."
+---
+
+Open **SpaceBay → Import and export** to move a community, or part of one, into a file and back <span class="sb-badge sb-badge--since">Since 1.2.0</span>. Use it to back up, to move to a new site, or to copy some spaces to another community.
+
+Only an administrator who is also a SpaceBay manager can use this screen. The file format has its own page: [SpaceBay Exchange Format](/spacebay/developers/exchange-format/).
+
+## Export
+
+Under **Export**, choose what to export, then select **Start export**. When it is ready, select **Download**.
+
+| Choice | What the file holds |
+| --- | --- |
+| **All spaces**, **Chosen spaces** | The spaces with their topics, posts, comments, reactions, events and answers, the members of those spaces, points, and the people they refer to. |
+| **Members** | Accounts, profiles, preferences, space memberships, points and badges. |
+| **Everything** | All of the above plus the settings, reports and redirects. Private messages are included only if you tick **Private messages**. |
+| **Members list (CSV)** | A spreadsheet to read, not a file to import. See below. |
+
+You can also leave out pictures and other media files, leave out posts, comments and events, leave out the members of the spaces, or choose **Structure only** to keep the spaces and topics and drop the rest. **Links to social sign-in accounts** is off until you tick it.
+
+Passwords are never in a file. The same goes for two-factor secrets, login history and notifications. Sign-in secrets (the keys of Google and Facebook login) are left out unless you tick **Sign-in secrets**. A file made with that option has `-with-secrets` at the end of its name. Keep it as private as a password and delete it after the move.
+
+A file name has the scope, the date and time, and six random characters, for example `spacebay-full-20261109-1430-a1b2c3.sbx.zip`.
+
+Finished exports stay in the **Earlier exports** list, where you can download or delete them. Only the person who made an export can download it.
+
+### Members list (CSV)
+
+The members list is a spreadsheet for people to read. You cannot import it. It has these columns: user_id, display_name, email, email_verified, profile_url, status, privacy, wp_roles, staff, registered_at, entered_at, last_active_at, headline, location, website, bio, points, level, spaces and badges. With SpaceBay Pro, each profile field adds a `field_<key>` column.
+
+- Active members are always listed. Tick **Also list members waiting for approval** or **Also list blocked members** to add them.
+- **Leave out hidden members' details** is ticked by default. A member who hid their profile then shows only the account columns. If you untick it, SpaceBay asks you to confirm, because the file leaves the site.
+- The email column is filled only when you have the SpaceBay manage permission.
+- The file is UTF-8 with a byte order mark, so Excel opens it correctly. A cell that starts with `=`, `+`, `-` or `@` gets an apostrophe in front, so a spreadsheet does not run it as a formula.
+
+## Import
+
+1. Choose the `.zip` file and select **Upload and preview**. The file is sent in parts, so the upload limit of your host does not apply. SpaceBay's own size limit is 2 GB by default.
+2. SpaceBay checks the file and shows a **Preview**. Nothing is written yet.
+3. Choose how to import and the options, select **Update preview** if you changed anything, then select **Start import...**.
+
+An import always needs a preview first. If you change the mode or a choice after the preview, SpaceBay asks you to update it before you can start. Only one import can run at a time. Keep the page open while it runs. If the page loses contact with the server, do not start again. Select **Resume** instead.
+
+Members are matched by email address. An account that already exists is never changed. A new account gets a random password and the default role of your site, and the member uses **Forgot your password?** to choose one. If the username is taken, the new account gets a number, for example `rahim-2`. No email is sent unless you tick **Send a welcome e-mail to new members**. **Keep the moderators from the file** gives the moderator permission to new accounts only.
+
+A file made by a newer SpaceBay may be refused or only partly read. The preview says which and lists any data that will be left out. You must tick **I understand that the data listed above will be left out** to go on.
+
+### Members who match an administrator
+
+If a member in the file has the same email address as an account that manages your site, the file's posts and messages are written under that account's name. The account itself, its password and its role do not change. The preview lists these accounts under **Some accounts manage your site**, and you must select **I understand** before the import starts. Only import files you trust.
+
+### The three modes
+
+| Mode | What it does |
+| --- | --- |
+| **Merge** | The default. Adds what is in the file and creates only. What you already have is not changed. Settings from the file are applied only if you ask. |
+| **New** | For an empty community and a file made with **Everything**. It keeps the original IDs of spaces, posts and events where it can, applies the settings and records redirects from the old addresses. A community counts as not empty if it has published posts, published spaces or active space memberships. |
+| **Replace** | For a file made with **Everything**. It empties the community first, then imports the file. |
+
+### Replace
+
+Replace asks you to type the name of your community (the **Community name** setting), or the word `replace` if it has no name.
+
+Before anything is emptied, SpaceBay makes a safety export of everything, with messages, media and social links but without secrets. If that export fails, nothing is emptied. The safety export is a normal export and is kept like any other, so download it from the **Earlier exports** list right away if you want to keep it.
+
+Replace empties all SpaceBay data and the SpaceBay picture folders. WordPress users, pages and the WordPress media library stay. SpaceBay Pro empties its own data at the same step. Replace also clears the record of earlier imports and the old redirects. After that, earlier imports can no longer be undone and their redirects stop working. The Replace import then writes its own record and redirects.
+
+### Clashing spaces
+
+When a space in the file uses an address that is already taken, you choose what happens to it:
+
+- **Add it under a new address** is the default. The address gets a number, such as `-2`.
+- **Merge into the existing space** puts the file's content into the space you have.
+- **Leave it out** skips that space.
+
+Links to other posts and spaces inside the imported text are changed to the new addresses.
+
+## Undo an import
+
+Select **Undo this import** on a finished Merge or New import. It removes what the import created, and its redirects. Three things to know:
+
+- Member accounts the import created are deleted only if you tick **Also delete the member accounts this import created**, and only if the account is unused after the import. Accounts that already existed are never touched.
+- Content that members created after the import may be removed with it.
+- A Replace import cannot be undone. To go back, import the safety export in Replace mode.
+
+## Changed IDs and redirects
+
+**Download changed IDs** gives a CSV file with the columns entity, source_id, local_id and reason, one row for each item whose ID changed. Use it to fix links you keep outside SpaceBay.
+
+In New and Replace mode, SpaceBay records a redirect from the old address for each post, event, space, chat and member whose ID or address changed. A redirect is used only when the old address would otherwise show "not found", and only for a visitor who may see the new place. For a private space, or a chat the visitor is not in, the old address behaves as if nothing had moved. With pretty permalinks it is a 301 redirect. With plain permalinks the community page asks the site for the new place.
+
+Select **Show the redirects** on an import to see them, with the number of visits each had. Redirects stay until you select **Remove these redirects** on that import, or undo it. After you remove them, old links show "not found".
+
+## Importing again from the same site
+
+Anything an earlier import created now belongs to your site. A later file from the same site adds new items, but it does not write onto the accounts, spaces, chats, posts or products an earlier import made. If an import failed or was cancelled, undo it and run it again to fill those in.
+
+## Big communities and hosting
+
+- Imports and exports run in small steps, so the PHP time limit and the PHP upload limit do not matter. Uploads go in pieces of 5 MB.
+- Keep WP-Cron working, or leave the screen open so it drives the steps. See [Large communities and speed](/spacebay/others/large-communities-and-speed/).
+- Do not cache the SpaceBay REST path (`/wp-json/spacebay/` and `?rest_route=`) or the **Import and export** admin screen in your page cache or CDN.
+- The download needs your browser login.
+- A community with 5,000 or more members should run on a VPS or on a host with an object cache. Cheap shared hosting is likely to be slow or to stop the import.
+- You can run the same steps from the command line, which suits big sites. See [WP-CLI](/spacebay/developers/wp-cli/).
+
+## Privacy and where files are kept
+
+Any export holds email addresses and profile details, and an **Everything** export can hold private messages. Store the file safely, share it only with people who may see it, and delete it when you are done. Erasing a member later cannot reach a file you already downloaded.
+
+Export and upload files live in a protected folder, `wp-content/uploads/spacebay-private/`, under random names. They have no web address and leave the site only through the download button. A daily cleanup deletes them:
+
+- Finished exports after 7 days. A developer can set 1 to 30 days with the `spacebay_transfer_retention_days` filter.
+- Failed or cancelled exports after 1 day.
+- An uploaded file nobody used after 2 days.
+- An imported file 1 day after the import ends.
+
+The list keeps a row marked **Expired**. See also [Privacy and personal data](/spacebay/user-guide/privacy-and-gdpr/).
+
+## What is not moved
+
+Password hashes, two-factor secrets, login history, notifications and Pro calls are never in a file. Members of a new site get a random password, and members who used two-factor login set it up again. WordPress pages, the WordPress media library and the data of other plugins are not moved.

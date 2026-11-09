@@ -1,0 +1,166 @@
+---
+title: "SpaceBay Exchange Format"
+description: "The SBX file that SpaceBay writes on export and reads on import: container, manifest, records, versions, limits and the REST routes."
+---
+
+SBX is the file that SpaceBay writes when you export a community and reads when you import one <span class="sb-badge sb-badge--since">Since 1.2.0</span>. This page describes format version 1.0. For the screens, see [Import and export](/spacebay/user-guide/import-and-export/).
+
+A file is a ZIP archive named `*.sbx.zip`, or the same content unpacked into a folder. It holds one `manifest.json`, the data as NDJSON files (one JSON object per line), and the media files. It is plain text and standard ZIP, so ordinary tools can read it.
+
+## The container
+
+```text
+manifest.json
+README.txt
+data/users.0001.ndjson
+data/spaces.0001.ndjson
+data/posts.0001.ndjson
+data/pro.shops.0001.ndjson
+media/55/<sha256>.jpg
+```
+
+| Entry | Meaning |
+| --- | --- |
+| `manifest.json` | Required. Describes the file. |
+| `README.txt` | A note for humans. Import never reads it. |
+| `data/<entity>.NNNN.ndjson` | The records of one entity, in numbered parts. A new part starts after 100,000 rows or 64 MB. |
+| `media/<aa>/<sha256>.<ext>` | A media file named by its SHA-256 hash. `<aa>` is the first two characters of the hash. The extension is `jpg`, `png`, `gif` or `webp`. |
+
+SpaceBay checks a ZIP against an allow-list of names. An unsafe name, a duplicate name or a symlink makes SpaceBay refuse the whole file. An entry that is not on the list is ignored and reported. Encrypted ZIPs, and compression methods other than store and deflate, are refused.
+
+## The manifest
+
+The manifest is a JSON object, at most 1 MB.
+
+| Key | Meaning |
+| --- | --- |
+| `format` | Always `spacebay-exchange`. |
+| `format_version` | The version of the format, `MAJOR.MINOR`, for example `1.0`. |
+| `requires_reader` | The lowest reader version that can read the file. |
+| `export_id`, `created_at` | An ID for this export and the time it was made. |
+| `generator` | What wrote the file: `plugin`, `version`, `db_version`, `extension_api`, `wp`, `php`. |
+| `source` | The site it came from: `site_uid`, `home_url`, `portal_url`, `multisite`, `blog_id`, `locale`, `timezone`. |
+| `scope` | `type` (space, spaces, members or full), the `spaces` chosen and `include`. |
+| `options` | The choices made at export: `media`, `messages`, `secrets`, `password_hashes`, `social_links`, `structure_only`. |
+| `modules` | The add-ons whose data is inside: a list of `id`, `label`, `version`. |
+| `entities` | One entry per entity name, 500 at most. Each has `module`, `schema`, `min_reader`, `introduced_in`, `personal` and `files`, a list of `path`, `rows`, `bytes` and `sha256`. |
+| `media` | The number of files and their total bytes. |
+| `notes` | Free notes from the exporter, such as items it skipped. |
+| `contains_secrets`, `contains_password_hashes` | Flags for the two things a careful person wants to know first. |
+
+Unknown manifest keys are ignored and listed in the preview. A shortened example from a test export:
+
+```json
+{
+  "format": "spacebay-exchange",
+  "format_version": "1.0",
+  "requires_reader": "1.0",
+  "generator": { "plugin": "spacebay", "version": "1.2.0" }
+}
+```
+
+## Records
+
+Each line of a data file is one JSON object, UTF-8, no byte order mark, depth at most 16. A line is at most 4 MB; a longer line rejects the file. The number of lines in the parts of an entity must equal the `rows` in the manifest. A line that is empty, is not valid UTF-8, is not valid JSON or is not an object is skipped, and it still counts as a row.
+
+Records refer to each other by the ID they had on the source site. On import, SpaceBay builds a map from those source IDs to the IDs it creates. People are matched by email address, and an account that already exists is never changed.
+
+A space and a post (the post line is shortened; a real one has more date fields):
+
+```json
+{"id":2,"type":"space","group":1,"title":"Garden","slug":"garden","description":"","privacy":"public","status":"published","position":0,"settings":{"icon":"leaf","color":"#2d7a3e"},"created_by":2,"created_at":"2026-11-08T11:30:23Z","updated_at":"2026-11-08T11:30:23Z"}
+{"id":1,"space":2,"author":3,"type":"text","title":"Spring planting","slug":"spring-planting","message":"What do you plant first? #spring","status":"published","pinned":false,"featured":false,"topics":[1],"media":[1],"meta":[],"scheduled_at":null}
+```
+
+Times are ISO 8601 in UTC.
+
+## Entities and scopes
+
+An entity is a kind of record. Its name starts with a lowercase letter and uses lowercase letters, digits and underscores, up to 31 characters. An entity that belongs to an add-on is written `<module>.<name>`, for example `pro.shops`.
+
+| Scope | Entities |
+| --- | --- |
+| `space`, `spaces` | spaces, topics, posts, comments, reactions, events, rsvps, space_members, points, the users and profiles they need, media |
+| `members` | users, profiles, user_prefs, space_members, points, user_badges, media |
+| `full` | everything above plus settings, reports, redirects and, if chosen, private messages |
+
+With SpaceBay Pro 1.1.0, a full export also holds `pro.profile_fields`, `pro.shops`, `pro.shop_products`, `pro.shop_placements` and `pro.settings`.
+
+## Media
+
+A media record carries the owner, what it belongs to, the file path inside the archive, the SHA-256 hash, the MIME type, the size and the settings (such as width and height):
+
+```json
+{"id":1,"owner":3,"object_type":"post","object":1,"file":"media/55/<sha256>.jpg","sha256":"<sha256>","mime":"image/jpeg","bytes":696,"settings":{"width":4,"height":4}}
+```
+
+A media file is at most 32 MB.
+
+## Versions and compatibility
+
+The format version has a major and a minor number.
+
+- A file with a newer major version, or a `requires_reader` above what the reader supports, is refused with the code `sbx_format_too_new`.
+- A file with a newer minor version is read, with the warning `sbx_newer_minor`.
+- A reader ignores fields it does not know.
+
+Each entity has its own `schema` number, so a file can be partly readable. The preview shows one of these states for every entity:
+
+| State | Meaning |
+| --- | --- |
+| `read` | The schema is the same. Read as is. |
+| `upgrade` | The file is older. SpaceBay upgrades the records while it reads them. |
+| `forward` | The file is newer, but the entity's `min_reader` is not above this reader. Fields SpaceBay does not know are dropped. |
+| `unsafe` | The entity's `min_reader` is above this reader. A partial import skips the entity. A full import is refused and says which SpaceBay version is needed. |
+| `unknown` | The add-on that owns the entity is not installed. The entity is left out with a warning. A full import needs your explicit confirmation. |
+
+## Secrets and personal data
+
+Never written: password hashes, two-factor secrets, login history, notifications, and the Pro calls and signals.
+
+Written only when the exporter chooses the `secrets` option: the IDs and secrets of social sign-in, the TURN user and credential, and any settings key that looks like a secret. The manifest then has `contains_secrets` set and the download name ends in `-with-secrets`. On import, secrets are applied only from a file that has them and only when the importer asks for it (`import_secrets`).
+
+An entity marked `personal` in the manifest holds data about people. Email addresses are in the users records, so treat every export as personal data.
+
+## Limits
+
+| What | Limit |
+| --- | --- |
+| Manifest | 1 MB, JSON depth 32 |
+| `README.txt` | 64 KB |
+| One NDJSON line | 4 MB, JSON depth 16 |
+| One data part | 100,000 rows or 64 MB |
+| Entries in the archive | 200,000 |
+| Compression ratio | 200 to 1 (entries under 64 KB are not checked) |
+| One media file | 32 MB |
+| Unpacked size | 8 GB by default |
+| Entities in the manifest | 500 |
+| Import file upload | 2 GB by default, set with `spacebay_import_max_bytes` |
+
+## Adding your own entities
+
+An add-on registers its entities on the `spacebay_exchange_register` action, which receives the registry. The hooks `spacebay_import_record`, `spacebay_import_finished` and `spacebay_exchange_replace_emptied` let it change records, react to a finished import and empty its own tables in Replace mode. Each is listed in [Hooks and filters](/spacebay/developers/hooks-and-filters/).
+
+## REST routes
+
+The Import and export screen uses these routes under `/wp-json/spacebay/v1/`. All of them are internal: they serve the screen and may change, so build on the file format, not on them. The caller needs both the WordPress capability `manage_options` and the SpaceBay capability `spacebay_manage`. A job is an export or an import, and it does not run inside one request. The screen calls `POST /transfers/{id}/step` again and again, and WP-Cron and WP-CLI drive the same steps.
+
+| Route | Purpose |
+| --- | --- |
+| `GET /transfers` | List jobs. Filters: `kind`, `status`, `page`, `per_page`. |
+| `POST /transfers/exports` | Start an export. Takes `scope` (`space`, `spaces`, `members`, `full` or `members_csv`), `space_ids` (at most 500) and `options`. |
+| `POST /transfers/uploads` | Open an upload for an import file. Takes `size`, `sha256` and `name` (must end in `.zip`). |
+| `PUT /transfers/uploads/{uid}?offset=` | Send one chunk of at most 5 MB as `application/octet-stream`. |
+| `POST /transfers/uploads/{uid}/finish` | Close the upload and check the file. |
+| `GET /transfers/{id}`, `DELETE /transfers/{id}` | Read a job, or cancel it. |
+| `POST /transfers/{id}/step` | Run one step of the job. |
+| `POST /transfers/{id}/plan` | Start the dry run of an import. Takes `mode`, `choices` and `apply_settings`. Owner only. |
+| `GET /transfers/{id}/preview` | Read the report of the dry run. |
+| `POST /transfers/{id}/run` | Start the import. Takes the `plan_id` of the dry run and the same `mode` and `choices`. Owner only. |
+| `POST /transfers/{id}/undo` | Undo a finished Merge or New import. Owner only. |
+| `GET /transfers/{id}/download` | Download a finished export. Owner only. |
+| `GET /transfers/{id}/remaps` | The IDs an import changed, as a CSV file. |
+| `GET /transfers/{id}/redirects`, `DELETE /transfers/{id}/redirects` | List the redirects an import recorded, or remove them. |
+| `GET /moved` | Ask where an old address went. Open to anyone who can open the community. Takes `route`, such as `posts/80`. |
+
+Each route has its own rate limit, and the limits also count managers. See [REST API](/spacebay/developers/rest-api/) for the other routes.

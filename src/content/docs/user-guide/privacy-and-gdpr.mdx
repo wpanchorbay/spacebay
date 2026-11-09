@@ -9,7 +9,13 @@ SpaceBay works with the WordPress privacy tools in **Tools → Export Personal D
 - **Erase** deletes the member's posts, comments, private messages (a "Message deleted" line stays in the chat), likes, images, blocked members list, profile, memberships, notifications, reports, points, badges, event answers and events they organized. Replies that other members wrote to their comments are kept as separate comments.
 - Deleting a WordPress user also deletes their community data, including their two-factor setup when Pro is active.
 
-SpaceBay adds suggested text to **Settings → Privacy → Policy Guide**. Review it and add what fits to your privacy policy.
+## Export files
+
+Since 1.2.0, an export file made on the [Import and export](/spacebay/user-guide/import-and-export/) screen holds email addresses and profile details, and an **Everything** export can hold private messages. Erasing a member later cannot reach a file you already downloaded. The copy kept on the site is deleted after 7 days by default (a developer can set 1 to 30 days with the `spacebay_transfer_retention_days` filter). Store a downloaded file safely, share it only with people who may see it, and delete it when you are done.
+
+A file never holds password hashes, two-factor secrets, login history or notifications. Sign-in secrets are included only if you tick **Sign-in secrets**, and the file name then ends in `-with-secrets`. In the members list (CSV), tick **Leave out hidden members' details** (the default) to keep the profile details of members who hid their profile out of the file.
+
+SpaceBay adds suggested text to **Settings → Privacy → Policy Guide**. Since 1.2.0 that text also covers export files. Review it and add what fits to your privacy policy.
 
 ## Images and privacy
 

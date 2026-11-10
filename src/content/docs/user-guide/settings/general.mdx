@@ -1,6 +1,6 @@
 ---
 title: "General settings"
-description: "Community name, community address, who can view the community, the member directory, and the Posts and uploads section."
+description: "Community name, where the community opens, who can view the community, the member directory, and the Posts and uploads section."
 ---
 
 Open **SpaceBay → Settings** and choose the **General** section in the left column. Select **Save changes** at the top right when you are done.
@@ -8,8 +8,7 @@ Open **SpaceBay → Settings** and choose the **General** section in the left co
 | Setting | Default | What it does |
 | --- | --- | --- |
 | Community name | Your site name | Shown in the top bar, in emails and in page titles, which read "Page - Community name". |
-| Community address | `community` | The part of the URL after your domain. Needs pretty permalinks; without them the field is greyed out. |
-| Open the community at the site's main address | Off | For a community on its own subdomain. The community opens at the main address, for example `community.example.com/`, and the current homepage is no longer shown. Old links under the community address move to the main address, and the **Community address** field is then used only for that. It cannot be turned on while a page, post, archive or plugin address already uses a community address such as `/members/` or `/events/`; the message lists them. The cache needs clearing after you change it. An import never changes this setting. Since 1.3.0. See [Community at the site root](/spacebay/user-guide/community-at-the-site-root/). |
+| Community home location | At a page address | Where your community opens. Choose **At a page address** when SpaceBay is added to a website you already have: the community opens at an address such as `example.com/community`. In the **Page address** field type any word you like. It needs pretty permalinks; without them the field is greyed out. Choose **At the home address** when the whole site is your community, for example on its own subdomain such as `community.example.com`: the community then replaces the home page. Before you choose it, rename any page, post or plugin address that matches a community page such as `/members/` (the screen lists clashes with an **Edit** link), and do not cache the home address or the community pages. Clear the cache after you change it. Old links under the **Page address** word are sent on to the home address. An import never changes this setting. Since 1.3.0. See [Community home location](/spacebay/user-guide/community-home-location/). |
 | Who can view the community | Everyone | **Everyone** lets visitors read public content. **Logged-in members only** shows visitors a login page. |
 | Member directory | On | Shows the list of members to logged-in members. WordPress administrators can see it even when it is off. |
 

@@ -122,7 +122,7 @@ export default defineConfig({
           label: "User Guide",
           items: [
             { label: "The community portal", slug: "user-guide/community-portal" },
-            { label: "Community at the site root", slug: "user-guide/community-at-the-site-root" },
+            { label: "Community home location", slug: "user-guide/community-home-location" },
             { label: "Login and signup", slug: "user-guide/login-and-signup" },
             { label: "Google and Facebook login", slug: "user-guide/social-login" },
             { label: "Spaces and groups", slug: "user-guide/spaces" },

@@ -26,15 +26,15 @@ In **Settings → Appearance**, **Layout** can be **Full page**, which shows the
 
 ## Plugins that use the same addresses
 
-Since 1.3.0. This matters only when you turn on [Community at the site root](/spacebay/user-guide/community-at-the-site-root/). The community then answers addresses such as `/events/`, `/members/`, `/posts/` and `/search/`. Any plugin or theme that uses one of them (a page, a post type archive or a rewrite rule) is a clash. For example, an events calendar with its archive at `/events/`, a members page of a social plugin at `/members/`, or a WooCommerce shop at `/shop`. Plugins are found by what they register, not by name, so this list is not complete. SpaceBay does not name or test them one by one.
+Since 1.3.0. This matters only when you choose **At the home address** under **Community home location**. See [Community home location](/spacebay/user-guide/community-home-location/). The community then answers addresses such as `/events/`, `/members/`, `/posts/` and `/search/`. Any plugin or theme that uses one of them (a page, a post type archive or a rewrite rule) is a clash. For example, an events calendar with its archive at `/events/`, a members page of a social plugin at `/members/`, or a WooCommerce shop at `/shop`. Plugins are found by what they register, not by name, so this list is not complete. SpaceBay does not name or test them one by one.
 
-- SpaceBay refuses to turn the setting on while a clash exists, and lists the addresses.
-- A clash that appears later is shown in Site Health, in an admin notice and in the settings. SpaceBay never turns the setting off by itself.
+- SpaceBay refuses to choose **At the home address** while a clash exists, and lists the addresses.
+- A clash that appears later is shown in Site Health, in an admin notice and in the settings. SpaceBay never changes your choice by itself.
 - A WooCommerce shop at `/shop` clashes only when SpaceBay Pro member shops and the **Shop page** option are on, because only then is `/shop/` a community address.
-- The community wins for its own names. Rename the page or the plugin's address, or leave the setting off.
-- Language-prefix plugins (Polylang or WPML in directory mode, which put `/fr/` in front of every address) are not supported in this mode.
+- The community wins for its own names. Rename the page or the plugin's address, or choose **At a page address**.
+- Language-prefix plugins (Polylang or WPML in directory mode, which put `/fr/` in front of every address) are not supported with **At the home address**.
 - A subsite of a subdirectory multisite at the same path is not detected.
-- Cache plugins, host caches and CDNs must not cache the main address or the community pages.
+- Cache plugins, host caches and CDNs must not cache the home address or the community pages.
 
 ## Right-to-left languages and translation
 

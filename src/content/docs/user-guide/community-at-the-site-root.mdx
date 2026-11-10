@@ -1,0 +1,72 @@
+---
+title: "Community at the site root"
+description: "Open the community at the main address of a site, such as community.example.com: what changes, which addresses can clash, how clashes are reported and how to go back."
+---
+
+Use this when the community lives on its own subdomain, for example `community.example.com` <span class="sb-badge sb-badge--since">Since 1.3.0</span>. Visitors then get the community at the main address, with no `/community/` in front. The current homepage of the site is no longer shown while this is on, so leave it off if the site is also an ordinary website.
+
+## Turn it on
+
+1. Open **SpaceBay → Settings**, choose the **General** section and find **Community address**.
+2. Turn on **Open the community at the site's main address**.
+3. Select **Save changes**. If the save is refused, the message lists the addresses that clash. See [What cannot clash](#what-cannot-clash).
+4. Clear every cache: your cache plugin, the host's page cache and the CDN. See the note below.
+5. Open the main address in a private window. Also try `/members/`, `/spaces/` and `/login/`, and one ordinary page of your site.
+
+The setting is off by default. It works with pretty permalinks and with plain permalinks. With plain permalinks the community opens at the main address and its pages use `#/` routes. A site in a subfolder works too; its site address is the root.
+
+:::note
+The community page carries a code that belongs to the member who opens it, so it must never be cached. SpaceBay sends no-cache headers and sets `DONOTCACHEPAGE`, but a rule on your host or CDN can still cache the page. Exclude `/` and the community addresses from any rule that caches the main address, for example Cloudflare "Cache Everything", Cloudflare APO, a server-level full-page cache or Varnish. Clear the caches after you turn the setting on or off.
+:::
+
+## What changes
+
+- **Which addresses the community answers.** The main address and the pages that start with `spaces`, `members`, `posts`, `saved`, `events`, `leaderboard`, `tags`, `search`, `notifications`, `messages`, `account`, `login`, `signup`, `register` and `moderation`. SpaceBay Pro adds `secure-account`, and `shop` only when member shops are on and the **Shop page** option is on.
+- **What WordPress keeps.** `wp-admin`, `wp-login.php`, the REST API, feeds, sitemaps, `robots.txt` and every other page and post. A name that WordPress needs is never taken, even if an add-on asks for it. The category base and tag base of your site stay with WordPress too.
+- **Only GET and HEAD requests are taken.** A form that posts to one of these addresses still reaches WordPress.
+- **Extra parts on the main address.** A request for `/` with extra query parts, such as `/?code=abc`, goes to WordPress. This keeps the sign-in callbacks and confirm links of other plugins working. These names are the exception, and the community still opens: anything starting with `utm_`, and `fbclid`, `gclid`, `msclkid`, `_gl`, `mc_cid`, `mc_eid`, `ref` and `redirect_to`.
+- **The homepage.** The current homepage is no longer shown at `/`, whether it is a static front page or the latest posts. Your choice under **Settings → Reading** is not changed, and it applies again when you turn the setting off. A blog page with its own address stays reachable.
+- **Search.** The community search takes over the WordPress search address `/search/term/`. Searches with `?s=` still go to WordPress.
+- **Old links move.** Addresses under `/community/`, or under whatever the **Community address** field holds, move for good (301) to the main address. The rest of the address and the query are kept. This works only with pretty permalinks. The **Community address** field is then used only for these moves. If that field holds a name that is also a community address, for example `events`, nothing moves, because `/events/` is a real community address.
+- **Import and export.** An export includes this setting. An import never applies it, so importing a file cannot take over another site's homepage. The import report shows the reason `site_specific`.
+
+## What cannot clash
+
+The setting cannot be turned on while something else on the site already uses one of the community addresses. The save is refused and the message lists them. A clash can be:
+
+- a published top-level page, for example a page called Events at `/events/`;
+- a published top-level post, only when your permalinks start with `/%postname%`. With any other permalink structure a post is never at `/events/`, so it is not a clash;
+- the archive or the base address of a custom post type;
+- a rewrite rule of another plugin or of your theme. You do not need to know which plugin: any plugin or theme is found this way.
+
+Member shops add `/shop/` as a community address only when the **Shop page** option is on, so a WooCommerce shop at `/shop` clashes only then.
+
+Rename or remove those first, then save again. Each row shows the address, what uses it and, where there is one, a link to edit it. For a rule it also shows the pattern, so you can find the plugin that owns it.
+
+**A new page named like a community address.** While the setting is on, a new or renamed top-level page (and a top-level post, on `/%postname%` permalinks) whose address is a community name gets the next free number: `events-2`, then `events-3`. A page that was already published under that name keeps it, and shows up as a clash. A draft or pending page named `events` keeps its name while it stays a draft. It becomes `events-2` when it is published, scheduled or saved as private, so it does not take the address.
+
+**Not detected.**
+
+- A rule that WordPress builds for all addresses at once, such as the category base, the author base or a taxonomy base that a plugin makes at runtime, is too general to name an address and is not listed.
+- A plugin that adds its rule while the page loads, without the name in the pattern.
+- A subsite of a subdirectory multisite at the same path.
+
+**Not supported.** Language-prefix plugins (Polylang or WPML in directory mode, which put `/fr/` in front of every address) do not work in this mode. Renaming single community addresses is not available.
+
+## Clashes that appear later
+
+A clash can also come after the setting is on: you install a plugin, switch the theme or publish a page. SpaceBay never turns the setting off by itself. It checks again and tells you.
+
+- **When it checks.** A check is due when a plugin is activated or deactivated, the theme is switched, the permalink structure, category base or tag base changes, the rewrite rules are saved with new content, or a top-level page or post is published. It also checks when the list of community addresses changes, for example when an add-on adds one, and at least every 12 hours. The check runs on the next page of the WordPress admin, never on a page that visitors load. While the setting is off nothing is checked in the background; the settings list and WP-CLI always check live.
+- **Site Health.** **Tools → Site Health** has a test, **SpaceBay community addresses are free**, only while the setting is on. It lists the clashes, or says that none were found.
+- **An admin notice.** Administrators see a warning on the dashboard, the Plugins screen and the SpaceBay screens, with a link to the settings. **Dismiss** hides it for that user. It comes back when the set of addresses and kinds of clash changes, that is, when a new one appears or one is gone. Renaming a page or updating a plugin does not bring it back.
+- **The settings list.** **SpaceBay → Settings** shows the current clashes under the toggle.
+- **WP-CLI.** `wp spacebay portal clashes` prints the list. See [WP-CLI](/spacebay/developers/wp-cli/#community-address-clashes).
+
+## Go back
+
+Turn the setting off and save. The community returns to its own address, and the homepage you chose under **Settings → Reading** shows again. Clear the caches. A browser remembers a 301, so a visitor's browser may still jump to the main address until its cache is cleared.
+
+## If something goes wrong
+
+See [Troubleshooting](/spacebay/others/troubleshooting/#my-homepage-disappeared-or-a-page-does-not-open-after-turning-on-the-site-root) and [Compatibility](/spacebay/others/compatibility/#plugins-that-use-the-same-addresses). Developers can see how a request is answered in [Hooks and filters](/spacebay/developers/hooks-and-filters/#community-at-the-site-root).

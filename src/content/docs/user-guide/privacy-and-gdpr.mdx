@@ -17,6 +17,15 @@ A file never holds password hashes, two-factor secrets, login history or notific
 
 SpaceBay adds suggested text to **Settings → Privacy → Policy Guide**. Since 1.2.0 that text also covers export files. Review it and add what fits to your privacy policy.
 
+## What SpaceBay adds to your pages
+
+Since 1.3.0, SpaceBay adds a few hidden marks so tools that scan websites can tell the plugin is installed. Nothing is shown to visitors, no link or credit appears, and nothing is sent to any server.
+
+- A `<meta name="generator" content="SpaceBay">` tag in the head of every page, without a version number.
+- On the community page: a `data-spacebay` attribute on the page's main element, an HTML comment, and one line in the browser console.
+
+A developer can switch all of them off with the `spacebay_output_markers` filter. See [Hooks and filters](/spacebay/developers/hooks-and-filters/#hidden-marks).
+
 ## Images and privacy
 
 Uploads are kept in a private folder with random file names, and the original file name is not kept. A private image is shown only to people who may see it: the members of a chat, people who can read a private space's posts, or the member who uploaded it and has not posted it yet. Everyone else, including logged-out visitors, gets "Image not found". Avatars, cover images and images in public spaces are normal public files. Photo details such as GPS location and camera are removed from every uploaded image. Images are included in the personal data export and deleted when a member is erased or SpaceBay is uninstalled. Sites on nginx need one extra rule, see [Security and limits](/spacebay/user-guide/security-and-limits/#images-and-privacy).

@@ -46,7 +46,7 @@ This page is the short list of routes and who may call them. List routes take `p
 | `/notifications`, `/notifications/count` | GET | Logged-in members, for their own notifications. Filter: `unread`. |
 | `/notifications/read` | POST | Logged-in members. Send `ids` or `all: true`. |
 | `/reports` | POST | Logged-in members. `object_type` (post, comment, member, message), `object_id`, `reason`, optional `note`. |
-| `/moderation/counts`, `/moderation/queue` | GET | Moderators. Each report in a queue item has `reporter` (the name) and `reporter_id` (the member's ID, or 0 for an automatic hold or a reporter who no longer exists). <span class="sb-badge sb-badge--since">Since 1.3.0</span> |
+| `/moderation/counts`, `/moderation/queue` | GET | Moderators. Each report in a queue item has `reporter` (the name) and `reporter_id` (the member's ID). For an automatic hold or a reporter who no longer exists, `reporter` is empty and `reporter_id` is 0. <span class="sb-badge sb-badge--since">Since 1.3.0</span> |
 | `/moderation/queue/{type}/{id}` | POST | Moderators. `action`: approve or remove. |
 | `/moderation/members`, `/moderation/members/{id}` | GET, POST | Moderators. List pending or suspended members; POST `status`: active or blocked. |
 | `/moderation/decisions` | GET | Moderators. The log of account decisions (approved, suspended, restored), newest first. Paged; `before_id` returns the entries older than that log ID. |

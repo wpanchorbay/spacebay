@@ -60,7 +60,7 @@ Active members of a space can post. In a space's details, **Who can start posts*
 
 ## Comments, likes and saved posts
 
-Members of a space comment on its posts and reply to comments. Replies nest up to 5 levels deep, with a top-level comment counting as level 1. A reply to a comment on the last level is saved as a reply to that comment and appears next to it instead of below it. Developers can change the limit with the `spacebay_comment_max_depth` filter. Members can like posts and comments, and **Save** any post they can read; saved posts appear on the **Saved** page, which only they can see.
+Members of a space comment on its posts and reply to comments. Replies nest up to 5 levels deep, with a top-level comment counting as level 1. A reply to a comment on the last level is saved beside that comment, as a reply to the same parent, instead of below it. Developers can change the limit with the `spacebay_comment_max_depth` filter. Members can like posts and comments, and **Save** any post they can read; saved posts appear on the **Saved** page, which only they can see.
 
 <img src="/spacebay/assets/screenshots/comments.png" alt="A post with a comment and nested replies, each reply indented under the comment it answers" width="1440" height="900" data-lightbox="true" />
 
@@ -70,7 +70,7 @@ The line that joins a thread is 1px thin, runs behind the avatars and is centred
 
 Nesting also fits the width of the column. A wide screen shows up to four indents, a narrow one fewer, never fewer than one. A reply nested deeper than the screen can show is drawn at the same indent as the comment it answers and is labelled "Replying to" with that member's name. <span class="sb-badge sb-badge--since">Since 1.3.0</span>
 
-Visitors who are not logged in see "Log in to join the conversation" with a **Log in** button in place of the comment box. A logged-in person who is not a member of the space sees "Join this space to comment." <span class="sb-badge sb-badge--since">Since 1.3.0</span>
+Visitors who are not logged in see "Log in to join the conversation" with a **Log in** button in place of the comment box. <span class="sb-badge sb-badge--since">Since 1.3.0</span> A logged-in person who cannot comment, for example because they are not a member of the space, sees "Join this space to comment."
 
 Authors can edit and delete their own comments. Space admins, moderators and WordPress administrators can edit and delete any comment in the space. What happens to the replies depends on who deletes:
 

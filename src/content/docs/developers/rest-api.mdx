@@ -46,7 +46,7 @@ This page is the short list of routes and who may call them. List routes take `p
 | `/notifications`, `/notifications/count` | GET | Logged-in members, for their own notifications. Filter: `unread`. |
 | `/notifications/read` | POST | Logged-in members. Send `ids` or `all: true`. |
 | `/reports` | POST | Logged-in members. `object_type` (post, comment, member, message), `object_id`, `reason`, optional `note`. |
-| `/moderation/counts`, `/moderation/queue` | GET | Moderators. |
+| `/moderation/counts`, `/moderation/queue` | GET | Moderators. Each report in a queue item has `reporter` (the name) and `reporter_id` (the member's ID, or 0 for an automatic hold or a reporter who no longer exists). <span class="sb-badge sb-badge--since">Since 1.3.0</span> |
 | `/moderation/queue/{type}/{id}` | POST | Moderators. `action`: approve or remove. |
 | `/moderation/members`, `/moderation/members/{id}` | GET, POST | Moderators. List pending or suspended members; POST `status`: active or blocked. |
 | `/moderation/decisions` | GET | Moderators. The log of account decisions (approved, suspended, restored), newest first. Paged; `before_id` returns the entries older than that log ID. |
@@ -54,7 +54,7 @@ This page is the short list of routes and who may call them. List routes take `p
 | `/admin/setup` | GET, POST | Administrators. Setup wizard state and starter spaces. |
 | `/leaderboard` | GET | Logged-in members, while the leaderboard is on. `period`: week, month or all; `limit` up to 50. |
 | `/me/points` | GET | Logged-in members, their own points history. Paged. |
-| `/events` | GET, POST | GET: anyone who can open the community; only events in spaces they may read. Filters: `space_id`, `when` (upcoming, past, range), `from` and `to` (up to 62 days), `rsvp=going`, `type` (`online` or `in_person`, since 1.3.0), `search` (text in the title or description, up to 100 characters, since 1.3.0), `page`, `per_page`. POST: members who may add events in the space. |
+| `/events` | GET, POST | GET: anyone who can open the community; only events in spaces they may read. Filters: `space_id`, `when` (upcoming, past, range), `from` and `to` (up to 62 days), `rsvp=going`, `type` (`online` or `in_person`, <span class="sb-badge sb-badge--since">Since 1.3.0</span>), `search` (text in the title or description, up to 100 characters, <span class="sb-badge sb-badge--since">Since 1.3.0</span>), `page`, `per_page`. POST: members who may add events in the space. |
 | `/events/{id}` | GET, PATCH, DELETE | GET: readers of the space. PATCH and DELETE: the organizer and space moderators. |
 | `/events/{id}/cancel` | POST | The organizer and space moderators. |
 | `/events/{id}/rsvp` | POST | Members of the space. `answer`: going, maybe, not_going, or empty to remove it. |

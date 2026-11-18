@@ -191,6 +191,7 @@ export default defineConfig({
             { label: "Compatibility", slug: "others/compatibility" },
             { label: "Large communities and speed", slug: "others/large-communities-and-speed" },
             { label: "Updates and uninstall", slug: "others/updates-and-uninstall" },
+            { label: "Roadmap", slug: "others/roadmap" },
             { label: "Changelog", slug: "others/changelog" },
           ],
         },

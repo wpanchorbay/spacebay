@@ -31,6 +31,9 @@ export const EXTERNAL_LINKS = {
   /** SpaceBay Pro product site */
   spacebayPro: "https://wpanchorbay.com/plugins/spacebay/",
 
+  /** Where to buy SpaceBay Pro (pricing section of the product page) */
+  spacebayProPricing: "https://wpanchorbay.com/plugins/spacebay/#pricing",
+
   /** SpaceBay plugin page on WordPress.org */
   wordpressPlugin: "https://wordpress.org/plugins/spacebay/",
 

@@ -11,14 +11,14 @@ Updates come from WordPress.org. New versions appear on **Dashboard → Updates*
 
 ### SpaceBay Pro <span class="sb-badge sb-badge--pro">Pro</span>
 
-Pro does not update itself yet. To update it:
+Pro has no built-in updater. To update it:
 
 1. Download the new **spacebay-pro.zip** from your wpanchorbay.com account.
 2. Go to **Plugins → Add New Plugin → Upload Plugin**, choose the zip and click **Install Now**.
 3. Confirm **Replace current with uploaded**.
 
 
-Your community data is kept during updates. SpaceBay Pro 1.0.0 needs SpaceBay 1.0.0 or newer.
+Your community data is kept during updates. SpaceBay Pro 1.0.0 needs SpaceBay 1.3.0 or newer, so update the free plugin first.
 
 Updating from 1.0.0 to 1.1.0 changes no database tables. If your site is behind a proxy or CDN, open **Tools → Site Health** after updating: SpaceBay tells you whether it can tell visitors apart, and the `spacebay_client_ip` filter fixes it (see [Hooks and filters](/spacebay/developers/hooks-and-filters/)).
 
@@ -28,7 +28,7 @@ SpaceBay 1.1.2 was never released on its own, so an update from 1.1.1 goes strai
 
 Updating to 1.3.0 adds the **Community home location** setting under **SpaceBay → Settings → General**. It starts on **At a page address**, so your community stays where it was. Choose **At the home address** only if you want the community to be the home page of the site. See [Community home location](/spacebay/user-guide/community-home-location/).
 
-Updating from 1.1.1 to 1.2.0 adds the **Import and export** screen. The update adds database tables for import and export jobs and for redirects from old addresses. SpaceBay Pro 1.1.0, which adds shops, profile fields and Pro settings to exports, needs SpaceBay 1.2.0 or newer.
+Updating from 1.1.1 to 1.2.0 adds the **Import and export** screen. The update adds database tables for import and export jobs and for redirects from old addresses.
 
 ## Deactivate and uninstall
 

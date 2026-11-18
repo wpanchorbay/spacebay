@@ -1,8 +1,8 @@
 /**
- * Gemini cannot be prefilled from a URL, so its link carries the prompt in
- * `data-copy-prompt`: on click the prompt goes to the clipboard and the link
- * still opens the plain chat. Delegated and guarded, so it is safe to import
- * from more than one component and survives client-side navigation.
+ * The "Copy prompt" chip carries the prompt in `data-copy-prompt`: on click it
+ * goes to the clipboard and the chip's tooltip says so. Delegated and guarded,
+ * so it is safe to import from more than one component and survives
+ * client-side navigation.
  */
 const FLAG = "__copyPromptBound";
 const win = window as unknown as Record<string, boolean>;
@@ -25,19 +25,17 @@ if (!win[FLAG]) {
       return;
     }
 
-    // The chat opens in a new tab over this one, so the note must still be
-    // there when the reader comes back.
     if (tip) {
       tip.style.opacity = "1";
-      tip.textContent = "Copied, paste in Gemini";
+      tip.textContent = "Copied";
     }
-    if (status) status.textContent = "Prompt copied. Paste it into Gemini.";
+    if (status) status.textContent = "Prompt copied.";
     setTimeout(() => {
       if (tip) {
         tip.style.opacity = "";
         tip.textContent = tip.dataset.idle ?? "";
       }
       if (status) status.textContent = "";
-    }, 4000);
+    }, 2000);
   });
 }

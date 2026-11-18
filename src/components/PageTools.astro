@@ -5,12 +5,12 @@
  * right sidebar (see starlight/PageSidebar.astro). The markdown comes from
  * src/pages/markdown/[...slug].md.ts, one file per page.
  */
-import { BASE_PATH, buildAbsoluteUrl } from "../../site-config.mjs";
+import { BASE_PATH, PUBLISHED_DOCS_URL } from "../../site-config.mjs";
 import { ASSISTANTS, pagePrompt } from "../lib/assistants";
 
 const { id } = Astro.locals.starlightRoute;
 const markdownPath = `${BASE_PATH}/markdown/${id}.md`;
-const markdownUrl = buildAbsoluteUrl(`/markdown/${id}.md`);
+const markdownUrl = new URL(`markdown/${id}.md`, PUBLISHED_DOCS_URL).toString();
 const prompt = pagePrompt(markdownUrl);
 ---
 
@@ -18,7 +18,12 @@ const prompt = pagePrompt(markdownUrl);
   <div class="pt-group" role="group">
     <button class="pt-btn pt-copy" type="button" data-pt-copy>
       <span class="pt-icon"><svg aria-hidden="true"><use href="#pt-i-copy"></use></svg></span>
-      <span data-pt-copy-label>Copy as markdown</span>
+      <span class="pt-label">
+        <span data-pt-copy-label>Copy as markdown</span>
+        <!-- Hidden copies of every state reserve the widest one, so the button keeps its width. -->
+        <span class="pt-label-sizer" aria-hidden="true">Copy as markdown</span>
+        <span class="pt-label-sizer" aria-hidden="true">Copy failed</span>
+      </span>
     </button>
     <button
       class="pt-btn pt-toggle"
@@ -56,7 +61,6 @@ const prompt = pagePrompt(markdownUrl);
             href={a.href(prompt)}
             target="_blank"
             rel="noopener noreferrer"
-            data-copy-prompt={a.copyPrompt ? prompt : undefined}
           >
             <span class="pt-left">Open in {a.name}</span>
             <span class="pt-right"><span class="pt-icon"><svg aria-hidden="true"><use href="#pt-i-ext"></use></svg></span></span>
@@ -107,6 +111,15 @@ const prompt = pagePrompt(markdownUrl);
   }
   .pt-copy {
     border-radius: 6px 0 0 6px;
+  }
+  .pt-label {
+    display: inline-grid;
+  }
+  .pt-label > * {
+    grid-area: 1 / 1;
+  }
+  .pt-label-sizer {
+    visibility: hidden;
   }
   .pt-toggle {
     border-radius: 0 6px 6px 0;
@@ -205,7 +218,6 @@ const prompt = pagePrompt(markdownUrl);
 </style>
 
 <script>
-  import "../scripts/copy-prompt";
 
   const root = document.querySelector<HTMLElement>(".page-tools");
   if (root) {

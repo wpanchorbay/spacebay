@@ -1,21 +1,21 @@
 /**
  * AI assistants the docs can hand a page to. Each one is opened with the prompt
  * already in its input, through the query parameter the service reads on load.
- * An assistant with no such parameter can set `copyPrompt`: its link opens a fresh
- * chat and the prompt is copied to the clipboard first (see src/scripts/copy-prompt.ts).
+ * Only assistants with such a parameter are listed; one that would open an
+ * empty chat is left out.
  *
  * Icon paths are 24x24 brand marks from Simple Icons (and the same set the
  * author's blog uses). The marks belong to their owners: see /trademarks/.
  */
 
+import { PUBLISHED_DOCS_URL, SITE_NAME } from "../../site-config.mjs";
+
 export interface Assistant {
   name: string;
   /** SVG path data on a 24x24 canvas, drawn with fill=currentColor. */
   icon: string;
-  /** Link that opens the assistant; `copyPrompt` ones ignore the prompt. */
+  /** Link that opens the assistant with the prompt already in its input. */
   href: (prompt: string) => string;
-  /** No URL prefill exists: copy the prompt, then open the plain chat. */
-  copyPrompt?: boolean;
 }
 
 const q = encodeURIComponent;
@@ -43,7 +43,24 @@ export const ASSISTANTS: Assistant[] = [
   },
 ];
 
-/** The prompt for one documentation page, given the absolute URL of its markdown. */
+/** The home page prompt: the assistant reads the docs, explains the product, then takes questions. */
+export function homePrompt() {
+  const docs = PUBLISHED_DOCS_URL;
+  return (
+    `I'm looking at ${SITE_NAME}. Read its documentation, starting with ${docs}llms.txt ` +
+    `(the complete text is at ${docs}llms-full.txt). Then tell me, briefly, what ${SITE_NAME} is, who it is for, ` +
+    `the problems it solves and why it is worth a look. Use only what the docs say, and tell me when they don't ` +
+    `cover something. Then say you are ready, and answer my questions about ${SITE_NAME}, linking the docs page ` +
+    `behind each answer.`
+  );
+}
+
+/** The prompt for one documentation page, given the published URL of its markdown. */
 export function pagePrompt(markdownUrl: string) {
-  return `Read ${markdownUrl} so I can ask questions about it`;
+  return (
+    `I'm reading a page of the ${SITE_NAME} documentation: ${markdownUrl}. Read it, then tell me in a few lines ` +
+    `what it covers and what I can do with it. Then answer my questions about it. When the page doesn't cover ` +
+    `something, look it up in the rest of the docs (${PUBLISHED_DOCS_URL}llms.txt) and link the page you used. ` +
+    `Use only what the docs say.`
+  );
 }

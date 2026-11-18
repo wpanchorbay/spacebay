@@ -122,6 +122,7 @@ export default defineConfig({
           label: "User Guide",
           items: [
             { label: "The community portal", slug: "user-guide/community-portal" },
+            { label: "Community home location", slug: "user-guide/community-home-location" },
             { label: "Login and signup", slug: "user-guide/login-and-signup" },
             { label: "Google and Facebook login", slug: "user-guide/social-login" },
             { label: "Spaces and groups", slug: "user-guide/spaces" },
@@ -190,6 +191,7 @@ export default defineConfig({
             { label: "Compatibility", slug: "others/compatibility" },
             { label: "Large communities and speed", slug: "others/large-communities-and-speed" },
             { label: "Updates and uninstall", slug: "others/updates-and-uninstall" },
+            { label: "Roadmap", slug: "others/roadmap" },
             { label: "Changelog", slug: "others/changelog" },
           ],
         },

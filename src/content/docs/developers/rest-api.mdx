@@ -46,7 +46,7 @@ This page is the short list of routes and who may call them. List routes take `p
 | `/notifications`, `/notifications/count` | GET | Logged-in members, for their own notifications. Filter: `unread`. |
 | `/notifications/read` | POST | Logged-in members. Send `ids` or `all: true`. |
 | `/reports` | POST | Logged-in members. `object_type` (post, comment, member, message), `object_id`, `reason`, optional `note`. |
-| `/moderation/counts`, `/moderation/queue` | GET | Moderators. |
+| `/moderation/counts`, `/moderation/queue` | GET | Moderators. Each report in a queue item has `reporter` (the name) and `reporter_id` (the member's ID). For an automatic hold or a reporter who no longer exists, `reporter` is empty and `reporter_id` is 0. <span class="sb-badge sb-badge--since">Since 1.3.0</span> |
 | `/moderation/queue/{type}/{id}` | POST | Moderators. `action`: approve or remove. |
 | `/moderation/members`, `/moderation/members/{id}` | GET, POST | Moderators. List pending or suspended members; POST `status`: active or blocked. |
 | `/moderation/decisions` | GET | Moderators. The log of account decisions (approved, suspended, restored), newest first. Paged; `before_id` returns the entries older than that log ID. |
@@ -54,12 +54,21 @@ This page is the short list of routes and who may call them. List routes take `p
 | `/admin/setup` | GET, POST | Administrators. Setup wizard state and starter spaces. |
 | `/leaderboard` | GET | Logged-in members, while the leaderboard is on. `period`: week, month or all; `limit` up to 50. |
 | `/me/points` | GET | Logged-in members, their own points history. Paged. |
-| `/events` | GET, POST | GET: anyone who can open the community; only events in spaces they may read. Filters: `space_id`, `when` (upcoming, past, range), `from` and `to` (up to 62 days), `rsvp=going`, `page`, `per_page`. POST: members who may add events in the space. |
+| `/events` | GET, POST | GET: anyone who can open the community; only events in spaces they may read. Filters: `space_id`, `when` (upcoming, past, range), `from` and `to` (up to 62 days), `rsvp=going`, `type` (`online` or `in_person`, <span class="sb-badge sb-badge--since">Since 1.3.0</span>), `search` (text in the title or description, up to 100 characters, <span class="sb-badge sb-badge--since">Since 1.3.0</span>), `page`, `per_page`. POST: members who may add events in the space. |
 | `/events/{id}` | GET, PATCH, DELETE | GET: readers of the space. PATCH and DELETE: the organizer and space moderators. |
 | `/events/{id}/cancel` | POST | The organizer and space moderators. |
 | `/events/{id}/rsvp` | POST | Members of the space. `answer`: going, maybe, not_going, or empty to remove it. |
 | `/events/{id}/attendees` | GET | Readers of the space. `answer`: going or maybe. Paged. |
 | `/search` | GET | Anyone who can open the community. Parameters: `q` (2 to 100 characters), `type` (all, posts, spaces, members), `page`. |
+
+## Community home location <span class="sb-badge sb-badge--since">Since 1.3.0</span>
+
+The settings route has one new setting and one new read-only field. For what they do, see [Community home location](/spacebay/user-guide/community-home-location/).
+
+- **`portal_at_root`** (boolean, default `false`). Opens the community at the home address (the **At the home address** choice of **Community home location**). `portal_slug` holds the page address that is used when it is off. Turning it on while it is off is refused with 400 `spacebay_portal_root_clash`, and nothing is saved, if something else already uses a community address. Sending `true` while it is already on is not checked again. The constant `SPACEBAY_PORTAL_AT_ROOT` and the filter `spacebay_portal_at_root` turn the mode on without this check. An import never applies this setting.
+- **`portal_root_clashes`** (read-only). `GET /settings` returns it for users with `manage_options`: an array of rows with `address`, `kind` (`page`, `post`, `rule`, `archive` or `post_type`), `source` (a page title, a post type label or "Rewrite rule"), `edit_url` (empty when there is none) and `detail` (for a rule its pattern and query, otherwise empty). It is not a setting, is not saved and is not accepted on `POST /settings`. It is not part of an export.
+
+The 400 error `spacebay_portal_root_clash` has `data.params` set to `["portal_at_root"]`. `data.pages` and `data.addresses` hold the same list of addresses, each once, for example `["/members/", "/events/"]`. `data.clashes` holds the rows described above, and is an empty array unless the user has `manage_options`. An address can have several rows.
 
 ## Import and export <span class="sb-badge sb-badge--since">Since 1.2.0</span>
 

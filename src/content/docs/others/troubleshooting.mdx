@@ -1,11 +1,22 @@
 ---
 title: "Troubleshooting"
-description: "Fixes for common SpaceBay problems: page not found, late emails, posting problems, locked-out members, calls, social login and missing Pro features."
+description: "Fixes for common SpaceBay problems: page not found, a missing home page, late emails, posting problems, locked-out members, calls, social login and missing Pro features."
 ---
 
 ## The community page shows "Page not found"
 
 Open **Settings → Permalinks** in WordPress and select **Save Changes**. This could happen after activation on some sites, when another plugin rebuilt the site's addresses without the community address. SpaceBay notices this and repairs it on the next page load, but saving the permalinks fixes it at once.
+
+## My home page disappeared, or a page does not open after choosing At the home address
+
+This is how **At the home address** works. The community replaces your home page. To get the old page back, open **SpaceBay → Settings → General**, choose **At a page address** under **Community home location** and select **Save changes**. The home page you chose under **Settings → Reading** shows again. See [Community home location](/spacebay/user-guide/community-home-location/).
+
+- **A page of the site opens the community.** The community wins for its own names, such as `/events/` or `/members/`. Rename the page. The same is true for a rewrite rule of another plugin on that address. Look in **Tools → Site Health** or run `wp spacebay portal clashes` to see the list.
+- **A plugin address stopped working.** If that plugin must answer the address, a developer can use the filter `spacebay_portal_take_request`. See [Hooks and filters](/spacebay/developers/hooks-and-filters/#community-home-location).
+- **A link of another plugin, such as a sign-in callback, shows the community.** Links to `/` with extra query parts go to WordPress, except for tracking tags such as `utm_*` and a short list of allowed names such as `ref` and `redirect_to`. If your callback carries other names, add them with the `spacebay_portal_root_query_args` filter (see [Hooks and filters](/spacebay/developers/hooks-and-filters/)). This check applies only to `/`: a link to a community address, such as `/login/?code=...`, is always answered by the community.
+- **Logged-out visitors see a cached page.** A cache holds the home address. Exclude `/` and the community addresses from the cache, then clear it.
+- **"Page not found" on a community address.** You do not need to save Permalinks again. Check that the first part of the address is one of the names listed on the [Community home location](/spacebay/user-guide/community-home-location/#what-wordpress-keeps) page.
+- **Old `/community/` links still jump to the home address after you switched to **At a page address**.** A browser remembers a 301. Clear the browser cache.
 
 ## Emails arrive late or not at all
 
@@ -56,7 +67,7 @@ Calls need HTTPS. Behind strict firewalls, add a TURN server in **Settings → M
 
 - SpaceBay Pro needs the free SpaceBay plugin installed and active, and WordPress 6.5 or newer.
 - Check **Plugins** and make sure both plugins are active. See [Installation](/spacebay/getting-started/installation/).
-- SpaceBay Pro is not updated from the WordPress Plugins screen yet. Upload the new zip. See [Updates and uninstall](/spacebay/others/updates-and-uninstall/).
+- SpaceBay Pro is not updated from the WordPress Plugins screen. Upload the new zip. See [Updates and uninstall](/spacebay/others/updates-and-uninstall/).
 
 ## Still stuck?
 

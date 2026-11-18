@@ -1,9 +1,9 @@
 ---
 title: "Events"
-description: "Add events to spaces, answer going, maybe or can't go, add to your calendar, and get notified."
+description: "Add events to spaces, answer going, maybe or can't go, add to your calendar, filter the list, and get notified."
 ---
 
-Events belong to a space. Every space gets an **Events** tab, and the **Events** page in the sidebar shows events from all spaces the member can read: **Upcoming**, a month **Calendar**, the events they are **Going** to and **Past** events. Home shows the next events in the side column.
+Events belong to a space. Every space gets an **Events** tab, and the **Events** page in the sidebar shows events from all spaces the member can read: **Upcoming** (grouped as **Today**, **This week** (the next 7 days) and **Later** <span class="sb-badge sb-badge--since">Since 1.3.0</span>), a month **Calendar**, the events they are **Going** to and **Past** events. Home shows the next events in the side column.
 
 <figure class="sb-video">
 <video controls muted playsinline preload="none" poster="/spacebay/assets/videos/video-event-rsvp.jpg" width="1280" height="720" aria-label="Video of a member answering an event">
@@ -21,7 +21,8 @@ Events belong to a space. Every space gets an **Events** tab, and the **Events**
 - **Answers.** Members of the space answer **Going**, **Maybe** or **Can't go**. The page shows who is going; hidden profiles are left out of that list.
 - **Online link.** The meeting link is shown only to members who answered going or maybe, and to the people who manage the event.
 - **Notifications.** Admins can tell all members of the space about a new event. Members who answered going or maybe are told when the time or place changes or the event is cancelled. Members choose the email for these in *Account settings → Email notifications*.
-- **Add to calendar.** Every event has a **Calendar file (.ics)** for Apple Calendar, Outlook and others, and a **Google Calendar** link.
+- **Add to calendar.** <span class="sb-badge sb-badge--since">Since 1.3.0</span> Every upcoming event has one **Add to calendar** menu. Choose **Google Calendar**, **Outlook or Microsoft 365** or **Apple Calendar or other (.ics)**. This menu replaces the two separate buttons, and the .ics file sets a reminder 30 minutes before the event.
+- **Filtering the list.** <span class="sb-badge sb-badge--since">Since 1.3.0</span> The **Events** page has a space menu, an **Online** / **In person** filter and a search over titles and descriptions. They apply on every tab. **Clear filters** appears when one is set. The choices are kept in the address (`?space=`, `?type=` and `?q=`), so you can share a filtered list.
 - **Change, cancel or delete.** The organizer and space moderators can change an event, cancel it (it stays visible as cancelled) or delete it.
 
 <img src="/spacebay/assets/screenshots/event-page.png" alt="An event page with time, place, answers and calendar buttons" width="1440" height="900" data-lightbox="true" />

@@ -29,3 +29,8 @@ export function buildAbsoluteUrl(pathname = "/") {
   const normalizedPath = pathname.startsWith("/") ? pathname : `/${pathname}`;
   return new URL(`${BASE_PATH}${normalizedPath}`, SITE_ORIGIN).toString();
 }
+
+export const SITE_NAME = "SpaceBay";
+
+/** Where the published docs live. AI prompts always point here: an assistant cannot read a local or preview build. */
+export const PUBLISHED_DOCS_URL = "https://docs.wpanchorbay.com/spacebay/";

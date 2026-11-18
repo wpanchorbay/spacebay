@@ -1,14 +1,12 @@
 ---
 /**
  * Icon-only "ask an AI about SpaceBay" row for the home page. The assistant's
- * name shows as a tooltip on hover and focus and is the accessible name. An
- * assistant marked `copyPrompt` copies the prompt on click and opens the plain
- * chat (src/scripts/copy-prompt.ts).
+ * name shows as a tooltip on hover and focus and is the accessible name. The
+ * last chip copies the prompt, for any other assistant (src/scripts/copy-prompt.ts).
  */
-import { buildAbsoluteUrl } from "../../site-config.mjs";
-import { ASSISTANTS } from "../lib/assistants";
+import { ASSISTANTS, homePrompt } from "../lib/assistants";
 
-const prompt = `Read ${buildAbsoluteUrl("/llms.txt")} so I can ask questions about SpaceBay`;
+const prompt = homePrompt();
 ---
 
 <div class="ask-ai">
@@ -22,8 +20,7 @@ const prompt = `Read ${buildAbsoluteUrl("/llms.txt")} so I can ask questions abo
             href={a.href(prompt)}
             target="_blank"
             rel="noopener noreferrer"
-            data-copy-prompt={a.copyPrompt ? prompt : undefined}
-            aria-label={a.copyPrompt ? `${a.name}: copies the prompt, then opens the chat` : `Ask ${a.name}`}
+            aria-label={`Ask ${a.name}`}
           >
             <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
               <path d={a.icon} />
@@ -35,6 +32,14 @@ const prompt = `Read ${buildAbsoluteUrl("/llms.txt")} so I can ask questions abo
         </li>
       ))
     }
+    <li>
+      <button class="ask-ai-chip" type="button" data-copy-prompt={prompt} aria-label="Copy the prompt">
+        <svg viewBox="0 0 20 20" width="18" height="18" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M13.469 2.5c.63 0 1.15.48 1.212 1.094l.007.125-.001 1.593h1.407c.73 0 1.331.558 1.4 1.271l.006.136v9.375c0 .776-.63 1.406-1.406 1.406H6.719c-.777 0-1.407-.63-1.407-1.406v-1.407H3.719c-.631 0-1.15-.48-1.213-1.094L2.5 13.47v-9.75c0-.631.48-1.15 1.094-1.213L3.72 2.5h9.75zm2.625 3.75H6.719a.469.469 0 00-.469.469v9.375c0 .259.21.468.469.468h9.375c.259 0 .468-.21.468-.468V6.719a.469.469 0 00-.468-.469zm-2.625-2.813h-9.75a.281.281 0 00-.274.217l-.007.065v9.75c0 .133.092.244.216.274l.065.007 1.593-.001v-7.03c0-.731.558-1.332 1.271-1.4l.136-.006 7.031-.001V3.719a.281.281 0 00-.217-.274l-.064-.007z" />
+        </svg>
+        <span class="ask-ai-tip" data-tip data-idle="Copy prompt" aria-hidden="true">Copy prompt</span>
+      </button>
+    </li>
   </ul>
   <span class="ask-ai-sr" role="status" data-ai-status></span>
 </div>
@@ -46,9 +51,18 @@ const prompt = `Read ${buildAbsoluteUrl("/llms.txt")} so I can ask questions abo
     align-items: center;
     justify-content: center;
     gap: 0.75rem;
+    text-align: center;
     margin: 0 0 2rem;
   }
+  /* Starlight spaces markdown siblings apart; inside this row only the gap spaces them. */
+  .ask-ai > * {
+    margin: 0;
+  }
   .ask-ai-label {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.5rem;
+    line-height: 1.2;
     font-size: var(--sl-text-sm);
     font-weight: 500;
     color: var(--sl-color-gray-3);
@@ -76,6 +90,10 @@ const prompt = `Read ${buildAbsoluteUrl("/llms.txt")} so I can ask questions abo
     background: var(--sl-color-bg);
     color: var(--sl-color-gray-2);
     text-decoration: none;
+    margin: 0;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
     transition: background-color 0.15s, color 0.15s;
   }
   .ask-ai-chip:hover,

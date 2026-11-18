@@ -1,29 +1,74 @@
 ---
 title: "Licence and activation"
-description: "How to get, install, activate and update SpaceBay Pro. Pro has no licence key."
+description: "How to get, install and activate SpaceBay Pro, and how the licence key keeps it updated."
 ---
 
 :::note
-SpaceBay Pro has **no licence key** to enter. Install the zip and activate the plugin.
+Every Pro feature works without a licence. The licence key turns on updates and nothing else.
 :::
 
 ## Getting Pro
 
-Buy SpaceBay Pro on the [SpaceBay pricing page](https://wpanchorbay.com/plugins/spacebay/#pricing) and download **spacebay-pro.zip** from your account. Pro is an add-on: it needs the free SpaceBay plugin installed and active, and WordPress 6.5 or newer. Pro has no licence key.
+Buy SpaceBay Pro on the [SpaceBay pricing page](https://wpanchorbay.com/plugins/spacebay/#pricing). You find your licence key in the order email and in My Account on wpanchorbay.com, where you can also download **spacebay-pro.zip**. Pro is an add-on: it needs the free SpaceBay plugin installed and active, and WordPress 6.5 or newer.
 
-## Install and activate
+## Install and activate the plugin
 
 1. Install and activate the free SpaceBay plugin first.
 2. Download **spacebay-pro.zip** from your wpanchorbay.com account.
 3. Go to **Plugins → Add New Plugin → Upload Plugin**, choose the zip, click **Install Now**, then **Activate**.
 
+## Enter your licence key
+
+1. Go to **SpaceBay → Settings → Licence**.
+2. Paste your key into **Licence key** and click **Activate**.
+
+SpaceBay Pro asks the licence server about the key before it saves it.
+
+- **The server accepts the key.** It is saved and the status shows **Active**, with the expiry date and the number of sites allowed.
+- **The server refuses the key.** The key is not saved, and the screen tells you why. If you already had a working licence, it stays in place. A refused key never replaces it.
+- **The server cannot be reached.** The screen offers **Save key and try again later**. See the next section.
+
+The Licence screen always shows the status: **Active**, **Expired**, **Invalid**, **Site limit reached**, **Waiting to activate**, **Could not reach the server** or **Not checked yet**. **Last checked** shows when SpaceBay Pro last asked the server.
+
+On a multisite network, the network admin manages the licence.
+
+## When the licence server cannot be reached
+
+Choose **Save key and try again later**. The key is saved as pending and the status shows **Waiting to activate**.
+
+- SpaceBay Pro tries again every hour, and each time you open the Licence screen.
+- When the server says the key is valid, it is activated.
+- When the server refuses the key, the key is removed and the screen says why.
+- If the server has not answered after 30 days, the key is removed.
+- While a key is pending, updates stay off.
+
+On a pending key you can click **Try now** to ask the server straight away, or **Remove** to delete the key. **Last tried** shows when SpaceBay Pro last asked.
+
+If the server does not answer for more than 7 days on a key that was already active, the Licence screen says so. Pro keeps working, and updates resume once the server answers again.
+
+## The licence bar
+
+When the licence needs your attention, a bar appears across the SpaceBay screens. It is hidden on the Licence screen itself.
+
+- **Red:** the key was refused, has expired, is not active, or is used on as many sites as it allows. Updates are off.
+- **Amber:** no key is activated yet, the key is waiting to activate, or the server could not be reached.
+
+Click **Open Licence settings** to fix it. Click **Remind me later** to hide the bar for 3 days in that browser. The bar comes back sooner if the licence status changes.
+
+## Remove the licence
+
+Click **Deactivate** on the Licence screen and confirm. The key is removed from the site and Pro stops getting updates. All Pro features keep working. **Check now** asks the server for the current status.
+
 ## Updates
 
-Pro has no licence check and no built-in updater, so WordPress does not offer Pro updates on its own. The plugin header points at wpanchorbay.com/plugins/spacebay, which also keeps WordPress.org from offering updates for it. To update it:
+While you have a working licence, Pro updates come through the WordPress Plugins screen. Without one, WordPress offers no Pro updates. To update by hand:
 
 1. Download the new **spacebay-pro.zip** from your wpanchorbay.com account.
 2. Go to **Plugins → Add New Plugin → Upload Plugin**, choose the zip and click **Install Now**.
 3. Confirm **Replace current with uploaded**.
 
-
 Your community data is kept during updates. SpaceBay Pro 1.0.0 needs the free plugin at SpaceBay 1.3.0 or newer. Update the free plugin first, then Pro.
+
+## What is sent
+
+SpaceBay Pro sends the licence key, the product name and your site's host name to wpanchorbay.com. It does this when you save a key, once a day, once an hour while a pending key waits, when you open the Licence screen (at most every 10 minutes) and when WordPress checks for updates. Without a key nothing is sent. See the [WPAnchorBay privacy policy](https://wpanchorbay.com/privacy-policy/).
